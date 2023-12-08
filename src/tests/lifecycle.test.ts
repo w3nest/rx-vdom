@@ -17,7 +17,7 @@ test('connected/disconnected callback & subscriptions', () => {
 
     const vDom: VirtualDOM<'div'> = {
         tag: 'div',
-        innerText: obs$,
+        innerText: { source$: obs$, vdomMap: (v: string) => v },
         connectedCallback: (elem) => {
             events.push('connected')
             elem.ownSubscriptions(sub)

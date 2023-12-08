@@ -1,6 +1,6 @@
 import { render, RxHTMLElement, VirtualDOM } from '../lib'
-import { ChildLike, Observable, RxAttribute } from '../lib/api'
-import { of } from 'rxjs'
+import { ChildLike, RxAttribute } from '../lib/api'
+import { BehaviorSubject, of } from 'rxjs'
 import { orderedChildren } from './utils'
 
 test('static attribute', () => {
@@ -87,13 +87,18 @@ test('Component as class', () => {
 })
 
 test('Component as class 2', () => {
+    class State {
+        public readonly store = new BehaviorSubject([])
+    }
     class Foo implements VirtualDOM<'div'> {
         public readonly tag = 'div'
-        public readonly class: Observable<string>
+        public readonly class: RxAttribute<string, string>
         public readonly innerText: RxAttribute<string, string>
         public readonly children: ChildLike[]
+        public readonly state = of(new State())
+
         constructor() {
-            this.class = of('d-flex')
+            this.class = { source$: of('d-flex'), vdomMap: (v: string) => v }
             this.innerText = {
                 source$: of('Foo container'),
                 vdomMap: (d) => d,
@@ -126,6 +131,7 @@ test('Component as class 2', () => {
     expect(children[0].innerText).toBe('foo')
     expect(children[0].href).toBe('https://foo.com/')
     expect(children[1].innerText).toBe('bar')
+    expect(html['state']).toBeInstanceOf(State)
 })
 
 test('Component as class 3', () => {

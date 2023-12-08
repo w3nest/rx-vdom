@@ -1,17 +1,6 @@
-import { render, VirtualDOM } from '../lib'
+import { CSSAttribute, CustomAttribute, render, VirtualDOM } from '../lib'
 import { of, Subject } from 'rxjs'
 import { ResolvedHTMLElement } from '../lib/api'
-
-test('observable attribute', () => {
-    const vDom: VirtualDOM<'a'> = {
-        tag: 'a',
-        innerText: 'foo',
-        href: of('https://foo.com'),
-    }
-    const html = render(vDom)
-    document.body.appendChild(html)
-    expect(html.href).toBe('https://foo.com/')
-})
 
 test('rxAttribute', () => {
     const source$ = new Subject()
@@ -48,7 +37,10 @@ test('observable on style', () => {
         children: [
             {
                 tag: 'div',
-                style: of({ backgroundColor: 'red' }),
+                style: {
+                    source$: of({ backgroundColor: 'red' }),
+                    vdomMap: (v: CSSAttribute) => v,
+                },
             },
         ],
     }
@@ -63,11 +55,14 @@ test('observable on custom attribute', () => {
         children: [
             {
                 tag: 'div',
-                style: of({ backgroundColor: 'red' }),
+                customAttributes: {
+                    source$: of({ foo: 'bar' }),
+                    vdomMap: (v: CustomAttribute) => v,
+                },
             },
         ],
     }
     const html = render(vDom)
     document.body.appendChild(html)
-    expect(html.firstChild['style'].backgroundColor).toBe('red')
+    expect(html.firstChild['foo']).toBe('bar')
 })

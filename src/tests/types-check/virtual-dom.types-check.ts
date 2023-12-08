@@ -1,9 +1,4 @@
-import {
-    Observable,
-    RxAttribute,
-    VirtualDOM,
-    VirtualDOMTagNameMap,
-} from '../../lib'
+import { RxAttribute, VirtualDOM, VirtualDOMTagNameMap } from '../../lib'
 import { of } from 'rxjs'
 import { AssertTrue as Assert, Has, IsExact } from 'conditional-type-checks'
 import { AttributeLike } from '../../lib/api'
@@ -18,7 +13,10 @@ import { AttributeLike } from '../../lib/api'
         children: [
             {
                 tag: 'a',
-                href: of('https://foo.com'),
+                href: {
+                    source$: of('https://foo.com'),
+                    vdomMap: (v: string) => v,
+                },
                 onclick: (ev) => {
                     type _ = Assert<IsExact<typeof ev, MouseEvent>>
                 },
@@ -265,7 +263,10 @@ import { AttributeLike } from '../../lib/api'
         children: [
             {
                 tag: 'a',
-                href: of('https://foo.com'),
+                href: {
+                    source$: of('https://foo.com'),
+                    vdomMap: (v: string) => v,
+                },
                 // @ts-expect-error -- clientHeight only has getter
                 clientHeight: 5,
             },
@@ -303,13 +304,12 @@ import { AttributeLike } from '../../lib/api'
     type RXAnyVirtualDOM = VirtualDOMTagNameMap[keyof VirtualDOMTagNameMap]
     type InnerText = RXAnyVirtualDOM['innerText']
     type _0 = Assert<Has<InnerText, string>>
-    type _1 = Assert<Has<InnerText, Observable<string>>>
-    type _2 = Assert<Has<InnerText, RxAttribute<unknown, string>>>
-    type _3 = Assert<Has<InnerText, AttributeLike<string>>>
+    type _1 = Assert<Has<InnerText, RxAttribute<unknown, string>>>
+    type _2 = Assert<Has<InnerText, AttributeLike<string>>>
     // The following assertion is commented because failing if the 'form' element is included
     // It does not make sense for me as
     // *  I can not see why for 'form' tag there would be anything else on top of it
-    // *  type hints when overring 'InnerText' gives :
+    // *  type hints when hovering 'InnerText' gives :
     //      Alias for: RXAnyVirtualDOM["innerText"]
     //      Initial type: Observable<string> | RxAttribute<unknown, string> | string
     // type _4 = Assert<

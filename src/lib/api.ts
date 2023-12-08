@@ -84,7 +84,6 @@ export type AnyVirtualDOM =
  */
 export type AttributeLike<Target extends AnyHTMLAttribute> =
     | Target
-    | Observable<Target>
     | RxAttribute<unknown, Target>
 
 /**
