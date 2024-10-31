@@ -416,7 +416,8 @@ export type RxAttribute<
  * Full specification of a reactive child component.
  *
  * <note level="hint">
- * If the `vdomMap` or `wrapper` attributes return `undefined`, no `HTMLElement` will be produced.
+ * If the `vdomMap` or `wrapper` attributes return an object evaluating to `false`,
+ * an {@link EmptyDiv} child is produced.
  * </note>
  *
  * For examples, see [here](https://github.com/youwol/rx-vdom/blob/main/src/tests/rx-child.test.ts).

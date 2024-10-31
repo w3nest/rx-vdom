@@ -80,5 +80,14 @@ test('child resolve to undefined', () => {
 
     source$.next(undefined)
     children = [...elem.children]
-    expect(children).toHaveLength(0)
+    expect(children).toHaveLength(1)
+    expect(children[0].tagName).toBe('DIV')
+    expect(children[0].innerHTML).toBe('')
+    expect(children[0].className).toBe('')
+
+    source$.next('bar')
+    children = [...elem.children]
+    expect(children).toHaveLength(1)
+    expect(children[0].innerHTML).toBe('')
+    expect(children[0].className).toBe('wrapper')
 })

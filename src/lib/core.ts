@@ -27,6 +27,13 @@ import {
 } from './api'
 import { setup } from '../auto-generated'
 
+/**
+ * Virtual DOM of an empty `HTMLDivElement`.
+ */
+export const EmptyDiv = {
+    tag: 'div' as const,
+}
+
 class HTMLPlaceHolderElement extends HTMLElement {
     private currentElement: HTMLElement
 
@@ -34,8 +41,7 @@ class HTMLPlaceHolderElement extends HTMLElement {
         this.currentElement = this
 
         const apply = (vDom: AnyVirtualDOM | undefined): HTMLElement => {
-            const div = vDom && render(vDom)
-            // Replacing with 'undefined' will remove the child, which is what is expected.
+            const div = vDom ? render(vDom) : render(EmptyDiv)
             this.currentElement.replaceWith(div)
             this.currentElement = div
             return div
