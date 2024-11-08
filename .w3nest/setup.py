@@ -1,20 +1,20 @@
-import shutil
+from shutil import copyfile
 from pathlib import Path
 
-from youwol.pipelines.pipeline_typescript_weback_npm import (
-    Template,
+from w3nest.ci.ts_frontend import (
+    ProjectConfig,
     PackageType,
     Dependencies,
     RunTimeDeps,
     Bundles,
     MainModule,
 )
-from youwol.pipelines.pipeline_typescript_weback_npm.regular import generate_template
-from youwol.utils import parse_json
+from w3nest.ci.ts_frontend.regular import generate_template
+from w3nest.utils import parse_json
 
-folder_path = Path(__file__).parent
+project_folder = Path(__file__).parent.parent
 
-pkg_json = parse_json(folder_path / "package.json")
+pkg_json = parse_json(project_folder / "package.json")
 
 externals_deps = {}
 in_bundle_deps = {
@@ -34,8 +34,8 @@ dev_deps = {
     "@youwol/flux-view": "^1.2.0"
 }
 
-template = Template(
-    path=folder_path,
+config = ProjectConfig(
+    path=project_folder,
     type=PackageType.LIBRARY,
     name=pkg_json["name"],
     version=pkg_json["version"],
@@ -63,20 +63,19 @@ template = Template(
     }
 )
 
-generate_template(template)
-shutil.copyfile(
-    src=folder_path / ".template" / "src" / "auto-generated.ts",
-    dst=folder_path / "src" / "auto-generated.ts",
-)
-for file in [
+template_folder = project_folder / '.w3nest' / '.template'
+generate_template(config=config, dst_folder=template_folder)
+
+files = [
+    Path("src") / "auto-generated.ts",
     "README.md",
     ".gitignore",
     # ".npmignore", added 'rx-vdom-doc'
     # ".prettierignore", added 'rx-vdom-doc'
-    "LICENSE",
     "package.json",
     # "tsconfig.json", This file needs to include reference to 'rx-vdom-config.ts'
     # "jest.config.ts", added 'testPathIgnorePatterns: ['rx-vdom-doc']'
     "webpack.config.ts",
-]:
-    shutil.copyfile(src=folder_path / ".template" / file, dst=folder_path / file)
+]
+for file in files:
+    copyfile(src=template_folder / file, dst=project_folder / file)
