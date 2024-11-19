@@ -59,15 +59,5 @@
     "webpm": {
         "dependencies": {},
         "aliases": []
-    },
-    "eslintConfig": {
-        "extends": [
-            "@youwol"
-        ],
-        "ignorePatterns": [
-            "/dist/",
-            "/coverage/",
-            "rx-vdom-doc"
-        ]
     }
 }

@@ -29,7 +29,7 @@ export const setup = {
     developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=rx-vdom&tab=doc',
     npmPackage:'https://www.npmjs.com/package/rx-vdom',
     sourceGithub:'https://github.com/rx-vdom',
-    userGuide:'https://l.youwol.com/doc/rx-vdom',
+    userGuide:'',
     apiVersion:'01',
     runTimeDependencies,
     externals,

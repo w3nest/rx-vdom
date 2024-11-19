@@ -52,15 +52,6 @@ config = ProjectConfig(
             aliases=[],
         )
     ),
-    userGuide=True,
-    inPackageJson={
-        "eslintConfig": {
-            "extends": [
-                "@youwol"
-            ],
-            "ignorePatterns": ["/dist/", "/coverage/","rx-vdom-doc"],
-        }
-    }
 )
 
 template_folder = project_folder / '.w3nest' / '.template'
