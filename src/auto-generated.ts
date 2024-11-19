@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 const runTimeDependencies = {
     "externals": {},
     "includedInBundle": {
@@ -18,19 +18,19 @@ const mainEntry : {entryFile: string,loadDependencies:string[]} = {
 const secondaryEntries : {[k:string]:{entryFile: string, name: string, loadDependencies:string[]}}= {}
 
 const entries = {
-     '@youwol/rx-vdom': './index.ts',
-    ...Object.values(secondaryEntries).reduce( (acc,e) => ({...acc, [`@youwol/rx-vdom/${e.name}`]:e.entryFile}), {})
+     'rx-vdom': './index.ts',
+    ...Object.values(secondaryEntries).reduce( (acc,e) => ({...acc, [`rx-vdom/${e.name}`]:e.entryFile}), {})
 }
 export const setup = {
-    name:'@youwol/rx-vdom',
-        assetId:'QHlvdXdvbC9yeC12ZG9t',
-    version:'1.0.5-wip',
+    name:'rx-vdom',
+        assetId:'cngtdmRvbQ==',
+    version:'0.1.0-wip',
     shortDescription:"Tiny library to render HTML documents using reactive programing primitives.",
-    developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/rx-vdom&tab=doc',
-    npmPackage:'https://www.npmjs.com/package/@youwol/rx-vdom',
-    sourceGithub:'https://github.com/youwol/rx-vdom',
-    userGuide:'https://l.youwol.com/doc/@youwol/rx-vdom',
-    apiVersion:'1',
+    developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=rx-vdom&tab=doc',
+    npmPackage:'https://www.npmjs.com/package/rx-vdom',
+    sourceGithub:'https://github.com/rx-vdom',
+    userGuide:'https://l.youwol.com/doc/rx-vdom',
+    apiVersion:'01',
     runTimeDependencies,
     externals,
     exportedSymbols,
@@ -41,7 +41,7 @@ export const setup = {
     },
 
     installMainModule: ({cdnClient, installParameters}:{
-        cdnClient:{install:(unknown) => Promise<WindowOrWorkerGlobalScope>},
+        cdnClient:{install:(_:unknown) => Promise<WindowOrWorkerGlobalScope>},
         installParameters?
     }) => {
         const parameters = installParameters || {}
@@ -55,12 +55,12 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/rx-vdom_APIv1`]
+            return window[`rx-vdom_APIv01`]
         })
     },
     installAuxiliaryModule: ({name, cdnClient, installParameters}:{
         name: string,
-        cdnClient:{install:(unknown) => Promise<WindowOrWorkerGlobalScope>},
+        cdnClient:{install:(_:unknown) => Promise<WindowOrWorkerGlobalScope>},
         installParameters?
     }) => {
         const entry = secondaryEntries[name]
@@ -70,7 +70,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@youwol/rx-vdom#1.0.5-wip~dist/@youwol/rx-vdom/${entry.name}.js`
+            `rx-vdom#0.1.0-wip~dist/rx-vdom/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
@@ -81,7 +81,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/rx-vdom/${entry.name}_APIv1`]
+            return window[`rx-vdom/${entry.name}_APIv01`]
         })
     },
     getCdnDependencies(name?: string){

@@ -1,4 +1,4 @@
-# @youwol/rx-vdom
+# rx-vdom
 
 Tiny library to render HTML documents using reactive programing primitives.
 
@@ -7,13 +7,13 @@ This library is part of the hybrid cloud/local ecosystem
 
 ## Links
 
-[Online user-guide](https://l.youwol.com/doc/@youwol/rx-vdom)
+[Online user-guide](https://l.youwol.com/doc/rx-vdom)
 
-[Developers documentation](https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/rx-vdom&tab=doc)
+[Developers documentation](https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=rx-vdom&tab=doc)
 
-[Package on npm](https://www.npmjs.com/package/@youwol/rx-vdom)
+[Package on npm](https://www.npmjs.com/package/rx-vdom)
 
-[Source on GitHub](https://github.com/youwol/rx-vdom)
+[Source on GitHub](https://github.com/rx-vdom)
 
 # Installation, Build, Test
 
