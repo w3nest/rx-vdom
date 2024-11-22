@@ -68,30 +68,25 @@ const specialBindings: Record<
     },
     customAttributes: (
         instance: HTMLElement,
-        value: { [k: string]: string },
+        value: Record<string, string>,
     ) => {
-        Object.entries(value).forEach(([k, v]) =>
-            instance.setAttribute(k.replace(/[A-Z]/g, '-$&').toLowerCase(), v),
-        )
+        Object.entries(value).forEach(([k, v]) => {
+            instance.setAttribute(k.replace(/[A-Z]/g, '-$&').toLowerCase(), v)
+        })
     },
 }
 
 function isInstanceOfObservable(d: unknown): d is Observable<unknown> {
-    return d !== undefined && (d as Observable<unknown>).subscribe !== undefined
+    return typeof d === 'object' && d !== null && 'subscribe' in d
 }
 function isInstanceOfRxAttribute(d: unknown): d is RxAttribute {
-    return d !== undefined && (d as RxAttribute).source$ !== undefined
+    return typeof d === 'object' && d !== null && 'source$' in d
 }
 function isInstanceOfRxChild(d: unknown): d is RxChild {
-    return d !== undefined && (d as RxChild).source$ !== undefined
+    return typeof d === 'object' && d !== null && 'source$' in d
 }
-function isInstanceOfRxChildren(
-    d: unknown,
-): d is RxChildren<ChildrenPolicy, unknown> {
-    return (
-        d !== undefined &&
-        (d as RxChildren<ChildrenPolicy, unknown>).source$ !== undefined
-    )
+function isInstanceOfRxChildren(d: unknown): d is RxChildren<ChildrenPolicy> {
+    return typeof d === 'object' && d !== null && 'source$' in d
 }
 
 type ConvertedAttributeLike =
@@ -203,6 +198,10 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
         console.error('Type of children unknown', vDom.children)
         return { attributes, children: [] }
     }
+    if (!['replace', 'append', 'sync'].includes(vDom.children.policy)) {
+        console.error('Unknown RxChildren policy', vDom.children)
+        return { attributes, children: [] }
+    }
     if (vDom.children.policy === 'replace') {
         const children = new RxStream(
             vDom.children.source$,
@@ -226,20 +225,16 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
         )
         return { attributes, children }
     }
-    if (vDom.children.policy === 'sync') {
-        const children = new RxStreamSync(
-            vDom.children.source$,
-            vDom.children.vdomMap,
-            {
-                comparisonOperator: vDom.children.comparisonOperator,
-                sideEffects: vDom.children.sideEffects,
-                orderOperator: vDom.children.orderOperator,
-            },
-        )
-        return { attributes, children }
-    }
-    console.error('Unknown RxChildren policy', vDom.children)
-    return { attributes, children: [] }
+    const children = new RxStreamSync(
+        vDom.children.source$,
+        vDom.children.vdomMap,
+        {
+            comparisonOperator: vDom.children.comparisonOperator,
+            sideEffects: vDom.children.sideEffects,
+            orderOperator: vDom.children.orderOperator,
+        },
+    )
+    return { attributes, children }
 }
 
 /**
@@ -333,18 +328,20 @@ export function ReactiveTrait<
                     children.subscribe(this as unknown as RxHTMLElement<Tag>),
                 )
             }
-            this.vDom?.connectedCallback?.(
-                this as unknown as RxHTMLElement<Tag>,
-            )
+            this.vDom.connectedCallback?.(this as unknown as RxHTMLElement<Tag>)
         }
 
         /**
          * @ignore
          */
         disconnectedCallback() {
-            this.subscriptions.reverse().forEach((s) => s.unsubscribe())
-            this.disconnectionHooks.reverse().forEach((cb) => cb())
-            this.vDom?.disconnectedCallback?.(
+            this.subscriptions.reverse().forEach((s) => {
+                s.unsubscribe()
+            })
+            this.disconnectionHooks.reverse().forEach((cb) => {
+                cb()
+            })
+            this.vDom.disconnectedCallback?.(
                 this as unknown as RxHTMLElement<Tag>,
             )
         }
@@ -354,24 +351,22 @@ export function ReactiveTrait<
          */
         renderChildren(children: ConvertedChildLike[]): HTMLElement[] {
             const rendered: HTMLElement[] = []
-            children
-                .filter((child) => child != undefined)
-                .forEach((child) => {
-                    if (instanceOfStream(child)) {
-                        const placeHolder = document.createElement(
-                            `${customElementPrefix}-placeholder`,
-                        ) as HTMLPlaceHolderElement
-                        this.appendChild(placeHolder)
-                        this.subscriptions.push(placeHolder.initialize(child))
-                        rendered.push(placeHolder)
-                    } else if (child instanceof HTMLElement) {
-                        this.appendChild(child)
-                    } else {
-                        const div = render(child)
-                        this.appendChild(div)
-                        rendered.push(div)
-                    }
-                })
+            children.forEach((child) => {
+                if (instanceOfStream(child)) {
+                    const placeHolder = document.createElement(
+                        `${customElementPrefix}-placeholder`,
+                    ) as HTMLPlaceHolderElement
+                    this.appendChild(placeHolder)
+                    this.subscriptions.push(placeHolder.initialize(child))
+                    rendered.push(placeHolder)
+                } else if (child instanceof HTMLElement) {
+                    this.appendChild(child)
+                } else {
+                    const div = render(child)
+                    this.appendChild(div)
+                    rendered.push(div)
+                }
+            })
             return rendered
         }
         /**
@@ -423,6 +418,7 @@ export function ReactiveTrait<
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 function registerElement<Tag extends SupportedHTMLTags>(
     tag: Tag,
     BaseClass: typeof HTMLElement,
@@ -455,9 +451,7 @@ export function register() {
             tag: SupportedHTMLTags,
             typeof HTMLElement,
         ]) => {
-            if (HTMLElementClass) {
-                registerElement(tag, HTMLElementClass)
-            }
+            registerElement(tag, HTMLElementClass)
         },
     )
 }

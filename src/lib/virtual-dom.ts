@@ -26,7 +26,7 @@ export type VirtualDOM<Tag extends SupportedHTMLTags> = {
     class?: AttributeLike<string>
 
     /**
-     * The style associated with the element. Typically for a static value:
+     * The style associated with the element. Typically, for a static value:
      * ```typescript
      * {
      *      tag: 'div',
@@ -79,7 +79,7 @@ export type VirtualDOM<Tag extends SupportedHTMLTags> = {
     disconnectedCallback?: (element: RxHTMLElement<Tag>) => void
 } & (TypeCheck extends 'none'
     ? // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Index signature effectively optional if `TypeCheck` is disabled
-      { [k: string]: any }
+      Record<string, any>
     : Partial<ExposedMembers<NativeHTMLElement<Tag>>>)
 
 /**
@@ -103,7 +103,9 @@ export type RxHTMLElement<Tag extends SupportedHTMLTags> = RxElementTrait &
 export function render<Tag extends SupportedHTMLTags>(
     vDom: VirtualDOM<Tag>,
 ): RxHTMLElement<Tag> {
-    const tag = vDom['tag'] || ('div' as const)
+    // For Javascript mostly, we allow missing 'tag' property...
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const tag = vDom.tag || ('div' as const)
 
     const element: RxHTMLElement<Tag> = factory<Tag>(tag as unknown as Tag)
     // why 'never', could have been 'any' but my IDE suggest never is better :/

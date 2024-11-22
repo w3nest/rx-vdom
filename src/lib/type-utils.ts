@@ -12,6 +12,8 @@ import {
     RxChildren,
 } from './api'
 
+/* eslint-disable @typescript-eslint/consistent-indexed-object-style, @typescript-eslint/no-unnecessary-type-parameters */
+
 /**
  * Check whether 2 types are equals.
  *
@@ -37,6 +39,8 @@ export type WritableKeysOf<T> = {
         ? P
         : never
 }[keyof T]
+
+/* eslint-enable @typescript-eslint/consistent-indexed-object-style, @typescript-eslint/no-unnecessary-type-parameters */
 
 /**
  * Extract writable part of a type.

@@ -147,7 +147,7 @@ export abstract class RxStreamChildren<TDomain> {
 
     protected abstract update(
         parentElement: RxElementTrait,
-        domainData: Array<TDomain>,
+        domainData: TDomain[],
     ): RenderingUpdate<TDomain>
 
     /**
@@ -196,17 +196,20 @@ export abstract class RxStreamChildren<TDomain> {
         }
         if (isDefined(orderFct)) {
             elements = elements.sort((a, b) => {
-                // @ts-expect-error Complaining of `a` possibly `undefined`
-                return orderFct(a.domainData, b.domainData)
+                const da = a.domainData
+                const db = b.domainData
+                return da && db ? orderFct(da, db) : 0
             })
         }
         const htmlElements = elements.map(
             ({ element }) => element as HTMLElement,
         )
-        new Array(...parentElement.children).forEach(
-            (elem: HTMLElement) =>
-                (elem.style.order = `${htmlElements.indexOf(elem)}`),
-        )
+        new Array(...parentElement.children).forEach((elem: HTMLElement) => {
+            const index = htmlElements.indexOf(elem)
+            if (index !== -1) {
+                elem.style.order = index.toString()
+            }
+        })
     }
 }
 
@@ -243,7 +246,9 @@ export class RxStreamAppend<TDomain> extends RxStreamChildren<TDomain> {
                 element: render(vDom),
             }
         })
-        added.forEach((ref) => this.addChildRef(parentElement, ref))
+        added.forEach((ref) => {
+            this.addChildRef(parentElement, ref)
+        })
 
         return { added, updated: [], removed: [] }
     }
@@ -276,7 +281,7 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
 
     protected update(
         parentElement: RxElementTrait,
-        expectedData: Array<TDomain>,
+        expectedData: TDomain[],
     ): RenderingUpdate<TDomain> {
         const actualData = this.actualElements.map(
             (refElem) => refElem.domainData,
@@ -292,12 +297,16 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
             virtualDOM: newVirtualDOMs[i],
             element: rendered[i],
         }))
-        addedRefElem.forEach((ref) => this.addChildRef(parentElement, ref))
+        addedRefElem.forEach((ref) => {
+            this.addChildRef(parentElement, ref)
+        })
 
         const deletedRefElem = this.actualElements.filter((candidate) =>
             this.isNotInList(expectedData, candidate.domainData),
         )
-        deletedRefElem.forEach((ref) => this.removeChildRef(ref))
+        deletedRefElem.forEach((ref) => {
+            this.removeChildRef(ref)
+        })
         const deletedData = deletedRefElem.map((ref) => ref.domainData)
 
         if (addedRefElem.length === 0 && deletedRefElem.length === 0) {

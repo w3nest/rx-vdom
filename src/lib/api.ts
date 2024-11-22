@@ -108,7 +108,7 @@ export type ChildrenLike =
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
-export type ChildrenOptionsAppend<TDomain> = {
+export interface ChildrenOptionsAppend<TDomain> {
     /**
      * Observable source of domain data, expected to emit an array of domain data elements.
      */
@@ -154,7 +154,7 @@ export type ChildrenOptionsAppend<TDomain> = {
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
-export type ChildrenOptionsReplace<TDomain> = {
+export interface ChildrenOptionsReplace<TDomain> {
     /**
      * Observable source of domain data.
      */
@@ -231,7 +231,7 @@ export type ChildrenPolicy = 'replace' | 'append' | 'sync'
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
-export type ChildrenTypesOptionMap<TDomain> = {
+export interface ChildrenTypesOptionMap<TDomain> {
     /**
      * Options for the `replace` policy, defining how child elements should be replaced.
      */
@@ -255,7 +255,7 @@ export type ChildrenTypesOptionMap<TDomain> = {
  * { ariaExpanded: true }
  * ```
  */
-export type CustomAttribute = { [key: string]: string | boolean | number }
+export type CustomAttribute = Record<string, string | boolean | number>
 
 /**
  * Extracts the attributes of an `HTMLElement` of the given tag that are exposed in {@link VirtualDOM}.
@@ -322,7 +322,7 @@ export type NativeHTMLElement<Tag extends SupportedHTMLTags> =
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
-export type RenderingUpdate<TDomain> = {
+export interface RenderingUpdate<TDomain> {
     /**
      * An array of elements that have been added to the DOM.
      */
@@ -343,10 +343,10 @@ export type RenderingUpdate<TDomain> = {
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  * @template Tag The type of the HTML tag, which extends `SupportedHTMLTags`.
  */
-export type ResolvedHTMLElement<
+export interface ResolvedHTMLElement<
     TDomain,
     Tag extends SupportedHTMLTags = SupportedHTMLTags,
-> = {
+> {
     /**
      * The domain data associated with this element.
      * This will be `undefined` if the child was defined using a plain HTMLElement
@@ -373,10 +373,10 @@ export type ResolvedHTMLElement<
  * - `boolean` for attributes like `disabled`, `checked`, `readonly`, etc.
  * - `{ [k: string]: string }` for style attributes, for example.
  */
-export type RxAttribute<
+export interface RxAttribute<
     TDomain = unknown,
     Target extends AnyHTMLAttribute = AnyHTMLAttribute,
-> = {
+> {
     /**
      * The source observable that emits domain data.
      */
@@ -430,10 +430,10 @@ export type RxAttribute<
  * @template TVdomMap The type of the virtual DOM returned by the `vdomMap` function.
  * @template TVdomFinal The type of the final virtual DOM that will be inserted into the DOM.
  */
-export type RxChild<
+export interface RxChild<
     TDomain = unknown,
     TVdomMap extends AnyVirtualDOM = AnyVirtualDOM,
-> = {
+> {
     /**
      * The source observable that emits domain data.
      */
