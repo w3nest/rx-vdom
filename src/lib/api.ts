@@ -428,7 +428,6 @@ export type RxAttribute<
 export type RxChild<
     TDomain = unknown,
     TVdomMap extends AnyVirtualDOM = AnyVirtualDOM,
-    TVdomFinal extends AnyVirtualDOM = TVdomMap,
 > = {
     /**
      * The source observable that emits domain data.
@@ -457,7 +456,7 @@ export type RxChild<
      * @param domValue The virtual DOM value returned by `vdomMap`.
      * @returns The transformed virtual DOM that will be used as the final child.
      */
-    wrapper?: (domValue: TVdomMap) => TVdomFinal
+    wrapper?: (domValue: TVdomMap) => TVdomMap
 
     /**
      * A callback function for executing side effects after the new child has been
@@ -468,7 +467,7 @@ export type RxChild<
      * that was originally emitted by `source$`.
      */
     sideEffects?: (
-        element: ResolvedHTMLElement<TDomain, TVdomFinal['tag']>,
+        element: ResolvedHTMLElement<TDomain, TVdomMap['tag']>,
     ) => void
 }
 
