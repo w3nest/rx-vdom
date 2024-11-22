@@ -42,7 +42,7 @@ export class RxStream<TDomain, TDom = TDomain> {
      */
     constructor(
         public readonly source$: Observable<TDomain>,
-        public readonly vDomMap: (tDomain: TDomain, ...args) => TDom,
+        public readonly vDomMap: (tDomain: TDomain, ...args: unknown[]) => TDom,
         {
             untilFirst,
             wrapper,
@@ -62,8 +62,8 @@ export class RxStream<TDomain, TDom = TDomain> {
      * Implementation function that supposed to be called only by {@link RxElementTrait}.
      */
     subscribe<Tag extends SupportedHTMLTags>(
-        realizeDom: (tDom: TDom, ...args) => RxHTMLElement<Tag>,
-        ...withData
+        realizeDom: (tDom: TDom, ...args: unknown[]) => RxHTMLElement<Tag>,
+        ...withData: unknown[]
     ) {
         if (this.untilFirst) {
             this.finalize(realizeDom, this.untilFirst, undefined)
@@ -74,7 +74,7 @@ export class RxStream<TDomain, TDom = TDomain> {
     }
 
     private finalize<Tag extends SupportedHTMLTags>(
-        realizeDom: (tDom: TDom, ...args) => RxHTMLElement<Tag>,
+        realizeDom: (tDom: TDom, ...args: unknown[]) => RxHTMLElement<Tag>,
         value: TDom,
         d?: TDomain,
     ) {
@@ -127,7 +127,10 @@ export abstract class RxStreamChildren<TDomain> {
      */
     protected constructor(
         public readonly stream$: Observable<TDomain[]>,
-        public readonly vDomMap: (tDomain: TDomain, ...args) => AnyVirtualDOM,
+        public readonly vDomMap: (
+            tDomain: TDomain,
+            ...args: unknown[]
+        ) => AnyVirtualDOM,
         {
             sideEffects,
             orderOperator,
@@ -219,7 +222,10 @@ export function instanceOfChildrenStream<T>(
 export class RxStreamAppend<TDomain> extends RxStreamChildren<TDomain> {
     constructor(
         public readonly stream$: Observable<TDomain[]>,
-        public readonly vDomMap: (tDomain: TDomain, ...args) => AnyVirtualDOM,
+        public readonly vDomMap: (
+            tDomain: TDomain,
+            ...args: unknown[]
+        ) => AnyVirtualDOM,
         options: Omit<ChildrenOptionsAppend<TDomain>, 'source$' | 'vdomMap'>,
     ) {
         super(stream$, vDomMap, options)
@@ -252,7 +258,10 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
 
     constructor(
         public readonly stream$: Observable<TDomain[]>,
-        public readonly vDomMap: (tDomain: TDomain, ...args) => AnyVirtualDOM,
+        public readonly vDomMap: (
+            tDomain: TDomain,
+            ...args: unknown[]
+        ) => AnyVirtualDOM,
         options: Omit<ChildrenOptionsSync<TDomain>, 'source$' | 'vdomMap'>,
     ) {
         super(stream$, vDomMap, options)

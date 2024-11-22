@@ -6,6 +6,7 @@ import { AssertTrue as Assert, Has, IsExact } from 'conditional-type-checks'
 /**
  * Make sure that `Configuration.TypeCheck` is valid.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _ConfigTypeCheckOK = Assert<
     Has<'strict' | 'none', Configuration['TypeCheck']>
 >
@@ -13,6 +14,7 @@ type _ConfigTypeCheckOK = Assert<
 /**
  * Make sure that `Configuration.SupportedHTMLTagsOK` is valid.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type _ConfigSupportedHTMLTagsOK = Assert<
     IsExact<
         Extract<

@@ -22,7 +22,6 @@ import {
     RxAttribute,
     RxChild,
     RxChildren,
-    RxElementTrait,
     Subscription,
     CSSAttribute,
 } from './api'
@@ -114,7 +113,7 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
         | RxStreamChildren<unknown>
 } {
     const allAttributes = Object.entries(vDom).filter(
-        ([k, _]) =>
+        ([k]) =>
             k !== 'tag' &&
             k !== 'children' &&
             k !== 'connectedCallback' &&
@@ -296,13 +295,13 @@ export function ReactiveTrait<
             const { attributes, children } = extractRxStreams<Tag>(this.vDom)
 
             attributes
-                .filter(([_, v]) => !instanceOfStream(v))
+                .filter(([, v]) => !instanceOfStream(v))
                 .forEach(([k, v]: [k: string, v: AnyHTMLAttribute]) => {
                     this.applyAttribute(k, v)
                 })
 
             attributes
-                .filter(([_, v]) => instanceOfStream(v))
+                .filter(([, v]) => instanceOfStream(v))
                 .forEach(
                     ([k, attr$]: [
                         k: string,
@@ -353,8 +352,8 @@ export function ReactiveTrait<
         /**
          * @ignore
          */
-        renderChildren(children: ConvertedChildLike[]): Array<RxElementTrait> {
-            const rendered = []
+        renderChildren(children: ConvertedChildLike[]): HTMLElement[] {
+            const rendered: HTMLElement[] = []
             children
                 .filter((child) => child != undefined)
                 .forEach((child) => {
