@@ -141,24 +141,26 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
         return { attributes, children: [] }
     }
     if (Array.isArray(vDom.children)) {
-        const children = vDom.children.map((child: ChildLike) => {
-            if (instanceOfStream(child)) {
-                // This is when the method 'child$' of '@youwol/flux-view' is used
-                return child as RxStream<unknown, AnyVirtualDOM>
-            }
-            if (isInstanceOfRxChild(child)) {
-                return new RxStream<unknown, AnyVirtualDOM>(
-                    child.source$,
-                    child.vdomMap,
-                    {
-                        wrapper: child.wrapper,
-                        sideEffects: child.sideEffects,
-                        untilFirst: child.untilFirst,
-                    },
-                )
-            }
-            return child
-        })
+        const children = vDom.children
+            .map((child: ChildLike) => {
+                if (instanceOfStream(child)) {
+                    // This is when the method 'child$' of '@youwol/flux-view' is used
+                    return child as RxStream<unknown, AnyVirtualDOM>
+                }
+                if (isInstanceOfRxChild(child)) {
+                    return new RxStream<unknown, AnyVirtualDOM>(
+                        child.source$,
+                        child.vdomMap,
+                        {
+                            wrapper: child.wrapper,
+                            sideEffects: child.sideEffects,
+                            untilFirst: child.untilFirst,
+                        },
+                    )
+                }
+                return child
+            })
+            .filter((c) => c !== undefined)
         return { attributes, children }
     }
     if (instanceOfStream(vDom.children)) {
