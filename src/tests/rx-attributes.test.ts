@@ -53,7 +53,12 @@ test('observable on style', () => {
     }
     const html = render(vDom)
     document.body.appendChild(html)
-    expect(html.firstChild['style'].backgroundColor).toBe('red')
+    const firstChild = html.firstChild
+    expect(firstChild).toBeTruthy()
+    if (firstChild === null) {
+        return
+    }
+    expect(firstChild['style'].backgroundColor).toBe('red')
 })
 
 test('observable on custom attribute', () => {
@@ -68,11 +73,16 @@ test('observable on custom attribute', () => {
     }
     const html = render(vDom)
     document.body.appendChild(html)
-    expect(html.firstChild['style'].backgroundColor).toBe('red')
+    const firstChild = html.firstChild
+    expect(firstChild).toBeTruthy()
+    if (firstChild === null) {
+        return
+    }
+    expect(firstChild['style'].backgroundColor).toBe('red')
 })
 
 test('rxAttribute resolves to undefined', () => {
-    const source$ = new Subject<string>()
+    const source$ = new Subject<string | undefined>()
     const sideEffectElements: ResolvedHTMLElement<string, 'a'>[] = []
     const vDom: VirtualDOM<'div'> = {
         tag: 'div',

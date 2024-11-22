@@ -8,8 +8,8 @@ function observersCount(obs$: Subject<unknown>) {
 test('connected/disconnected callback & subscriptions', () => {
     //spy.flush()
     const obs$ = new BehaviorSubject<string>('foo')
-    const events = []
-    const dataCustom = []
+    const events: string[] = []
+    const dataCustom: number[] = []
     const custom$ = new BehaviorSubject(1)
     const sub = custom$.subscribe((d) => {
         dataCustom.push(d)

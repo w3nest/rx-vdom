@@ -63,8 +63,14 @@ test('Raw HTMLElement child', () => {
         children: [child],
     }
     const html = render(vDom)
+    expect(html).toBeTruthy()
     document.body.appendChild(html)
-    expect(html.firstChild['innerText']).toBe('foo')
+    const firstChild = html.firstChild
+    expect(firstChild).toBeTruthy()
+    if (firstChild === null) {
+        return
+    }
+    expect(firstChild['innerText']).toBe('foo')
 })
 
 test('Component as class', () => {
@@ -81,9 +87,15 @@ test('Component as class', () => {
         constructor() {}
     }
     const html = render(new Foo())
+    expect(html).toBeTruthy()
     document.body.appendChild(html)
-    expect(html.firstChild['innerText']).toBe('foo')
-    expect(html.firstChild['href']).toBe('https://foo.com/')
+    const firstChild = html.firstChild
+    expect(firstChild).toBeTruthy()
+    if (firstChild === null) {
+        return
+    }
+    expect(firstChild['innerText']).toBe('foo')
+    expect(firstChild['href']).toBe('https://foo.com/')
 })
 
 test('Component as class 2', () => {

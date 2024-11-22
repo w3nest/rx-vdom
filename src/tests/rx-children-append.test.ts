@@ -1,4 +1,4 @@
-import { render, VirtualDOM } from '../lib'
+import { render, RenderingUpdate, VirtualDOM } from '../lib'
 import { Subject } from 'rxjs'
 import { orderedChildren } from './utils'
 
@@ -8,7 +8,7 @@ beforeEach(() => {
 test('simple scenario', () => {
     type Domain = { id: string; text: string }
     const source$ = new Subject<Domain[]>()
-    let updateTracker = undefined
+    let updateTracker: any = undefined
     const store = {
         foo: { text: 'short', id: 'foo' },
         bar: { text: 'a bit longer', id: 'bar' },
@@ -40,6 +40,9 @@ test('simple scenario', () => {
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(0)
 
@@ -96,6 +99,9 @@ test('no order operator', () => {
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(0)
 

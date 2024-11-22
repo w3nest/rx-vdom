@@ -214,9 +214,7 @@ function useVar<T>(_value: T): void {
         innerText: 'foo',
         href: 'https://foo.com',
         // @ts-expect-error -- can not redefine method
-        appendChild<T extends Node>(_node: T): T {
-            return undefined
-        },
+        appendChild<T extends Node>(_node: T): T {},
     }
     useVar(_)
 })()

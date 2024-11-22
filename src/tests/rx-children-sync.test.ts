@@ -6,14 +6,14 @@ beforeEach(() => {
 })
 test('simple scenario', () => {
     type Domain = { id: string; text: string }
-    const orderedChildren = (elem) =>
+    const orderedChildren = (elem: HTMLElement) =>
         [...elem.children].sort(
             (a: HTMLElement, b: HTMLElement) =>
                 parseInt(a.style.order) - parseInt(b.style.order),
         )
 
     const source$ = new Subject<Domain[]>()
-    let updateTracker = undefined
+    let updateTracker: any = undefined
     const store = {
         foo: { text: 'short', id: 'foo' },
         bar: { text: 'a bit longer', id: 'bar' },
@@ -36,7 +36,7 @@ test('simple scenario', () => {
             orderOperator: (a: Domain, b: Domain) => {
                 return a.text.length - b.text.length
             },
-            sideEffects: (parent, update) => {
+            sideEffects: (_, update) => {
                 updateTracker = update
             },
         },
@@ -45,6 +45,9 @@ test('simple scenario', () => {
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(0)
 
@@ -88,7 +91,7 @@ test('with comparison oerator', () => {
         )
 
     const source$ = new Subject<Domain[]>()
-    let updateTracker = undefined
+    let updateTracker: any = undefined
     const vDom: VirtualDOM<'div'> = {
         tag: 'div',
         id: 'container',
@@ -118,6 +121,10 @@ test('with comparison oerator', () => {
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(0)
 

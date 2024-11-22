@@ -33,6 +33,9 @@ test('simple scenario', () => {
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(2)
     expect(children[0]['innerText']).toBe('untilFirst')

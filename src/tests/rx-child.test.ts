@@ -1,5 +1,6 @@
-import { render, VirtualDOM, ResolvedHTMLElement } from '../lib'
+import { render, VirtualDOM, ResolvedHTMLElement, child$ } from '../lib'
 import { Subject } from 'rxjs'
+import { EmptyDiv } from '../lib/virtual-dom'
 
 test('simple scenario', () => {
     const source$ = new Subject<string>()
@@ -9,12 +10,12 @@ test('simple scenario', () => {
         tag: 'div',
         id: 'container',
         children: [
-            {
+            child$({
                 source$,
                 vdomMap: (innerText: string) => ({ tag: 'div', innerText }),
                 untilFirst: { tag: 'div', innerText: 'untilFirst', style: {} },
                 // The type VirtualDOM<'div'> below is required because of the 'form' tag (related to AnyVirtualDOM)
-                wrapper: (d: VirtualDOM<'div'>) => ({
+                wrapper: (d) => ({
                     // ...d,
                     tag: 'div',
                     class: 'wrapper',
@@ -23,13 +24,16 @@ test('simple scenario', () => {
                 sideEffects: (elem: ResolvedHTMLElement<string, 'div'>) => {
                     sideEffectElements.push(elem)
                 },
-            },
+            }),
         ],
     }
     const html = render(vDom)
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(1)
     expect(children[0]['innerText']).toBe('untilFirst')
@@ -47,25 +51,23 @@ test('simple scenario', () => {
 })
 
 test('child resolve to undefined', () => {
-    const source$ = new Subject<string>()
+    const source$ = new Subject<string | undefined>()
     const sideEffectElements: ResolvedHTMLElement<string, 'div'>[] = []
 
     const vDom: VirtualDOM<'div'> = {
         tag: 'div',
         id: 'container',
         children: [
-            {
+            child$({
                 source$,
-                vdomMap: (innerText: string | undefined) =>
-                    innerText && { tag: 'div', innerText },
+                vdomMap: (innerText) =>
+                    innerText ? { tag: 'div', innerText } : EmptyDiv,
                 untilFirst: { tag: 'div', innerText: 'untilFirst', style: {} },
-                // The type VirtualDOM<'div'> below is required because of the 'form' tag (related to AnyVirtualDOM)
-                wrapper: (d: VirtualDOM<'div'> | undefined) =>
-                    d && { ...d, class: 'wrapper' },
+                wrapper: (d) => ({ ...d, class: 'wrapper' }),
                 sideEffects: (elem: ResolvedHTMLElement<string, 'div'>) => {
                     sideEffectElements.push(elem)
                 },
-            },
+            }),
         ],
     }
     const html = render(vDom)
@@ -73,6 +75,9 @@ test('child resolve to undefined', () => {
     document.body.appendChild(html)
     const elem = document.getElementById('container')
     expect(elem).toBeTruthy()
+    if (elem === null) {
+        return
+    }
     let children = [...elem.children]
     expect(children).toHaveLength(1)
     expect(children[0]['innerText']).toBe('untilFirst')
@@ -80,5 +85,5 @@ test('child resolve to undefined', () => {
 
     source$.next(undefined)
     children = [...elem.children]
-    expect(children).toHaveLength(0)
+    expect(children).toHaveLength(1)
 })

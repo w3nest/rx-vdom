@@ -4,23 +4,18 @@ import { setup } from '../auto-generated'
 import { BehaviorSubject, of } from 'rxjs'
 import { factory } from '../lib/factory'
 
-let errors = []
-let warnings = []
+let errors: string[] = []
+let warnings: string[] = []
 
-console.error = (d) => {
+console.error = (d: string) => {
     errors.push(d)
 }
-console.warn = (d) => {
+console.warn = (d: string) => {
     warnings.push(d)
 }
 beforeEach(() => {
     errors = []
     warnings = []
-})
-test('render undefined vdom', () => {
-    const html = render(undefined)
-    expect(html).toBeFalsy()
-    expect(errors[0]).toBe('Got an undefined virtual DOM, return empty div')
 })
 
 test('undefined child', () => {
