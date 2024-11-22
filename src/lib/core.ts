@@ -51,12 +51,27 @@ class HTMLPlaceHolderElement extends HTMLElement {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TS2545: A mixin class must have a constructor with a single rest parameter of type 'any[]'.
 type Constructor<T extends HTMLElement> = new (...args: any[]) => T
 
-const specialBindings = {
-    class: (instance, value) => (instance.className = value),
-    style: (instance: HTMLElement, value) => {
-        Object.entries(value).forEach(([k, v]) => (instance.style[k] = v))
+type SpecialAttribute = 'class' | 'style' | 'customAttributes'
+
+function isSpecialAttribute(d: string): d is SpecialAttribute {
+    return ['class', 'style', 'customAttributes'].includes(d)
+}
+
+const specialBindings: Record<
+    SpecialAttribute,
+    (instance: HTMLElement, v: unknown) => void
+> = {
+    class: (instance: HTMLElement, value: string) =>
+        (instance.className = value),
+    style: (instance: HTMLElement, value: CSSAttribute) => {
+        Object.entries(value).forEach(([k, v]: [string, string]) => {
+            instance.style[k] = v
+        })
     },
-    customAttributes: (instance, value: { [k: string]: string }) => {
+    customAttributes: (
+        instance: HTMLElement,
+        value: { [k: string]: string },
+    ) => {
         Object.entries(value).forEach(([k, v]) =>
             instance.setAttribute(k.replace(/[A-Z]/g, '-$&').toLowerCase(), v),
         )
@@ -362,10 +377,11 @@ export function ReactiveTrait<
          * @ignore
          */
         applyAttribute(name: string, value: AnyHTMLAttribute) {
-            const binding = specialBindings[name]
-                ? () => specialBindings[name](this, value)
-                : () => (this[name] = value)
-            binding()
+            if (isSpecialAttribute(name)) {
+                specialBindings[name](this, value)
+                return
+            }
+            this[name] = value
         }
 
         /**
