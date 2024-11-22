@@ -107,10 +107,6 @@ export type RxHTMLElement<Tag extends SupportedHTMLTags> = RxElementTrait &
 export function render<Tag extends SupportedHTMLTags>(
     vDom: VirtualDOM<Tag>,
 ): RxHTMLElement<Tag> {
-    if (vDom == undefined) {
-        console.error('Got an undefined virtual DOM, return empty div')
-        return undefined
-    }
     const tag = vDom['tag'] || ('div' as const)
 
     const element: RxHTMLElement<Tag> = factory<Tag>(tag as unknown as Tag)

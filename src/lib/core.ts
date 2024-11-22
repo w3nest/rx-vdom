@@ -34,9 +34,8 @@ class HTMLPlaceHolderElement extends HTMLElement {
     initialize(stream$: RxStream<unknown, AnyVirtualDOM>): Subscription {
         this.currentElement = this
 
-        const apply = (vDom: AnyVirtualDOM | undefined): HTMLElement => {
-            const div = vDom && render(vDom)
-            // Replacing with 'undefined' will remove the child, which is what is expected.
+        const apply = (vDom: AnyVirtualDOM): HTMLElement => {
+            const div = render(vDom)
             this.currentElement.replaceWith(div)
             this.currentElement = div
             return div
@@ -79,18 +78,21 @@ const specialBindings: Record<
 }
 
 function isInstanceOfObservable(d: unknown): d is Observable<unknown> {
-    return d && (d as Observable<unknown>).subscribe !== undefined
+    return d !== undefined && (d as Observable<unknown>).subscribe !== undefined
 }
 function isInstanceOfRxAttribute(d: unknown): d is RxAttribute {
-    return d && (d as RxAttribute).source$ !== undefined
+    return d !== undefined && (d as RxAttribute).source$ !== undefined
 }
 function isInstanceOfRxChild(d: unknown): d is RxChild {
-    return d && (d as RxChild).source$ !== undefined
+    return d !== undefined && (d as RxChild).source$ !== undefined
 }
 function isInstanceOfRxChildren(
     d: unknown,
 ): d is RxChildren<ChildrenPolicy, unknown> {
-    return d && (d as RxChildren<ChildrenPolicy, unknown>).source$ !== undefined
+    return (
+        d !== undefined &&
+        (d as RxChildren<ChildrenPolicy, unknown>).source$ !== undefined
+    )
 }
 
 type ConvertedAttributeLike =
@@ -454,7 +456,9 @@ export function register() {
             tag: SupportedHTMLTags,
             typeof HTMLElement,
         ]) => {
-            HTMLElementClass && registerElement(tag, HTMLElementClass)
+            if (HTMLElementClass) {
+                registerElement(tag, HTMLElementClass)
+            }
         },
     )
 }

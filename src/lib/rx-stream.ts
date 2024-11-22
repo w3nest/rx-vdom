@@ -24,9 +24,11 @@ import { SupportedHTMLTags } from './factory'
 export class RxStream<TDomain, TDom = TDomain> {
     ClassType = 'Stream$'
 
-    public readonly untilFirst: TDom
-    public readonly wrapper: (tDom: TDom) => TDom
-    public readonly sideEffects: (element: ResolvedHTMLElement<TDomain>) => void
+    public readonly untilFirst?: TDom
+    public readonly wrapper?: (tDom: TDom) => TDom
+    public readonly sideEffects?: (
+        element: ResolvedHTMLElement<TDomain>,
+    ) => void
 
     /**
      * @param source$  domain's data stream defined as a RxJS observable
@@ -63,7 +65,9 @@ export class RxStream<TDomain, TDom = TDomain> {
         realizeDom: (tDom: TDom, ...args) => RxHTMLElement<Tag>,
         ...withData
     ) {
-        this.untilFirst && this.finalize(realizeDom, this.untilFirst, undefined)
+        if (this.untilFirst) {
+            this.finalize(realizeDom, this.untilFirst, undefined)
+        }
         return this.source$.subscribe((d: TDomain) => {
             this.finalize(realizeDom, this.vDomMap(d, ...withData), d)
         })
@@ -72,7 +76,7 @@ export class RxStream<TDomain, TDom = TDomain> {
     private finalize<Tag extends SupportedHTMLTags>(
         realizeDom: (tDom: TDom, ...args) => RxHTMLElement<Tag>,
         value: TDom,
-        d: TDomain,
+        d?: TDomain,
     ) {
         const vWrapped = this.wrapper ? this.wrapper(value) : value
         const element = realizeDom(vWrapped)
@@ -83,7 +87,10 @@ export class RxStream<TDomain, TDom = TDomain> {
 export function instanceOfStream<TDomain, TDom = TDomain>(
     obj: unknown,
 ): obj is RxStream<TDomain, TDom> {
-    return obj && (obj as RxStream<TDomain, TDom>).ClassType === 'Stream$'
+    return (
+        obj !== undefined &&
+        (obj as RxStream<TDomain, TDom>).ClassType === 'Stream$'
+    )
 }
 
 /**
@@ -103,12 +110,12 @@ export abstract class RxStreamChildren<TDomain> {
      * @param parent parent: parent {@link RxElementTrait}
      * @param update update: description of the update, see {@link RenderingUpdate}
      */
-    public readonly sideEffects: (
+    public readonly sideEffects?: (
         parent: RxElementTrait,
         update: RenderingUpdate<TDomain>,
     ) => void
 
-    protected readonly orderOperator: (d1: TDomain, d2: TDomain) => number
+    protected readonly orderOperator?: (d1: TDomain, d2: TDomain) => number
     private readonly children: ResolvedHTMLElement<TDomain>[] = []
 
     /**
@@ -177,15 +184,25 @@ export abstract class RxStreamChildren<TDomain> {
                 parentElement,
             )
         }
+        let elements = new Array(...this.children)
         // We don't sort in place: we want the VirtualDom children to be aligned with the real ones.
         // Ordering just affects the display property 'order'.
-        const sorted = new Array(...this.children)
-            .sort((a, b) => this.orderOperator(a.domainData, b.domainData))
-            .map(({ element }) => element as HTMLElement)
-
+        const orderFct = this.orderOperator
+        function isDefined<T>(d: T | undefined): d is T {
+            return d !== undefined
+        }
+        if (isDefined(orderFct)) {
+            elements = elements.sort((a, b) => {
+                // @ts-expect-error Complaining of `a` possibly `undefined`
+                return orderFct(a.domainData, b.domainData)
+            })
+        }
+        const htmlElements = elements.map(
+            ({ element }) => element as HTMLElement,
+        )
         new Array(...parentElement.children).forEach(
             (elem: HTMLElement) =>
-                (elem.style.order = `${sorted.indexOf(elem)}`),
+                (elem.style.order = `${htmlElements.indexOf(elem)}`),
         )
     }
 }
@@ -193,7 +210,10 @@ export abstract class RxStreamChildren<TDomain> {
 export function instanceOfChildrenStream<T>(
     obj: unknown,
 ): obj is RxStreamChildren<T> {
-    return obj && (obj as RxStreamChildren<T>).ClassType === 'ChildrenStream$'
+    return (
+        obj !== undefined &&
+        (obj as RxStreamChildren<T>).ClassType === 'ChildrenStream$'
+    )
 }
 
 export class RxStreamAppend<TDomain> extends RxStreamChildren<TDomain> {
@@ -285,9 +305,17 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
         return { added: addedRefElem, updated: [], removed: deletedRefElem }
     }
 
-    private isNotInList(list: TDomain[], candidate: TDomain): boolean {
+    private isNotInList(
+        list: (TDomain | undefined)[],
+        candidate: TDomain | undefined,
+    ): boolean {
+        if (candidate === undefined) {
+            return false
+        }
         return (
-            list.find((item) => this.comparisonOperator(item, candidate)) ===
+            list
+                .filter((d) => d !== undefined)
+                .find((item) => this.comparisonOperator(item, candidate)) ===
             undefined
         )
     }
