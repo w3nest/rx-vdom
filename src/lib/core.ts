@@ -24,6 +24,7 @@ import {
     RxChildren,
     RxElementTrait,
     Subscription,
+    CSSAttribute,
 } from './api'
 import { setup } from '../auto-generated'
 
@@ -103,39 +104,44 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
             k !== 'disconnectedCallback',
     )
 
-    const attributes: [string, ConvertedAttributeLike][] = allAttributes.map(
-        ([k, attribute]: [string, AttributeLike<AnyHTMLAttribute>]) => {
-            if (instanceOfStream(attribute)) {
-                // This is when the method 'child$' of '@youwol/flux-view' is used
-                return [k, attribute as RxStream<unknown, AnyHTMLAttribute>]
-            }
-            if (isInstanceOfObservable(attribute)) {
-                return [
-                    k,
-                    new RxStream<AnyHTMLAttribute, AnyHTMLAttribute>(
-                        attribute,
-                        (d) => d,
-                        {},
-                    ),
-                ]
-            }
-            if (isInstanceOfRxAttribute(attribute)) {
-                return [
-                    k,
-                    new RxStream<unknown, AnyHTMLAttribute>(
-                        attribute.source$,
-                        attribute.vdomMap,
-                        {
-                            wrapper: attribute.wrapper,
-                            sideEffects: attribute.sideEffects,
-                            untilFirst: attribute.untilFirst,
-                        },
-                    ),
-                ]
-            }
-            return [k, attribute]
-        },
-    )
+    const attributes: [string, ConvertedAttributeLike][] = allAttributes
+        .filter(([, v]) => v !== undefined)
+        .map(
+            ([k, attribute]: [
+                string,
+                Exclude<AttributeLike<AnyHTMLAttribute>, undefined>,
+            ]) => {
+                if (instanceOfStream(attribute)) {
+                    // This is when the method 'child$' of '@youwol/flux-view' is used
+                    return [k, attribute as RxStream<unknown, AnyHTMLAttribute>]
+                }
+                if (isInstanceOfObservable(attribute)) {
+                    return [
+                        k,
+                        new RxStream<AnyHTMLAttribute, AnyHTMLAttribute>(
+                            attribute,
+                            (d) => d,
+                            {},
+                        ),
+                    ]
+                }
+                if (isInstanceOfRxAttribute(attribute)) {
+                    return [
+                        k,
+                        new RxStream<unknown, AnyHTMLAttribute>(
+                            attribute.source$,
+                            attribute.vdomMap,
+                            {
+                                wrapper: attribute.wrapper,
+                                sideEffects: attribute.sideEffects,
+                                untilFirst: attribute.untilFirst,
+                            },
+                        ),
+                    ]
+                }
+                return [k, attribute]
+            },
+        )
 
     if (!vDom.children) {
         return { attributes, children: [] }

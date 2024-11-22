@@ -55,12 +55,15 @@ export type AnyVirtualDOM = VirtualDOMTagNameMap[keyof VirtualDOMTagNameMap]
  * Union of the types allowed to define an attribute in a {@link VirtualDOM}.
  * An attribute can be a direct type, an observable of that type, or a reactive attribute.
  *
+ * If `undefined`, attribute is not set.
+ *
  * @template Target The type of the HTML attribute.
  */
 export type AttributeLike<Target extends AnyHTMLAttribute> =
     | Target
     | Observable<Target>
     | RxAttribute<unknown, Target>
+    | undefined
 
 /**
  * The attributes of any `HTMLElement` that should not be mapped into a {@link VirtualDOM} attribute.
