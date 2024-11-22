@@ -26,7 +26,7 @@ export const setup = {
         assetId:'cngtdmRvbQ==',
     version:'0.1.1-wip',
     shortDescription:"Tiny library to render HTML documents using reactive programing primitives.",
-    developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=rx-vdom&tab=doc',
+    developerDocumentation:'https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=rx-vdom&tab=doc',
     npmPackage:'https://www.npmjs.com/package/rx-vdom',
     sourceGithub:'https://github.com/rx-vdom',
     userGuide:'',
