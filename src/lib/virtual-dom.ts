@@ -113,3 +113,8 @@ export function render<Tag extends SupportedHTMLTags>(
     element.initializeVirtualDom(vDom as never)
     return element
 }
+
+/**
+ * A Virtual DOM resolving to an empty `div`.
+ */
+export const EmptyDiv: VirtualDOM<'div'> = { tag: 'div' }
