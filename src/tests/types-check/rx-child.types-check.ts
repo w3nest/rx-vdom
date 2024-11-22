@@ -2,10 +2,12 @@ import {
     SupportedHTMLTags,
     VirtualDOM,
     ResolvedHTMLElement,
-    RxChild,
+    child$,
 } from '../../lib'
 import { of } from 'rxjs'
 import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
+
+const source$ = of('https://foo.com')
 
 {
     // RxChild, no type hints
@@ -13,7 +15,7 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
         tag: 'div',
         children: [
             {
-                source$: of('https://foo.com'),
+                source$,
                 vdomMap: (href) => {
                     // This should pass ideally: type _ = Assert<IsExact<typeof href, string>>
                     return {
@@ -42,12 +44,37 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
 }
 
 {
-    // RxChild, RxChild type hints OK
+    // RxChild partially typed & vdomMap
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
             {
-                source$: of('https://foo.com'),
+                source$,
+                vdomMap: (href: string): VirtualDOM<'b'> => {
+                    type _ = Assert<IsExact<typeof href, string>>
+                    return {
+                        // @ts-expect-error -- 'a' is not 'b'
+                        tag: 'a',
+                        href,
+                    }
+                },
+                sideEffects: (elem) => {
+                    const _0 = elem.element.innerText
+                    // @ts-expect-error -- href is not available on 'b'
+                    const _1 = elem.element.href
+                },
+            },
+        ],
+    }
+}
+
+{
+    // RxChild, RxChild type hints OK
+    const _: VirtualDOM<'div'> = {
+        tag: 'div',
+        children: [
+            child$({
+                source$,
                 vdomMap: (href) => {
                     type _ = Assert<IsExact<typeof href, string>>
                     return {
@@ -64,10 +91,12 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
                     type _ = Assert<
                         IsExact<typeof elem, ResolvedHTMLElement<string, 'a'>>
                     >
-                    const _0 = elem.element.innerText
-                    const _1 = elem.element.href
+                    type _0 = Assert<
+                        IsExact<typeof elem.element.innerText, string>
+                    >
+                    type _1 = Assert<IsExact<typeof elem.element.href, string>>
                 },
-            } as RxChild<string, VirtualDOM<'a'>>,
+            }),
         ],
     }
 }
@@ -77,9 +106,9 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
-            // @ts-expect-error -- no tag
-            {
-                source$: of('https://foo.com'),
+            child$({
+                source$,
+                // @ts-expect-error -- no tag
                 vdomMap: (href) => {
                     type _ = Assert<IsExact<typeof href, string>>
                     return {
@@ -89,7 +118,7 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
                         foo: 5,
                     }
                 },
-            } as RxChild<string, VirtualDOM<'a'>>,
+            }),
         ],
     }
 }
@@ -99,9 +128,8 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
-            // @ts-expect-error -- 'b' is not 'a'
-            {
-                source$: of('https://foo.com'),
+            child$({
+                source$,
                 vdomMap: (href) => {
                     type _ = Assert<IsExact<typeof href, string>>
                     return {
@@ -117,12 +145,14 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
                 },
                 sideEffects: (elem) => {
                     type _ = Assert<
+                        // @ts-expect-error -- 'b' is not 'a'
                         IsExact<typeof elem, ResolvedHTMLElement<string, 'a'>>
                     >
                     const _0 = elem.element.innerText
+                    // @ts-expect-error -- 'b' is not 'a'
                     const _1 = elem.element.href
                 },
-            } as RxChild<string, VirtualDOM<'a'>>,
+            }),
         ],
     }
 }
@@ -132,8 +162,8 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
-            {
-                source$: of('https://foo.com'),
+            child$({
+                source$,
                 vdomMap: (href) => {
                     type _ = Assert<IsExact<typeof href, string>>
                     return {
@@ -151,64 +181,51 @@ import { AssertTrue as Assert, IsExact } from 'conditional-type-checks'
                     // @ts-expect-error -- href not available in 'b'
                     const _1 = elem.element.href
                 },
-            } as RxChild<string, VirtualDOM<'b'>>,
+            }),
         ],
     }
 }
 
 {
-    // RxChild partially typed & vdomMap
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
-            {
-                source$: of('https://foo.com'),
-                vdomMap: (href): VirtualDOM<'b'> => {
+            child$({
+                source$,
+                vdomMap: (href) => {
                     type _ = Assert<IsExact<typeof href, string>>
-                    return {
-                        // @ts-expect-error -- 'a' is not 'b'
-                        tag: 'a',
-                        href,
+                    if (Math.random() > 0.5) {
+                        const a: VirtualDOM<'a'> = {
+                            tag: 'a',
+                            href,
+                        }
+                        return a
                     }
-                },
-                sideEffects: (elem) => {
-                    const _0 = elem.element.innerText
-                    // @ts-expect-error -- href is not available on 'b'
-                    const _1 = elem.element.href
-                },
-            } as RxChild<string>,
-        ],
-    }
-}
-{
-    // RxChild, this scenario fails if we try to allow `VirtualDOM<never>` to map `HTMLElement`,
-    // as documented in `VirtualDOM` class.
-
-    const _: VirtualDOM<'div'> = {
-        tag: 'div',
-        children: [
-            {
-                source$: of('https://foo.com'),
-                vdomMap: (href): VirtualDOM<'a' | 'b'> => {
-                    type _ = Assert<IsExact<typeof href, string>>
-                    return {
+                    const b: VirtualDOM<'b'> = {
                         tag: 'b',
                         // @ts-expect-error -- href is not available on 'b'
                         href,
                     }
+                    return b
+                },
+                wrapper: (vdom) => {
+                    type _ = Assert<
+                        IsExact<typeof vdom, VirtualDOM<'a'> | VirtualDOM<'b'>>
+                    >
+                    return vdom
                 },
                 sideEffects: (elem) => {
-                    // type _ = Assert<
-                    //     IsExact<
-                    //         typeof elem,
-                    //         ResolvedHTMLElement<string, 'a' | 'b'>
-                    //     >
-                    // >
+                    type _ = Assert<
+                        IsExact<
+                            typeof elem,
+                            ResolvedHTMLElement<string, 'a' | 'b'>
+                        >
+                    >
                     const _0 = elem.element.innerText
                     // @ts-expect-error -- href is not available on 'b'
                     const _1 = elem.element.href
                 },
-            } as RxChild<string>,
+            }),
         ],
     }
 }
