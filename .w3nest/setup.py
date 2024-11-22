@@ -52,6 +52,9 @@ config = ProjectConfig(
             aliases=[],
         )
     ),
+    inPackageJson={
+        "scripts":{ "lint-eslint-check": "eslint ./src/lib"},
+    }
 )
 
 template_folder = project_folder / '.w3nest' / '.template'
