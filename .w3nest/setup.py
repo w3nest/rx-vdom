@@ -30,8 +30,7 @@ in_bundle_deps = {
 dev_deps = {
     "typedoc-plugin-mdn-links": "^3.1.0",
     "rxjs": "^7.5.6",
-    "rxjs-spy": "^8.0.2",
-    "@youwol/flux-view": "^1.2.0"
+    "rxjs-spy": "^8.0.2"
 }
 
 config = ProjectConfig(
