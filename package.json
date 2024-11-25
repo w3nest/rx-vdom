@@ -1,7 +1,7 @@
 {
     "name": "rx-vdom",
     "description": "Tiny library to render HTML documents using reactive programing primitives.",
-    "version": "0.1.1-wip",
+    "version": "0.1.1",
     "author": "reinisch.gui@gmail.com",
     "homepage": "https://github.com/rx-vdom#README.md",
     "main": "dist/rx-vdom.js",
@@ -31,7 +31,6 @@
         "@types/jest": "^29.5.4",
         "@types/node": "^22.9.0",
         "@types/webpack": "^5.28.5",
-        "@youwol/flux-view": "^1.2.0",
         "del-cli": "^5.1.0",
         "eslint": "9.14.0",
         "eslint-config-prettier": "9.1.0",

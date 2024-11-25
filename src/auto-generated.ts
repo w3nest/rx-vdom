@@ -24,7 +24,7 @@ const entries = {
 export const setup = {
     name:'rx-vdom',
         assetId:'cngtdmRvbQ==',
-    version:'0.1.1-wip',
+    version:'0.1.1',
     shortDescription:"Tiny library to render HTML documents using reactive programing primitives.",
     developerDocumentation:'https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=rx-vdom&tab=doc',
     npmPackage:'https://www.npmjs.com/package/rx-vdom',
@@ -70,7 +70,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `rx-vdom#0.1.1-wip~dist/rx-vdom/${entry.name}.js`
+            `rx-vdom#0.1.1~dist/rx-vdom/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
