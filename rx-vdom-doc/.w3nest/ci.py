@@ -2,8 +2,8 @@ import base64
 from pathlib import Path
 
 from w3nest.app.environment import Environment
-from w3nest.app.routers.projects import IPipelineFactory, BrowserApp, Execution, Link, BrowserAppGraphics
-from w3nest.pipelines.pipeline_typescript_weback_npm import pipeline, PipelineConfig, PublishConfig
+from w3nest.app.projects import IPipelineFactory, BrowserApp, Execution, Link, BrowserAppGraphics
+from w3nest.ci.ts_frontend import pipeline, PipelineConfig, PublishConfig
 from w3nest_client.context import Context
 
 
