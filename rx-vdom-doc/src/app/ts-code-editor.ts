@@ -1,6 +1,6 @@
-import { TypescriptModule } from '@youwol/rx-code-mirror-editors'
-import type { TsCodeEditorModule } from '@youwol/rx-code-mirror-editors'
-import { ChildrenLike, VirtualDOM } from '@youwol/rx-vdom'
+import { TypescriptModule } from '@w3nest/rx-code-mirror-editors'
+import type { TsCodeEditorModule } from '@w3nest/rx-code-mirror-editors'
+import { ChildrenLike, VirtualDOM } from 'rx-vdom'
 import { from } from 'rxjs'
 
 function initTsEnvironment() {

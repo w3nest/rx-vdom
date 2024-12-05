@@ -4,9 +4,11 @@ import {
     installCodeApiModule,
     installNotebookModule,
     Navigation,
-} from '@youwol/mkdocs-ts'
+} from 'mkdocs-ts'
 import { setup } from '../auto-generated'
 import { example1 } from './js-plaground-examples'
+import { firstValueFrom } from 'rxjs'
+import { logo } from './logo'
 
 const tableOfContent = Views.tocView
 
@@ -14,7 +16,7 @@ function decoration(icon: string) {
     return {
         icon: {
             tag: 'i' as const,
-            class: `fas ${icon} me-2`,
+            class: `fas ${icon}`,
         },
     }
 }
@@ -34,9 +36,11 @@ function fromMd(file: string) {
 }
 
 export const navigation: Navigation = {
-    name: 'Home',
+    name: 'Rx-vDOM',
     tableOfContent,
-    decoration: decoration('fa-home'),
+    decoration: {
+        icon: logo,
+    },
     html: fromMd('index.md'),
     '/how-to': {
         name: 'How to',
@@ -70,7 +74,9 @@ async function tutorialsNav(): Promise<Navigation> {
             placeholders,
         },
     }
-    await NotebookModule.SnippetEditorView.fetchCmDependencies$('javascript')
+    await firstValueFrom(
+        NotebookModule.SnippetEditorView.fetchCmDependencies$('javascript'),
+    )
     return {
         name: 'Tutorials',
         decoration: decoration('fa-graduation-cap'),
