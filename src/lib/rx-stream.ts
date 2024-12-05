@@ -136,7 +136,6 @@ export abstract class RxStreamChildren<TDomain> {
             orderOperator,
         }: Omit<ChildrenOptionsAppend<TDomain>, 'source$' | 'vdomMap'>,
     ) {
-        this.vDomMap = vDomMap
         this.sideEffects = sideEffects
         if (orderOperator) {
             this.orderOperator = orderOperator
