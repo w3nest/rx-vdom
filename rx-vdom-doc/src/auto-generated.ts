@@ -1,31 +1,31 @@
-
+/* eslint-disable */
 const runTimeDependencies = {
     "externals": {
-        "@youwol/mkdocs-ts": "^0.6.4",
-        "@youwol/rx-vdom": "^1.0.5",
-        "@youwol/webpm-client": "^3.0.0",
+        "@w3nest/webpm-client": "^0.1.2",
+        "mkdocs-ts": "^0.2.0",
+        "rx-vdom": "^0.1.2",
         "rxjs": "^7.5.6"
     },
     "includedInBundle": {}
 }
 const externals = {
-    "@youwol/mkdocs-ts": "window['@youwol/mkdocs-ts_APIv06']",
-    "@youwol/rx-vdom": "window['@youwol/rx-vdom_APIv1']",
-    "@youwol/webpm-client": "window['@youwol/webpm-client_APIv3']",
+    "@w3nest/webpm-client": "window['@w3nest/webpm-client_APIv01']",
+    "mkdocs-ts": "window['mkdocs-ts_APIv02']",
+    "rx-vdom": "window['rx-vdom_APIv01']",
     "rxjs": "window['rxjs_APIv7']"
 }
 const exportedSymbols = {
-    "@youwol/mkdocs-ts": {
-        "apiKey": "06",
-        "exportedSymbol": "@youwol/mkdocs-ts"
+    "@w3nest/webpm-client": {
+        "apiKey": "01",
+        "exportedSymbol": "@w3nest/webpm-client"
     },
-    "@youwol/rx-vdom": {
-        "apiKey": "1",
-        "exportedSymbol": "@youwol/rx-vdom"
+    "mkdocs-ts": {
+        "apiKey": "02",
+        "exportedSymbol": "mkdocs-ts"
     },
-    "@youwol/webpm-client": {
-        "apiKey": "3",
-        "exportedSymbol": "@youwol/webpm-client"
+    "rx-vdom": {
+        "apiKey": "01",
+        "exportedSymbol": "rx-vdom"
     },
     "rxjs": {
         "apiKey": "7",
@@ -36,9 +36,9 @@ const exportedSymbols = {
 const mainEntry : {entryFile: string,loadDependencies:string[]} = {
     "entryFile": "./main.ts",
     "loadDependencies": [
-        "@youwol/mkdocs-ts",
-        "@youwol/rx-vdom",
-        "@youwol/webpm-client",
+        "mkdocs-ts",
+        "rx-vdom",
+        "@w3nest/webpm-client",
         "rxjs"
     ]
 }
@@ -46,19 +46,19 @@ const mainEntry : {entryFile: string,loadDependencies:string[]} = {
 const secondaryEntries : {[k:string]:{entryFile: string, name: string, loadDependencies:string[]}}= {}
 
 const entries = {
-     '@youwol/rx-vdom-doc': './main.ts',
-    ...Object.values(secondaryEntries).reduce( (acc,e) => ({...acc, [`@youwol/rx-vdom-doc/${e.name}`]:e.entryFile}), {})
+     'rx-vdom-doc': './main.ts',
+    ...Object.values(secondaryEntries).reduce( (acc,e) => ({...acc, [`rx-vdom-doc/${e.name}`]:e.entryFile}), {})
 }
 export const setup = {
-    name:'@youwol/rx-vdom-doc',
-        assetId:'QHlvdXdvbC9yeC12ZG9tLWRvYw==',
-    version:'1.0.5-wip',
-    shortDescription:"Documentation app for the library @youwol/rx-vdom",
-    developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/rx-vdom-doc&tab=doc',
-    npmPackage:'https://www.npmjs.com/package/@youwol/rx-vdom-doc',
-    sourceGithub:'https://github.com/youwol/rx-vdom-doc',
-    userGuide:'https://l.youwol.com/doc/@youwol/rx-vdom-doc',
-    apiVersion:'1',
+    name:'rx-vdom-doc',
+        assetId:'cngtdmRvbS1kb2M=',
+    version:'0.1.2-wip',
+    shortDescription:"Documentation app for the library rx-vdom",
+    developerDocumentation:'https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=rx-vdom-doc&tab=doc',
+    npmPackage:'https://www.npmjs.com/package/rx-vdom-doc',
+    sourceGithub:'https://github.com/rx-vdom-doc',
+    userGuide:'',
+    apiVersion:'01',
     runTimeDependencies,
     externals,
     exportedSymbols,
@@ -69,7 +69,7 @@ export const setup = {
     },
 
     installMainModule: ({cdnClient, installParameters}:{
-        cdnClient:{install:(unknown) => Promise<WindowOrWorkerGlobalScope>},
+        cdnClient:{install:(_:unknown) => Promise<WindowOrWorkerGlobalScope>},
         installParameters?
     }) => {
         const parameters = installParameters || {}
@@ -83,12 +83,12 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/rx-vdom-doc_APIv1`]
+            return window[`rx-vdom-doc_APIv01`]
         })
     },
     installAuxiliaryModule: ({name, cdnClient, installParameters}:{
         name: string,
-        cdnClient:{install:(unknown) => Promise<WindowOrWorkerGlobalScope>},
+        cdnClient:{install:(_:unknown) => Promise<WindowOrWorkerGlobalScope>},
         installParameters?
     }) => {
         const entry = secondaryEntries[name]
@@ -98,7 +98,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@youwol/rx-vdom-doc#1.0.5-wip~dist/@youwol/rx-vdom-doc/${entry.name}.js`
+            `rx-vdom-doc#0.1.2-wip~dist/rx-vdom-doc/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
@@ -109,7 +109,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`@youwol/rx-vdom-doc/${entry.name}_APIv1`]
+            return window[`rx-vdom-doc/${entry.name}_APIv01`]
         })
     },
     getCdnDependencies(name?: string){
