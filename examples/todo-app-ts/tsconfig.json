@@ -1,0 +1,29 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "./dist",
+        "sourceMap": true,
+        "declaration": true,
+        "downlevelIteration": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2020",
+        "esModuleInterop": true,
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "lib": ["es5", "es6", "dom", "es2020"],
+        "typeRoots": ["./node_modules/@types"],
+        "paths": {
+            "@rxVDomConfig": ["./rx-vdom.config"]
+        },
+        "strictNullChecks": true
+    },
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    }
+
+}
