@@ -5,13 +5,13 @@
 You can install the library using npm:
 
 ```shell
-npm install @youwol/mkdocs-ts
+npm install rx-vdom
 ```
 
 Or using yarn:
 
 ```shell
-yarn add @youwol/mkdocs-ts
+yarn add rx-vdom
 ```
 
 ## From CDN
@@ -20,7 +20,7 @@ For a standalone example using a CDN, click <a href="{{URL-example-cdn}}" target
 
 # TypeScript Setup
 
-To use **@youwol/rx-vdom** in a TypeScript environment, create a `rx-vdom-config.ts` file at the root of your project
+To use **rx-vdom** in a TypeScript environment, create a `rx-vdom.config.ts` file at the root of your project
 (next to `tsconfig.json`). Here’s a typical configuration:
 
 <code-snippet language="javascript">
