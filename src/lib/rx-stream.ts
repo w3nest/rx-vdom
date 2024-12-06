@@ -87,10 +87,10 @@ export class RxStream<TDomain, TDom = TDomain> {
 export function instanceOfStream<TDomain, TDom = TDomain>(
     obj: unknown,
 ): obj is RxStream<TDomain, TDom> {
-    return (
-        obj !== undefined &&
-        (obj as RxStream<TDomain, TDom>).ClassType === 'Stream$'
-    )
+    if (!obj) {
+        return false
+    }
+    return (obj as RxStream<TDomain, TDom>).ClassType === 'Stream$'
 }
 
 /**
