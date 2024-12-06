@@ -1,0 +1,12 @@
+{
+    "name": "@rx-vdom/todo-app-js",
+    "version": "0.1.0-wip",
+    "main": "index.html",
+    "scripts": {
+        "qa": "yarn lint-check && yarn audit",
+        "lint-check": "yarn lint-prettier-check && yarn lint-eslint-check",
+        "lint-prettier-check": "npx prettier --check .",
+        "lint-prettier-write": "npx prettier --write .",
+        "lint-eslint-check": "npx eslint ."
+    }
+}
