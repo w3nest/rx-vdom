@@ -1,4 +1,4 @@
-# rx-vdom-doc
+# @rx-vdom/doc
 
 Documentation app for the library rx-vdom
 
@@ -7,15 +7,15 @@ This library is part of the hybrid cloud/local ecosystem
 
 ## Links
 
-[Running app.](https://platform.youwol.com/apps/rx-vdom-doc/latest)
+[Running app.](https://platform.youwol.com/apps/@rx-vdom/doc/latest)
 
 <!-- no user guide provided -->
 
-[Developers documentation](https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=rx-vdom-doc&tab=doc)
+[Developers documentation](https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=@rx-vdom/doc&tab=doc)
 
-[Package on npm](https://www.npmjs.com/package/rx-vdom-doc)
+[Package on npm](https://www.npmjs.com/package/@rx-vdom/doc)
 
-[Source on GitHub](https://github.com/rx-vdom-doc)
+[Source on GitHub](https://github.com/rx-vdom/doc)
 
 # Installation, Build, Test
 
@@ -77,7 +77,7 @@ Configuration(
             FlowSwitcherMiddleware(
                 name = 'front-end dev-servers',
                 oneOf = [
-                    WebpackDevServerSwitch(packageName="rx-vdom-doc", port=3027),
+                    WebpackDevServerSwitch(packageName="@rx-vdom/doc", port=3027),
                 ]
             )
         ]
@@ -89,7 +89,7 @@ Additional information on the `Configuration` class can be found in the "Configu
 [Py-YouWol guide](https://l.youwol.com/doc/py-youwol).
 
 Once Py-YouWol is running with the updated configuration,
-the application can be accessed from [here](http://localhost:2000/apps/rx-vdom-doc/latest)
+the application can be accessed from [here](http://localhost:2000/apps/@rx-vdom/doc/latest)
 (providing py-youwol running using the default port `2000`).
 
 ---

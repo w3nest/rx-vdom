@@ -1,9 +1,9 @@
 {
-    "name": "rx-vdom-doc",
+    "name": "@rx-vdom/doc",
     "description": "Documentation app for the library rx-vdom",
     "version": "0.1.2-wip",
     "author": "reinisch.gui@gmail.com",
-    "homepage": "https://github.com/rx-vdom-doc#README.md",
+    "homepage": "https://github.com/rx-vdom/doc#README.md",
     "main": "dist/index.html",
     "types": "src/index.ts",
     "scripts": {
@@ -19,14 +19,14 @@
         "lint-eslint-check": "eslint ./src",
         "test": "jest -i",
         "test-coverage": "jest -i --collect-coverage",
-        "doc": "typedoc && python .w3nest/doc.py",
+        "doc": "npx tsx .w3nest/doc.ts",
         "publish-npm-public": "yarn build:prod && yarn test-coverage && yarn publish --access public",
         "start": "webpack serve"
     },
     "dependencies": {
         "@w3nest/webpm-client": "^0.1.2",
-        "mkdocs-ts": "^0.2.0",
-        "rx-vdom": "file:.local-dependencies/rx-vdom-0.1.2-wip-1733391216.tgz",
+        "mkdocs-ts": "file:.local-dependencies/mkdocs-ts-0.2.1-wip-1733735265.tgz",
+        "rx-vdom": "file:.local-dependencies/rx-vdom-0.1.2-wip-1733735265.tgz",
         "rxjs": "^7.5.6"
     },
     "devDependencies": {
@@ -72,6 +72,7 @@
         "aliases": []
     },
     "resolutions": {
-        "rx-vdom": "file:.local-dependencies/rx-vdom-0.1.2-wip-1733391216.tgz"
+        "rx-vdom": "file:.local-dependencies/rx-vdom-0.1.2-wip-1733735265.tgz",
+        "mkdocs-ts": "file:.local-dependencies/mkdocs-ts-0.2.1-wip-1733735265.tgz"
     }
 }

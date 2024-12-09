@@ -7,7 +7,7 @@ export const router = new Router({
     navigation,
 })
 
-document.getElementById('content').appendChild(
+document.getElementById('content')?.appendChild(
     render(
         new Views.DefaultLayoutView({
             router,

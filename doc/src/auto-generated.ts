@@ -46,17 +46,17 @@ const mainEntry : {entryFile: string,loadDependencies:string[]} = {
 const secondaryEntries : {[k:string]:{entryFile: string, name: string, loadDependencies:string[]}}= {}
 
 const entries = {
-     'rx-vdom-doc': './main.ts',
-    ...Object.values(secondaryEntries).reduce( (acc,e) => ({...acc, [`rx-vdom-doc/${e.name}`]:e.entryFile}), {})
+     '@rx-vdom/doc': './main.ts',
+    ...Object.values(secondaryEntries).reduce( (acc,e) => ({...acc, [`@rx-vdom/doc/${e.name}`]:e.entryFile}), {})
 }
 export const setup = {
-    name:'rx-vdom-doc',
-        assetId:'cngtdmRvbS1kb2M=',
+    name:'@rx-vdom/doc',
+        assetId:'QHJ4LXZkb20vZG9j',
     version:'0.1.2-wip',
     shortDescription:"Documentation app for the library rx-vdom",
-    developerDocumentation:'https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=rx-vdom-doc&tab=doc',
-    npmPackage:'https://www.npmjs.com/package/rx-vdom-doc',
-    sourceGithub:'https://github.com/rx-vdom-doc',
+    developerDocumentation:'https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=@rx-vdom/doc&tab=doc',
+    npmPackage:'https://www.npmjs.com/package/@rx-vdom/doc',
+    sourceGithub:'https://github.com/rx-vdom/doc',
     userGuide:'',
     apiVersion:'01',
     runTimeDependencies,
@@ -83,7 +83,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`rx-vdom-doc_APIv01`]
+            return window[`@rx-vdom/doc_APIv01`]
         })
     },
     installAuxiliaryModule: ({name, cdnClient, installParameters}:{
@@ -98,7 +98,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `rx-vdom-doc#0.1.2-wip~dist/rx-vdom-doc/${entry.name}.js`
+            `@rx-vdom/doc#0.1.2-wip~dist/@rx-vdom/doc/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
@@ -109,7 +109,7 @@ export const setup = {
             modules,
             scripts,
         }).then(() => {
-            return window[`rx-vdom-doc/${entry.name}_APIv01`]
+            return window[`@rx-vdom/doc/${entry.name}_APIv01`]
         })
     },
     getCdnDependencies(name?: string){

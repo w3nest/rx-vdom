@@ -67,7 +67,6 @@ files = [
     ".npmignore",
     ".prettierignore",
     "package.json",
-    "tsconfig.json",
     "jest.config.ts",
     "webpack.config.ts",
     ]
