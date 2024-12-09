@@ -4,3 +4,5 @@ dist/docs
 src/tests
 rx-vdom-doc
 cdn.zip
+doc/
+examples/
