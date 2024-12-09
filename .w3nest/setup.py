@@ -25,7 +25,9 @@ in_bundle_deps = {
     "csstype": "^2.6.0",
     # `conditional-type-checks` is used to realize 'compile time' tests on type definitions
     # it is not in dev dependencies as we want it to be downloaded by consuming packages.
-    "conditional-type-checks": "^1.0.6"
+    "conditional-type-checks": "^1.0.6",
+    # json5 is used in bin/rx-vdom-init.js, also not in dev dependencies to have it available in consuming projects
+    "json5": "^2.2.3",
 }
 dev_deps = {
     "typedoc-plugin-mdn-links": "^3.1.0",
@@ -53,6 +55,9 @@ config = ProjectConfig(
     ),
     inPackageJson={
         "scripts":{ "lint-eslint-check": "eslint ./src/lib"},
+        "bin": {
+            "rx-vdom-init": "./bin/rx-vdom-init.js"
+        }
     }
 )
 

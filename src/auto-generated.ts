@@ -4,7 +4,8 @@ const runTimeDependencies = {
     "includedInBundle": {
         "@ungap/custom-elements": "1.2.0",
         "conditional-type-checks": "^1.0.6",
-        "csstype": "^2.6.0"
+        "csstype": "^2.6.0",
+        "json5": "^2.2.3"
     }
 }
 const externals = {}
