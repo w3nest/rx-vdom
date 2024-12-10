@@ -10,9 +10,9 @@ await setup.installMainModule({
         css: [
             'bootstrap#5.3.0~bootstrap.min.css',
             'fontawesome#5.12.1~css/all.min.css',
-            '@youwol/fv-widgets#latest~dist/assets/styles/style.youwol.css',
             `mkdocs-ts#${setup.runTimeDependencies.externals['mkdocs-ts']}~assets/mkdocs-light.css`,
             `mkdocs-ts#${setup.runTimeDependencies.externals['mkdocs-ts']}~assets/notebook.css`,
+            `mkdocs-ts#${setup.runTimeDependencies.externals['mkdocs-ts']}~assets/ts-typedoc.css`,
         ],
         displayLoadingScreen: true,
     },

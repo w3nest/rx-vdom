@@ -4,11 +4,13 @@ import {
     installCodeApiModule,
     installNotebookModule,
     Navigation,
+    GlobalMarkdownViews,
 } from 'mkdocs-ts'
 import { setup } from '../auto-generated'
 import { example1 } from './js-plaground-examples'
 import { firstValueFrom } from 'rxjs'
 import { logo } from './logo'
+import { apiLink, exampleHome, rxVDomSize } from './md-widgets'
 
 const tableOfContent = Views.tocView
 
@@ -26,13 +28,22 @@ const url = (restOfPath: string) => `../assets/${restOfPath}`
 const placeholders = {
     '{{project}}': 'rx-vdom',
     '{{rxvdom-version}}': setup.version,
-    '{{URL-example-cdn}}': `/applications/@youwol/js-playground/latest?content=${encodeURIComponent(example1)}`,
+    '{{URL-example-cdn}}': `/apps/@w3nest/play-js/latest?content=${encodeURIComponent(example1)}`,
+    '{{rx-vdom}}': '**`rx-vdom`**',
 }
 function fromMd(file: string) {
     return fromMarkdown({
         url: url(file),
         placeholders,
     })
+}
+GlobalMarkdownViews.factory = {
+    ...GlobalMarkdownViews.factory,
+    'rx-vdom-size': () => rxVDomSize(),
+    'example-home': () => exampleHome(),
+    'api-link': (elem: HTMLElement) => {
+        return apiLink(elem)
+    },
 }
 
 export const navigation: Navigation = {
