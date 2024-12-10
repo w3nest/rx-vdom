@@ -15,7 +15,6 @@ export const logo: AnyVirtualDOM = {
         },
         {
             tag: 'img',
-            class: 'mx-1',
             style: {
                 width: '25px',
                 height: '25px',
