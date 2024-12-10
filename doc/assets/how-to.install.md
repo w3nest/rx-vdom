@@ -8,7 +8,7 @@ You can install the library using npm:
 npm install rx-vdom
 ```
 
-Or using yarn:
+Or yarn:
 
 ```shell
 yarn add rx-vdom
@@ -16,43 +16,25 @@ yarn add rx-vdom
 
 ## From CDN
 
-For a standalone example using a CDN, click <a href="{{URL-example-cdn}}" target="_blank">here</a>.
+A standalone example using a CDN is available <a href="{{URL-example-cdn}}" target="_blank">here</a>.
 
 # TypeScript Setup
 
-To use **rx-vdom** in a TypeScript environment, create a `rx-vdom.config.ts` file at the root of your project
-(next to `tsconfig.json`). Here’s a typical configuration:
+To fully integrate {{rx-vdom}} with TypeScript, you need to set up a configuration file that the TypeScript
+compiler can reference. This file, `rx-vdom.config.ts`, should be added to your project and referenced in your 
+`tsconfig.json`.
 
-<code-snippet language="javascript">
-// For dev-mode change the following definition by anything else (e.g. type Mode = 'Dev')
-type Mode = 'Prod'
+After installing  {{rx-vdom}}, you can initialize the TypeScript configuration with a single command:
 
-// Union of all HTML tags
-type AllTags = keyof HTMLElementTagNameMap
+```shell
+yarn rx-vdom-init
+```
 
-// If Mode is not 'Prod', the next type union should include the tags used by your project.
-// It speeds up compilation time (only used HTML tags are considered, not the whole list defined by AllTags).
-type DevTags = 'div' // | 'span' | 'i' | 'h1' | ...
+<note level='hint'>
+The `rx-vdom.config.ts` file offers the opportunity to optimize compilation time by ensuring that only the HTML tags 
+you actually use are considered during the build process. 
+This helps speed up the compilation time. 
+By default, all the HTML tags are accounted.
+Feel free to explore the configuration file for more details.
 
-export type Configuration = {
-    TypeCheck: 'strict'
-    SupportedHTMLTags: Mode extends 'Prod' ? AllTags : DevTags
-}
-
-</code-snippet>
-
-This file helps control TypeScript compilation time regarding **rx-vdom** elements.
-
-You also need to reference the path of this file in your `tsconfig.json` file as follows:
-
-<code-snippet language="javascript">
-{
-    "compilerOptions": {
-        "paths": {
-            "@rxVDomConfig": ["./rx-vdom-config"]
-        }
-    }
-}
-</code-snippet>
-
-For more details or if you encounter compilation issues, visit the [typings](@nav/how-to/typings) page.
+</note>

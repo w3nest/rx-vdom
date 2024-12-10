@@ -3,27 +3,25 @@
 ## Introduction
 
 This page offers guidance on creating and structuring an application.
-We'll explore the classic example of a to-do application:
+We'll explore the classic example of a todos application:
 
 <cell-output cell-id='final'>
 </cell-output>
 
-You can also find a similar version using the <a href="https://vuejs.org/" target="_blank">Vue</a> library
-<a href='https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-todomvc?from-embed'
-   target='_blank'> here </a>, and a TypeScript version
-<a href='https://github.com/youwol/todo-app-ts/' target='blank'> here</a>.
+The <a target="_blank" href="https://github.com/w3nest/rx-vdom/tree/main/examples">GitHub repository</a> includes 
+the source code of the application as standalone projects, in JavaScript as well as Typescript.
 
 Let's begin by installing the necessary dependencies:
+
 <js-cell>
 const { rxDom, rxjs, httpClients } = await webpm.install({
     modules: [
-        '@youwol/rx-vdom#1.0.2-wip as rxDom', 
-        'rxjs#^7.5.6 as rxjs',
-        '@youwol/http-clients as httpClients'
+        'rx-vdom#{{rxvdom-version}} as rxDom', 
+        'rxjs#^7.5.6 as rxjs'
     ]
 });
-const storageClient =  new httpClients.CdnSessionsStorage.Client()
 const {
+    combineLatest,
     BehaviorSubject,
     skip,
     map,
@@ -31,15 +29,10 @@ const {
 } = rxjs
 </js-cell>
 
-<note level="info">
-The HTTP client is utilized to store items in a storage solution hosted in the YouWol cloud. 
-It's important to note that if you haven't registered with YouWol, there are no guarantees regarding the persistence
-duration of the data.
-</note>
 
 ## State
 
-In **rx-vdom**, the state of the application (i.e. business logic) is typically managed through observables,
+In {{rx-vdom}}, the state of the application (i.e. business logic) is typically managed through observables,
 consumed at any point in time as **`source$`** observables by the vDOM.
 This allows for a clear separation of concerns and helps to keep the code organized and easy to maintain.
 When a change occurs in the state of the application, the relevant observables emit new values,
@@ -50,69 +43,92 @@ comments:
 
 <js-cell>
 
-const storageKey = {packageName:'@youwol/todo-app-js', dataName: 'todo-list'}
+const Filter = {
+    ALL: 1,
+    ACTIVE: 2,
+    COMPLETED: 3,
+}
 
 class State {
     constructor() {            
-        // List of current todo items, each having 'id' (uid), 'name' & 'completed' properties 
-        this.__items$ = new BehaviorSubject([])
-        // The current filter: 'all' or 'completed' or 'active' (remaining)
-        this.__filter$ = new BehaviorSubject('all')   
-        // Readonly version of __items$
-        this.items$ = this.__items$.asObservable()
-        // Readonly version of __filter$
-        this.filter$ = this.__filter$.asObservable()
-        
-        // Initial list of items retrieved from HTTP call
-        storageClient.getData$(storageKey)
-            .subscribe( (d) => this.__items$.next(d.items || []))
-        
-        // When __items$ emit new item's list, they are saved using HTTP call.
-        this.items$.pipe(
-            skip(1),
-            switchMap( (items) =>
-                storageClient.postData$(
-                    Object.assign({}, storageKey, {body:{ items }})
-                )
-            )).subscribe()
-        
-        // Defines the 'completed$' observable from '__items$', 'true' if all items are done.
-        this.completed$ = this.items$.pipe(
-            map(items => items.reduce((acc, item) => acc && item.done, true))
-        )
-        // Defines the 'remaining$' observable from '__items$'
-        this.remaining$ = this.items$.pipe(
-            map(items => items.filter((item) => !item.done))
-        )
-        // Defines `filteredItem$` with respect to the current value of 'this.filter$'
-        const fct = {
-            all: () => true,
-            active: (i) => !i.done,
-            completed: (i) => i.done
+        const storageKey = '@rx-vdom/todo-app-js'
+        this.items$ = new BehaviorSubject([])
+        if (!localStorage.getItem(storageKey)) {
+            localStorage.setItem(storageKey, '[]')
         }
-        this.filteredItem$ = rxjs.combineLatest(this.items$, this.filter$).pipe(
-    	    map( ([items, filter]) => items.filter(fct[filter]))
+        this.items$.next(JSON.parse(localStorage.getItem(storageKey)))
+        this.items$.subscribe((items) => {
+            localStorage.setItem(storageKey, JSON.stringify(items))
+        })
+
+        this.completed$ = this.items$.pipe(
+            map((items) => items.reduce((acc, item) => acc && item.done, true)),
         )
-    }		
-    toggleAll() {
-        const completed = this.__items$.value.find( i => !i.done) == undefined
-        const items = this.__items$.value.map(i => Object.assign({}, i, {done: !completed}))
-        this.__items$.next(items)
+        this.remaining$ = this.items$.pipe(
+            map((items) => items.filter((item) => !item.done)),
+        )
+        this.filterMode$ = new BehaviorSubject(Filter.ALL)
+        this.filterFcts = {
+            [Filter.ALL]: () => true,
+            [Filter.ACTIVE]: (item) => !item.done,
+            [Filter.COMPLETED]: (item) => item.done,
+        }
+        this.selectedItems$ = combineLatest([
+            this.items$,
+            this.filterMode$,
+        ]).pipe(
+            map(([items, mode]) =>
+                items.filter((item) => this.filterFcts[mode](item)),
+            ),
+        )
     }
+
+    toggleAll() {
+        const completed = this.getItems().reduce(
+            (acc, item) => acc && item.done,
+            true,
+        )
+        this.items$.next(
+            this.getItems().map((item) => ({
+                id: item.id,
+                name: item.name,
+                done: !completed,
+            })),
+        )
+    }
+
     addItem(name) {
         const item = { id: Date.now(), name, completed: false }
-        this.__items$.next(this.__items$.value.concat([item]))
+        this.items$.next([...this.getItems(), item])
+        return item
     }
+
     deleteItem(id) {
-        this.__items$.next(this.__items$.value.filter(item => item.id !== id))
-    }		
-    updateItem(id, properties){
-        const items = this.__items$.value
-            .map(item => item.id === id ? Object.assign({}, item, properties) : item)
-        this.__items$.next(items)
+        this.items$.next(this.getItems().filter((item) => item.id !== id))
     }
-    setFilter(filter) {
-        this.__filter$.next(filter)
+
+    toggleItem(id) {
+        const items = this.getItems().map((item) =>
+            item.id === id
+                ? { id: item.id, name: item.name, done: !item.done }
+                : item,
+        )
+        this.items$.next(items)
+    }
+
+    setName(id, name) {
+        const items = this.getItems().map((item) =>
+            item.id === id ? { id: item.id, name, done: item.done } : item,
+        )
+        this.items$.next(items)
+    }
+
+    getItems() {
+        return this.items$.getValue()
+    }
+
+    setFilter(mode) {
+        this.filterMode$.next(mode)
     }
 }
 
@@ -122,12 +138,12 @@ display(state)
 
 Key points regarding the **`State`** definition:
 
-- It is independent of the views and does not consume any **`rx-vdom`** symbols.
+- It is independent of the views and does not consume any {{rx-vdom}} symbols.
   This promotes a clean separation of concerns, making the codebase easier to understand, maintain and test.
-- The state data is treated as immutable. Instead of directly modifying the state, methods like **`toggleAll`**,
-  **`addItem`**, **`deleteItem`**, and **`updateItem`** create new copies of the state with the desired modifications
-  and emit them through the **`__items$`** subject. This helps in avoiding unintended side effects and simplifies
-  reasoning about state changes.
+- The state data is treated as immutable. Instead of directly modifying the state, the methods **`toggleAll`**,
+  **`addItem`**, **`deleteItem`**, **`toggleItem`** and **`setName`** create new copies of the state with the desired
+  modifications and emit them through the **`__items$`** subject. This helps in avoiding unintended side effects and 
+  simplifies reasoning about state changes.
 
 With the application logic defined, let's proceed to designing the views.
 
@@ -141,7 +157,7 @@ state, resembling a REPL (Read-Eval-Print Loop) user experience, leveraging the 
 
 <js-cell>
 const titleView = (title) => ({
-    tag:'div', innerText: title, class:'text-info'
+    tag:'div', innerText: title, class:'text-primary'
 })
 const jsonItemView = (item) => ({
     tag: 'div',
@@ -176,8 +192,8 @@ display(vDOM)
 
 Here are a few examples of valid REPL expressions that can be entered:
 
-- **`state.toggleAll()`** (Toggles the completion status of all items)
 - **`state.addItem('foo')`** (Adds a new item with the name 'foo')
+- **`state.toggleAll()`** (Toggles the completion status of all items)
 
 ### Items View
 
@@ -185,63 +201,108 @@ Below are the definitions for displaying the list of items. Each item can be che
 its name can be modified (by double-clicking on it), and it can be deleted:
 
 <js-cell>
-const itemsView = (state) => ({
-    class:'d-flex flex-column',
-	children: {
-        policy: 'sync',
-        source$: state.filteredItem$,
-        vdomMap: (item) => itemView(item, state),
-        orderOperator: (a,b) => a.id - b.id
-    }
-})
-const itemView = ( item, state ) => {
-    const edited$ = new rxjs.BehaviorSubject(false)
-	const child$ = {
-        source$: edited$, 
-        vdomMap: (m) => m ? editView(item, state) : normalView(item, edited$), 
-        sideEffects: (rxElem) => rxElem.element.focus()
-    }
+
+const editionView = ({ item, state }) => {
     return {
-        tag:'header',
-        class:'d-flex align-items-center justify-content-between item-view',
-        children: [checkerView(item, state), child$, trashView(item, state)]
+        tag: 'input',
+        type: 'text',
+        class: 'edition-view',
+        value: item.name,
+        onclick: (ev) => {
+            ev.stopPropagation()
+        },
+        onkeydown: (ev) => {
+            const target = ev.target
+            if (ev.key === 'Enter') {
+                state.setName(item.id, target.value)
+            }
+        },
+        onblur: (ev) => {
+            const target = ev.target
+            state.setName(item.id, target.value)
+        },
     }
 }
-const editView = (item, state)=>({
-	tag: 'input', type: 'text', onclick: (ev) => ev.stopPropagation(),
-    onkeypress: (e) => { 
-        if(e.key=="Enter"){
-        	e.target.onblur = () => {}
-            state.updateItem( item.id, {name:e.target.value})
-        }},
-    onblur: (e) => state.updateItem(item.id, {name:e.target.value})
-})
+const presentationView = ({ item, editing$ }) => {
+    return {
+        tag: 'span',
+        class: `presentation-view px-2 user-select-none ${
+            item.done ? 'fv-text-disabled' : 'fv-text-focus'
+        }`,
+        style: { textDecoration: item.done ? 'line-through' : '' },
+        innerText: item.name,
+        ondblclick: () => {
+            editing$.next(true)
+        },
+    }
+}
+const itemView = ({ state, item }) => {
+    const editing$ = new BehaviorSubject(false)
+    const baseClass =
+        'btn btn-sm btn-light item-view-toggle border p-2 rounded-circle fv-text-success'
 
-const normalView = (item, edited$) => ({
-    tag:'span', innerText: item.name, 
-    class: `item-pres ${item.done ? 'text-muted' : 'text-dark'}`,
-    style: { 'text-decoration': item.done ? 'line-through' : ''},
-    ondblclick: () => edited$.next(true)
-})
+    return {
+        tag: 'span',
+        class: 'd-flex align-items-center my-1 justify-content-between fv-pointer',
+        children: [
+            {
+                tag: 'button',
+                class: baseClass + (item.done ? ' fas fa-check' : ''),
+                style: { width: '30px', height: '30px' },
+                onclick: () => {
+                    state.toggleItem(item.id)
+                },
+            },
+            {
+                source$: editing$,
+                vdomMap: (editing) =>
+                    editing
+                        ? editionView({ state, item })
+                        : presentationView({ item, editing$ }),
+                sideEffects: (rxElem) => {
+                    rxElem.element.focus()
+                },
+            },
+            {
+                tag: 'div',
+                class: 'item-view-remove btn btn-sm fas fa-times text-danger mx-2 p-1',
+                onclick: () => {
+                    state.deleteItem(item.id)
+                },
+            },
+        ],
+    }
+}
 
-const checkerView = ( item, state ) => ({
-    tag: 'div',
-    class: `border rounded-circle m-2 bg-light fv-pointer`,
-    style:{ width: '30px', height: '30px'},
-    onclick: () => state.updateItem( item.id, {done: !item.done}),
-    children: [{ class: item.done ? 'fas fa-check w-100 text-center text-success' : '' }]
-})
+const itemsView = ({ state, filterMode$ }) => {
+    const filters = {
+        All: () => true,
+        Active: (item) => !item.done,
+        Completed: (item) => item.done,
+    }
+    const selectedItems$ = combineLatest([state.items$, filterMode$]).pipe(
+        map(([items, mode]) => items.filter((item) => filters[mode](item))),
+    )
+    return {
+        tag: 'div',
+        class: 'border border-bottom-0 w-100 p-2 mx-auto overflow-auto',
+        style: {
+            minHeight: '200px',
+        },
+        children: {
+            policy: 'replace',
+            source$: selectedItems$,
+            vdomMap: (items) => items.map((item) => itemView({ item, state })),
+        },
+    }
+}
 
-const trashView = (item, state) => ({
-	tag:'i', class:'delete fas fa-times text-danger float-right px-3 fv-pointer',
-    onclick: () => state.deleteItem(item.id)
-})
-
+const filterMode$ = new BehaviorSubject('All')
 vDOM = {
     tag: 'div',
-    class:'rounded h-100 bg-light mx-auto',
+    class:'rounded mx-auto',
     children: [
-        itemsView(state)
+        itemsView({state, filterMode$})
     ]
 }
 
@@ -255,34 +316,47 @@ Below is the implementation of the header view, which allows users to add new it
 to mark all items as done or not done:
 
 <js-cell>
-
-const headerView = (state) => ({
-    tag:'header', class: 'header d-flex align-items-center mx-auto',
-    children:[ toggleAllView(state), newTaskView(state) ]
-})
-const toggleAllView = (state) => {
-    const base = 'fas fa-chevron-down p-2 text-secondary fv-pointer'
-    const f = { true:base+' text-dark', false: base+' text-disabled' }
+const newItemView = ({ state }) => {
     return {
-        tag: 'i', 
-        class: {
-        	source$: state.completed$,
-            vdomMap: (completed) => f[completed]
+        tag: 'header',
+        class: 'd-flex align-items-center my-3 justify-content-center',
+        style: {
+            fontSize: 'x-large',
         },
-        onclick: () => state.toggleAll() 
-	}
-}
-
-const newTaskView = (state) => ({
-    tag: 'input', autofocus: 'autofocus', autocomplete: 'off',
-    placeholder: "What needs to be done?", class: 'new-todo',
-    onkeypress: (ev) => { 
-        if(ev.key === "Enter") {
-            state.addItem(ev.target.value)  
-            ev.target.value = ""
-        }
+        children: [
+            {
+                tag: 'i',
+                class: {
+                    source$: state.completed$,
+                    vdomMap: (completed) =>
+                        completed ? 'btn-primary' : 'btn-light',
+                    wrapper: (d) =>
+                        `${d} new-item-view-toggle-all fas fa-chevron-down p-2 m-1 btn btn-sm rounded-circle`,
+                },
+                onclick: () => {
+                    state.toggleAll()
+                },
+            },
+            {
+                tag: 'input',
+                autofocus: true,
+                autocomplete: 'off',
+                placeholder: 'What needs to be done?',
+                class: 'new-item-input new-todo px-2 border-bottom',
+                style: {
+                    border: 'none',
+                    fontStyle: 'italic',
+                },
+                onkeydown: (ev) => {
+                    const target = ev.target
+                    if (ev.key === 'Enter') {
+                        state.addItem(target.value)
+                    }
+                },
+            },
+        ],
     }
-})
+}
 
 vDOM = {
     tag:'div',
@@ -290,9 +364,14 @@ vDOM = {
     children: [{
         tag: 'div',
         class: 'todo-app d-flex flex-column justify-content-center',
-        children: [ 
-            headerView(state), 
-            itemsView(state) 
+        children: [
+            {
+                tag: 'div',
+                class: 'h1 text-center my-3',
+                innerText: 'Todos',
+            }, 
+            newItemView({ state }),
+            itemsView({ state, filterMode$ }) 
         ]
     }]
 }
@@ -306,36 +385,70 @@ display(vDOM)
 To complete the application, let's add a footer:
 
 <js-cell>
+const footerView = ({ state, filterMode$ }) => {
 
-const footerView = (state) => ({
-    tag: 'div',
-	class:'d-flex align-items-center px-3 border-top py-2 text-secondary',
-	children:[remainingView(state), selectorsView(state)]
-})
-const remainingView = (state) => ({
-	tag: 'span',
-    innerText: {
-        source$: state.remaining$, 
-        vdomMap: (items) => items.length, 
-        wrapper: (d) => `${d} item${d > 1 ? 's' : ''} left`
-	}
-})
-const selectorsView = (state) => ({
-    tag: 'div',
-    class:'d-flex align-items-center mx-2 p-1 border ',
-	children:  ['all', 'active', 'completed']
-    	.map( name => filterView(state, name))
-})
-const filterView = (state, name) => ({
-    tag: 'div',
-    innerText:name,
-    class: {
-        source$: state.filter$,
-        vdomMap: (mode) => mode==name ? 'fv-text-focus': '',
-        wrapper: (d) => `${d} mx-2 fv-pointer `
-    },
-    onclick: () => state.setFilter(name)
-})
+    const toggleBtn = (target) => ({
+        tag: 'i',
+        innerText: target,
+        class: {
+            source$: filterMode$,
+            vdomMap: (mode) =>
+                mode === target ? 'rounded btn-primary' : 'btn-light',
+            wrapper: (d) => `${target} ${d} btn btn-sm mx-2`
+        },
+        onclick: () => {
+            filterMode$.next(target)
+        },
+    })
+    return {
+        tag: 'div',
+        class: 'd-flex align-items-center px-3 border py-2 text-secondary',
+        children: [
+            {
+                tag: 'span',
+                innerText: {
+                    source$: state.remaining$,
+                    vdomMap: (items) => `${String(items.length)} items left`,
+                },
+            },
+            {
+                tag: 'div',
+                class: 'd-flex align-items-center mx-auto',
+                children: [
+                    {
+                        tag: 'i',
+                        class: 'fas fa-filter px-2',
+                    },
+                    toggleBtn('All'),
+                    toggleBtn('Active'),
+                    toggleBtn('Completed')
+                ],
+            },
+        ],
+    }
+}
+
+const helpView = () => {
+    return {
+        tag: 'div',
+        class: 'my-3',
+        children: [
+            {
+                tag: 'p',
+                class: 'text-center',
+                innerText: 'Double-click on an item to edit',
+            },
+            {
+                tag: 'p',
+                class: 'text-center',
+                target: "_blank",
+                innerHTML:
+                    "This is a reproduction of the <a href='https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-todomvc?from-embed'>todos example of Vue</a>",
+            },
+        ],
+    }
+}
+
 vDOM = {
     tag:'div',
     class:'rounded p-2 w-100 fv-bg-primary',
@@ -343,10 +456,16 @@ vDOM = {
         {
             tag: 'div',
             class: 'todo-app d-flex flex-column justify-content-center',
-            children: [ 
-                headerView(state), 
-                itemsView(state), 
-                footerView(state) 
+            children: [
+                {
+                    tag: 'div',
+                    class: 'h1 text-center my-3',
+                    innerText: 'Todos',
+                }, 
+                newItemView({ state }),
+                itemsView({ state, filterMode$ }),
+                footerView({ state, filterMode$ }),
+                helpView()
             ]
 	    }
     ]

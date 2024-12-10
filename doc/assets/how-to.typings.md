@@ -19,7 +19,7 @@ a direct or indirect parent of the problematic node.
 ## HTML tag not recognized
 
 As explained on the [installation page](@nav/how-to/install), the TypeScript configuration of the library relies on a
-`rx-vdom-config.ts` file. This file defines all the supported HTML tags. Using `type Mode = 'Prod'` handles all HTML
+`rx-vdom.config.ts` file. This file defines all the supported HTML tags. Using `type Mode = 'Prod'` handles all HTML
 tags, while `type Mode = 'Dev'` restricts to a subset, speeding up compilation.
 
 If you are not using `Prod` mode and encounter obscure compilation errors, switch back to `Prod` mode.
@@ -28,41 +28,50 @@ The tags can usually be identified from the error messages.
 
 ## Type inference limitations
 
-TypeScript is generally good at inferring the recursive structure of VirtualDOM and the types of associated attributes.
-However, there are a couple of limitations.
+TypeScript is generally effective at inferring the recursive structure of the VirtualDOM and the types of 
+associated attributes. However, there are a few limitations that users may encounter.
+
 
 ### `vdomMap` argument inference
 
-A current limitation (as of TypeScript version 5.3.3) is the inability to infer the argument type of the `vdomMap`
-callback used to define reactive properties.
+One current limitation is the inability of TypeScript to correctly infer the argument type for the `vdomMap` callback, 
+which is used to define reactive properties within the VirtualDOM.
 
-<code-snippet language="javascript" highlightedLines="7">
+To help TypeScript infer the correct types, you should use the helper functions 
+<api-link target='attr$' kind='function'></api-link>, 
+<api-link target='child$' kind='function'></api-link>,
+<api-link target='replace$' kind='function'></api-link>, 
+<api-link target='append$' kind='function'></api-link>,
+<api-link target='sync$' kind='function'></api-link>.
+
+These functions are specifically designed to guide TypeScript's type inference, ensuring it correctly understands 
+the types in your code. Their purpose is solely type inferance, as their implementation reduced to just returns 
+`(d) => d`.
+
+
+For instance, instead (resulting in compile-time error):
+
+<code-snippet language="javascript" highlightedLines="2-7">
 const _: VirtualDOM<'div'> = {
     tag: 'div' as const,
-    // Pb: innerText is inferred as 
-    // RxAttribute<unknown, string> and not 
-    // RxAttribute<string, string>
     innerText: {
         source$: of('foo'),
+        // Below, m is inferred as 'unknown', 
+        // not compatible with 'string' as required for 'innerText'
         vdomMap: (m) => m,
     },
 }
 </code-snippet>
 
-<note level="warning" label="TS2322: Type 'unknown' is not assignable to type 'string'."></note>
+Use:
 
-This is because `innerText` should be string (as it should),
-while `m` is inferred as `unknown`.
-
-The simplest solution is to explict the type of `m`:
-
-<code-snippet language="javascript" highlightedLines="4">
+<code-snippet language="javascript" highlightedLines="2-5">
 const _: VirtualDOM<'div'> = {
     tag: 'div' as const,
-    innerText: {
+    innerText: attr$({
         source$: of('foo'),
-        vdomMap: (m: string) => m,
-    },
+        vdomMap: (m) => m, // m is inferred as 'string'
+    }),
 }
 </code-snippet>
 

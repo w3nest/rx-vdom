@@ -11,22 +11,23 @@ elastic, and message-driven systems. More information can be found
 This tutorial is in the form of notebook, allowing you to modify and run any cells.
 
 Let's start by installing the dependencies:
+
 <js-cell>
 const { rxDom, rxjs } = await webpm.install({
     modules: [
-        '@youwol/rx-vdom#1.0.2-wip as rxDom', 
+        'rx-vdom#{{rxvdom-version}} as rxDom', 
         'rxjs#^7.5.6 as rxjs'
     ]
 });
 </js-cell>
 Here:
 
-- **@youwol/rx-vdom** is the library we are talking about.
+- {{rx-vdom}} is the library we are talking about.
 - **rxjs** is the reactive programing engine, an implementation of <a href='https://reactivex.io/' target="_blank">
   Reactive X</a>.
 
 <note level="warning" label="Important">
-An appealing feature of **rx-vdom** is that the library **is not** required to define views,
+An appealing feature of {{rx-vdom}} is that the library **is not** required to define views,
 only to render them.
 </note>
 
@@ -40,7 +41,8 @@ The Observable model allows you to treat streams of asynchronous events with the
 operations that you use for collections of data items like arrays.
 </note>
 
-Virtual DOMs can be transformed into actual HTML elements using the [render](@nav/api.render) function.
+Virtual DOMs can be transformed into actual HTML elements using the 
+<api-link target="render" kind="function"></api-link> function.
 
 The following cell defines a simple (static) virtual DOM and renders it:
 
@@ -179,7 +181,8 @@ A convention is to suffix reactive variables with `$`.
 </note>
 
 Additional parameters such as `wrapper`, `untilFirst`, and `sideEffects` can be provided when defining a reactive
-attribute. More information can be found in the [RxAttribute](@nav/api.RxAttribute) API documentation.
+attribute. More information can be found in the <api-link target="RxAttribute" kind="interface"></api-link>
+API documentation.
 
 ## Rx Child
 
@@ -263,7 +266,7 @@ display(vDOM)
 </js-cell>
 
 Just like reactive attributes, reactive child also accepts attributes such as `untilFirst`, `wrapper` & `sideEffects`.
-More information can be found in [RxChild](@nav/api.RxChild) API documentation.
+More information can be found in <api-link target="RxChild" kind="interface"></api-link> API documentation.
 
 ## RxChildren
 
@@ -310,7 +313,7 @@ For the **`orderOperator`** to take effect, the parent container should have a `
 `flex` or `grid`.
 </note>
 
-Additional information can be found in the [ChildrenOptionsAppend](@nav/api.ChildrenOptionsAppend)
+Additional information can be found in the <api-link target="ChildrenOptionsAppend" kind="interface"></api-link>
 API documentation.
 
 ### Replace Policy
@@ -375,7 +378,7 @@ Here, it is the responsibility of the caller to sort the items within the **`vdo
 There is no **`orderOperator`** attribute available.
 </note>
 
-Additional information can be found in the [ChildrenOptionsReplace](@nav/api.ChildrenOptionsReplace)
+Additional information can be found in the <api-link target="ChildrenOptionsReplace" kind="interface"></api-link>
 API documentation.
 
 ### Sync Policy
@@ -419,7 +422,7 @@ The output is very similar to the previous example, with the following key diffe
 - The **`orderOperator`** option is available to control the display order, which is applicable only for flex or
   grid layouts.
 
-Additional information can be found in the [ChildrenOptionsSync](@nav/api.ChildrenOptionsSync)
+Additional information can be found in the <api-link target="ChildrenOptionsSync" kind="interface"></api-link>
 API documentation.
 
 ## HTMLElement & Lifecycle
@@ -431,11 +434,12 @@ HTMLElement is added to or removed from the page.
 For such scenario, virtual DOMs can define the functions:
 
 - **`connectedCallback`** : This function is executed when the HTMLElement is added to the page.
-  It takes an [RxHTMLElement](@nav/api.RxHTMLElement) as an argument, implementing the regular HTMLElement API
-  for the corresponding tag. Additionally, this type implements a [ReactiveTrait](@nav/api.ReactiveTrait) 
+  It takes an <api-link target="RxHTMLElement" kind="type-alias"></api-link> as an argument, implementing the regular 
+  HTMLElement API for the corresponding tag. 
+  Additionally, this type implements a <api-link target="ReactiveTrait" kind="function"></api-link>
   providing helper methods like `ownSubscriptions` and `hookOnDisconnected` to simplify lifecycle management.
 - **`disconnectedCallback`**: This function is executed when the HTMLElement is removed from the page.
-  It also receives the associated element as an [RxHTMLElement](@nav/api.RxHTMLElement).
+  It also receives the associated element as an  <api-link target="RxHTMLElement" kind="type-alias"></api-link>.
   This function is typically used to clean up resources.
 
 The following example demonstrates the usage of `connectedCallback`, `disconnectedCallback`, and lifecycle management 
