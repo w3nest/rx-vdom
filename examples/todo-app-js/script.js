@@ -243,11 +243,18 @@ function newItemView({ state }) {
 }
 
 function footerView({ state, filterMode$ }) {
-    const class$ = (target) => ({
-        source$: filterMode$,
-        vdomMap: (mode) =>
-            mode === target ? 'rounded btn-primary' : 'btn-light',
-        wrapper: (d) => `${target} ${d} btn btn-sm mx-2`,
+    const toggleBtn = (target) => ({
+        tag: 'i',
+        innerText: target,
+        class: {
+            source$: filterMode$,
+            vdomMap: (mode) =>
+                mode === target ? 'rounded btn-primary' : 'btn-light',
+            wrapper: (d) => `${target} ${d} btn btn-sm mx-2`,
+        },
+        onclick: () => {
+            filterMode$.next(target)
+        },
     })
     return {
         tag: 'div',
@@ -268,30 +275,9 @@ function footerView({ state, filterMode$ }) {
                         tag: 'i',
                         class: 'fas fa-filter px-2',
                     },
-                    {
-                        tag: 'i',
-                        innerText: 'All',
-                        class: class$('All'),
-                        onclick: () => {
-                            filterMode$.next('All')
-                        },
-                    },
-                    {
-                        tag: 'i',
-                        innerText: 'Active',
-                        class: class$('Active'),
-                        onclick: () => {
-                            filterMode$.next('Active')
-                        },
-                    },
-                    {
-                        tag: 'i',
-                        innerText: 'Completed',
-                        class: class$('Completed'),
-                        onclick: () => {
-                            filterMode$.next('Completed')
-                        },
-                    },
+                    toggleBtn('All'),
+                    toggleBtn('Active'),
+                    toggleBtn('Completed'),
                 ],
             },
         ],
