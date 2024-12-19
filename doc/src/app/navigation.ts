@@ -1,6 +1,5 @@
 import {
     fromMarkdown,
-    Views,
     installCodeApiModule,
     installNotebookModule,
     Navigation,
@@ -11,8 +10,6 @@ import { example1 } from './js-plaground-examples'
 import { firstValueFrom } from 'rxjs'
 import { logo } from './logo'
 import { apiLink, exampleHome, rxVDomSize } from './md-widgets'
-
-const tableOfContent = Views.tocView
 
 function decoration(icon: string) {
     return {
@@ -48,25 +45,33 @@ GlobalMarkdownViews.factory = {
 
 export const navigation: Navigation = {
     name: 'Rx-vDOM',
-    tableOfContent,
+    layout: {
+        kind: 'default',
+        content: fromMd('index.md'),
+    },
     decoration: {
         icon: logo,
     },
-    html: fromMd('index.md'),
     '/how-to': {
         name: 'How to',
         decoration: decoration('fa-question-circle'),
-        tableOfContent,
-        html: fromMd('how-to.md'),
+        layout: {
+            kind: 'default',
+            content: fromMd('how-to.md'),
+        },
         '/install': {
             name: 'Install',
-            tableOfContent,
-            html: fromMd('how-to.install.md'),
+            layout: {
+                kind: 'default',
+                content: fromMd('how-to.install.md'),
+            },
         },
         '/typings': {
             name: 'Typings',
-            tableOfContent,
-            html: fromMd('how-to.typings.md'),
+            layout: {
+                kind: 'default',
+                content: fromMd('how-to.typings.md'),
+            },
         },
     },
     '/tutorials': tutorialsNav(),
@@ -91,32 +96,38 @@ async function tutorialsNav(): Promise<Navigation> {
     return {
         name: 'Tutorials',
         decoration: decoration('fa-graduation-cap'),
-        tableOfContent,
-        html: ({ router }) =>
-            new NotebookModule.NotebookPage({
-                url: url('tutorials.md'),
-                router,
-                options: notebookOptions,
-            }),
-        '/basics': {
-            name: 'Getting started',
-            tableOfContent,
-            html: ({ router }) =>
+        layout: {
+            kind: 'default',
+            content: ({ router }) =>
                 new NotebookModule.NotebookPage({
-                    url: url('tutorials.basics.md'),
+                    url: url('tutorials.md'),
                     router,
                     options: notebookOptions,
                 }),
         },
+        '/basics': {
+            name: 'Getting started',
+            layout: {
+                kind: 'default',
+                content: ({ router }) =>
+                    new NotebookModule.NotebookPage({
+                        url: url('tutorials.basics.md'),
+                        router,
+                        options: notebookOptions,
+                    }),
+            },
+        },
         '/todo': {
             name: 'ToDo app.',
-            tableOfContent,
-            html: ({ router }) =>
-                new NotebookModule.NotebookPage({
-                    url: url('tutorials.todo.md'),
-                    router,
-                    options: notebookOptions,
-                }),
+            layout: {
+                kind: 'default',
+                content: ({ router }) =>
+                    new NotebookModule.NotebookPage({
+                        url: url('tutorials.todo.md'),
+                        router,
+                        options: notebookOptions,
+                    }),
+            },
         },
     }
 }
@@ -126,7 +137,11 @@ async function apiNav(): Promise<Navigation> {
     return {
         ...CodeApiModule.codeApiEntryNode({
             name: 'API',
-            decoration: decoration('fa-code'),
+            layoutKind: 'default',
+            icon: {
+                tag: 'i' as const,
+                class: `fas fa-code`,
+            },
             entryModule: 'rx-vdom',
             docBasePath: '../assets/api',
             configuration: CodeApiModule.configurationTsTypedoc,
