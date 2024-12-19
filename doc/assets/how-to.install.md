@@ -4,21 +4,21 @@
 
 You can install the library using npm:
 
-```shell
-npm install rx-vdom
-```
+`npm install rx-vdom`
 
 Or yarn:
 
-```shell
-yarn add rx-vdom
-```
+`yarn add rx-vdom`
+
+--- 
 
 ## From CDN
 
 A standalone example using a CDN is available <a href="{{URL-example-cdn}}" target="_blank">here</a>.
 
-# TypeScript Setup
+--- 
+
+## TypeScript Setup
 
 To fully integrate {{rx-vdom}} with TypeScript, you need to set up a configuration file that the TypeScript
 compiler can reference. This file, `rx-vdom.config.ts`, should be added to your project and referenced in your 

@@ -11,8 +11,10 @@ Key features of the library include:
 
 - **Compact Size & Dependency-Free:** The compressed bundle size is <rx-vdom-size></rx-vdom-size>. Reactivity,
   usually with [RxJS](https://rxjs.dev/), is opt-in by the consumer.
+
 - **Simple & Consistent API:** The API is minimal, building directly on standard HTML and reactive programming
   principles.
+
 - **Type Safety:** Supported by the strongly-typed <api-link target='VirtualDOM' kind='type-alias'></api-link> structure,
   it provides robust type checking and inline guidance within a TypeScript environment.
 
@@ -74,7 +76,10 @@ to address a wide range of scenarios effectively.
 ## Learn More
 
 *  Dive into the [tutorial](@nav/tutorials/basics) to get started.
+
 *  Check out the  [how-to](@nav/how-to) section for guidance on installation and usage within TypeScript environments.
+
 *  Explore the [API documentation](@nav/api) for details about the library's capabilities. 
+
 *  Find examples like a fully functional "todos" application (in JavaScript and TypeScript) on 
    <a target="_blank" href="https://github.com/w3nest/rx-vdom/tree/main/examples">GitHub</a>.

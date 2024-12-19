@@ -4,6 +4,7 @@ import {
     installNotebookModule,
     Navigation,
     GlobalMarkdownViews,
+    DefaultLayout,
 } from 'mkdocs-ts'
 import { setup } from '../auto-generated'
 import { example1 } from './js-plaground-examples'
@@ -51,6 +52,7 @@ export const navigation: Navigation = {
     },
     decoration: {
         icon: logo,
+        wrapperClass: `${DefaultLayout.NavigationNodeHeader.DefaultWrapperClass} border-bottom p-1`,
     },
     '/how-to': {
         name: 'How to',

@@ -1,6 +1,13 @@
-import { AnyVirtualDOM, attr$ } from 'rx-vdom'
+import {
+    AnyVirtualDOM,
+    attr$,
+    ChildrenLike,
+    CSSAttribute,
+    VirtualDOM,
+} from 'rx-vdom'
 import { setup } from '../auto-generated'
 import { from, timer } from 'rxjs'
+import { MdWidgets } from 'mkdocs-ts'
 
 export function rxVDomSize(): AnyVirtualDOM {
     const url = `/api/assets-gateway/webpm/resources/${window.btoa('rx-vdom')}/${setup.version}/dist/rx-vdom.js`
@@ -69,5 +76,45 @@ export function apiLink(elem: HTMLElement): AnyVirtualDOM {
                 },
             },
         ],
+    }
+}
+
+export class NavHeaderView implements VirtualDOM<'div'> {
+    public readonly tag = 'div'
+    public readonly class = 'd-flex align-items-center justify-content-center'
+    public readonly children: ChildrenLike
+    public readonly style: CSSAttribute
+
+    constructor(params: { topStickyPaddingMax: string }) {
+        this.style = {
+            height: params.topStickyPaddingMax,
+        }
+        this.children = [
+            {
+                tag: 'a',
+                class: 'mx-2',
+                href: 'https://github.com/w3nest/rx-vdom',
+                children: [
+                    {
+                        ...MdWidgets.githubIcon,
+                        style: {
+                            filter: 'invert(1)',
+                        },
+                    },
+                ],
+            },
+            {
+                tag: 'a',
+                class: 'mx-2',
+                href: 'https://www.npmjs.com/package/rx-vdom',
+                children: [MdWidgets.npmIcon],
+            },
+            {
+                tag: 'a',
+                class: 'mx-2',
+                href: 'https://github.com/w3nest/rx-vdom/blob/main/doc/LICENSE',
+                children: [MdWidgets.mitIcon],
+            },
+        ]
     }
 }
