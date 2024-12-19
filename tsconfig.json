@@ -25,5 +25,5 @@
             "module": "CommonJS"
         }
     },
-    "exclude": ["./rx-vdom-doc"],
+    "exclude": ["./doc", "./dist"],
 }
