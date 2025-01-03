@@ -436,7 +436,7 @@ function registerElement<Tag extends SupportedHTMLTags>(
 export function register() {
     if (customElements.get(`${customElementPrefix}-placeholder`)) {
         console.warn(
-            `@youwol/rx-vdom with api version ${setup.apiVersion} has already defined custom elements`,
+            `rx-vdom with api version ${setup.apiVersion} has already defined custom elements`,
         )
         return
     }

@@ -25,9 +25,7 @@ type _ConfigSupportedHTMLTagsOK = Assert<
     >
 >
 
-export const customElementPrefix = `${setup.name.split('/')[1]}-${
-    setup.apiVersion
-}`
+export const customElementPrefix = `${setup.name}-${setup.apiVersion}`
 
 /**
  *

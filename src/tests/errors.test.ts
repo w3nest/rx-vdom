@@ -45,7 +45,7 @@ test('wrong children type', () => {
 test('double register call does not break', () => {
     expect(() => register()).not.toThrow()
     expect(warnings[0]).toBe(
-        `@youwol/rx-vdom with api version ${setup.apiVersion} has already defined custom elements`,
+        `rx-vdom with api version ${setup.apiVersion} has already defined custom elements`,
     )
 })
 
