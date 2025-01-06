@@ -122,10 +122,6 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
                 string,
                 Exclude<AttributeLike<AnyHTMLAttribute>, undefined>,
             ]) => {
-                if (instanceOfStream(attribute)) {
-                    // This is when the method 'child$' of '@youwol/flux-view' is used
-                    return [k, attribute as RxStream<unknown, AnyHTMLAttribute>]
-                }
                 if (isInstanceOfObservable(attribute)) {
                     return [
                         k,
@@ -160,10 +156,6 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
     if (Array.isArray(vDom.children)) {
         const children = vDom.children
             .map((child: ChildLike) => {
-                if (instanceOfStream(child)) {
-                    // This is when the method 'child$' of '@youwol/flux-view' is used
-                    return child as RxStream<unknown, AnyVirtualDOM>
-                }
                 if (isInstanceOfRxChild(child)) {
                     return new RxStream<unknown, AnyVirtualDOM>(
                         child.source$,
@@ -179,20 +171,6 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
             })
             .filter((c) => c !== undefined)
         return { attributes, children }
-    }
-    if (instanceOfStream(vDom.children)) {
-        // This is when the method 'children$' of '@youwol/flux-view' is used
-        return {
-            attributes,
-            children: vDom.children as RxStream<unknown, AnyVirtualDOM[]>,
-        }
-    }
-    if (instanceOfChildrenStream(vDom.children)) {
-        // This is when the method 'childrenAppendOnly$' or `childrenFromStore` of '@youwol/flux-view' are used
-        return {
-            attributes,
-            children: vDom.children as RxStreamChildren<unknown>,
-        }
     }
     if (!isInstanceOfRxChildren(vDom.children)) {
         console.error('Type of children unknown', vDom.children)
