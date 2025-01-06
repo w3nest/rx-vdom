@@ -1,7 +1,7 @@
 # Getting Started
 
 <note level="hint" label="Forewords">
-Learning to use rx-vdom essentially narrow down to learning reactive programming. 
+Learning to use {{rx-vdom}} essentially narrow down to learning reactive programming. 
 Reactive programming can be challenging at first with a steep learning curve. 
 However, it has broad applications as it is a declarative programming paradigm designed to model responsive, resilient, 
 elastic, and message-driven systems. More information can be found 
@@ -23,6 +23,7 @@ const { rxDom, rxjs } = await webpm.install({
 Here:
 
 - {{rx-vdom}} is the library we are talking about.
+
 - **rxjs** is the reactive programing engine, an implementation of <a href='https://reactivex.io/' target="_blank">
   Reactive X</a>.
 
@@ -60,34 +61,24 @@ const htmlElement = rxDom.render(vDOM)
 display(htmlElement)
 </js-cell>
 
-Virtual DOMs are represented as JavaScript objects that mimic HTMLElements:
+Virtual DOMs are represented as JavaScript objects that mimic HTML elements:
 
 - They exhibit a hierarchical parent-child structure.
+
 - Each element type is defined by its HTML tag.
+
 - They expose the attributes of corresponding HTMLElement for the given tag.
 
-In addition to regular HTMLElement, they introduce additional lifecycle hooks when the virtual DOM is added
+In addition to regular `HTMLElement`, they introduce additional lifecycle hooks when the virtual DOM is added
 or removed from the rendered page.
 
+Reactivity is achieved by defining parts of the Virtual DOM using a JavaScript object bound to an observable
+(called **`source$`**) and defining a mapping function (called **`vdomMap`**).
+
 <note level='hint' >
-It is possible to include regular HTMLElements as children of a virtual DOM (within the `children` attribute).
+It is possible to include regular `HTMLElement` as children of a virtual DOM (within the `children` attribute).
 This allows for the integration of views created by other libraries within VirtualDOMs.
 </note>
-
-Reactivity is achieved by defining parts of the Virtual DOM using a JavaScript object with the following form:
-
-```typescript
-{
-    source$: Observable<T>,
-    vdomMap: (data: T) => Attribute | Child | Children
-}
-```
-
-where:
-
-- **source$** is the observable that emits data of type `T`, referred to as **domain data**,
-  which are part of the application's logic.
-- **vdomMap** is the function that converts domain data `T` to a view element.
 
 In the following sections, different uses of reactivity to define either attributes, a child, or children are provided.
 The examples are based on the following domain data object:
@@ -229,7 +220,7 @@ Defining a reactive child uses the same API as a reactive attribute, with the di
 function returns a VirtualDOM.
 
 <note level='hint'>
-when defining style attribute, the keys can be provided either using their standard names
+When defining style attribute, the keys can be provided either using their standard names
 (*e.g.* `'font-weight'`) or their camel case versions (like here, `'fontWeight'`).
 </note>
 
