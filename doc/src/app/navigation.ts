@@ -5,6 +5,7 @@ import {
     Navigation,
     GlobalMarkdownViews,
     DefaultLayout,
+    segment,
 } from 'mkdocs-ts'
 import { setup } from '../auto-generated'
 import { example1 } from './js-plaground-examples'
@@ -44,43 +45,45 @@ GlobalMarkdownViews.factory = {
     },
 }
 
-export const navigation: Navigation = {
+type AppNav = Navigation<DefaultLayout.NavLayout, DefaultLayout.NavHeader>
+
+export const navigation: AppNav = {
     name: 'Rx-vDOM',
     layout: {
-        kind: 'default',
         content: fromMd('index.md'),
     },
-    decoration: {
+    header: {
         icon: logo,
-        wrapperClass: `${DefaultLayout.NavigationNodeHeader.DefaultWrapperClass} border-bottom p-1`,
+        wrapperClass: `${DefaultLayout.NavHeaderView.DefaultWrapperClass} border-bottom p-1`,
     },
-    '/how-to': {
-        name: 'How to',
-        decoration: decoration('fa-question-circle'),
-        layout: {
-            kind: 'default',
-            content: fromMd('how-to.md'),
-        },
-        '/install': {
-            name: 'Install',
+    routes: {
+        [segment('/how-to')]: {
+            name: 'How to',
+            header: decoration('fa-question-circle'),
             layout: {
-                kind: 'default',
-                content: fromMd('how-to.install.md'),
+                content: fromMd('how-to.md'),
+            },
+            routes: {
+                [segment('/install')]: {
+                    name: 'Install',
+                    layout: {
+                        content: fromMd('how-to.install.md'),
+                    },
+                },
+                [segment('/typings')]: {
+                    name: 'Typings',
+                    layout: {
+                        content: fromMd('how-to.typings.md'),
+                    },
+                },
             },
         },
-        '/typings': {
-            name: 'Typings',
-            layout: {
-                kind: 'default',
-                content: fromMd('how-to.typings.md'),
-            },
-        },
+        '/tutorials': tutorialsNav(),
+        '/api': apiNav(),
     },
-    '/tutorials': tutorialsNav(),
-    '/api': apiNav(),
 }
 
-async function tutorialsNav(): Promise<Navigation> {
+async function tutorialsNav(): Promise<AppNav> {
     const NotebookModule = await installNotebookModule()
     const notebookOptions = {
         runAtStart: true,
@@ -97,9 +100,8 @@ async function tutorialsNav(): Promise<Navigation> {
     )
     return {
         name: 'Tutorials',
-        decoration: decoration('fa-graduation-cap'),
+        header: decoration('fa-graduation-cap'),
         layout: {
-            kind: 'default',
             content: ({ router }) =>
                 new NotebookModule.NotebookPage({
                     url: url('tutorials.md'),
@@ -107,39 +109,38 @@ async function tutorialsNav(): Promise<Navigation> {
                     options: notebookOptions,
                 }),
         },
-        '/basics': {
-            name: 'Getting started',
-            layout: {
-                kind: 'default',
-                content: ({ router }) =>
-                    new NotebookModule.NotebookPage({
-                        url: url('tutorials.basics.md'),
-                        router,
-                        options: notebookOptions,
-                    }),
+        routes: {
+            [segment('/basics')]: {
+                name: 'Getting started',
+                layout: {
+                    content: ({ router }) =>
+                        new NotebookModule.NotebookPage({
+                            url: url('tutorials.basics.md'),
+                            router,
+                            options: notebookOptions,
+                        }),
+                },
             },
-        },
-        '/todo': {
-            name: 'ToDo app.',
-            layout: {
-                kind: 'default',
-                content: ({ router }) =>
-                    new NotebookModule.NotebookPage({
-                        url: url('tutorials.todo.md'),
-                        router,
-                        options: notebookOptions,
-                    }),
+            [segment('/todo')]: {
+                name: 'ToDo app.',
+                layout: {
+                    content: ({ router }) =>
+                        new NotebookModule.NotebookPage({
+                            url: url('tutorials.todo.md'),
+                            router,
+                            options: notebookOptions,
+                        }),
+                },
             },
         },
     }
 }
-async function apiNav(): Promise<Navigation> {
+async function apiNav(): Promise<AppNav> {
     const CodeApiModule = await installCodeApiModule()
 
     return {
         ...CodeApiModule.codeApiEntryNode({
             name: 'API',
-            layoutKind: 'default',
             icon: {
                 tag: 'i' as const,
                 class: `fas fa-code`,
@@ -148,7 +149,7 @@ async function apiNav(): Promise<Navigation> {
             docBasePath: '../assets/api',
             configuration: CodeApiModule.configurationTsTypedoc,
         }),
-        // Explicitly set no children (no sub-modules).
-        '...': undefined,
+        // Explicitly set no children.
+        routes: undefined,
     }
 }
