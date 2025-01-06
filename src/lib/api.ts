@@ -104,7 +104,6 @@ export type ChildrenLike =
  * API for the `append` policy of {@link RxChildren}.
  *
  * This type defines the options available for appending children when the `append` policy is used.
- * Examples can be found [here](https://github.com/youwol/rx-vdom/blob/main/src/tests/rx-children-append.test.ts).
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
@@ -150,7 +149,6 @@ export interface ChildrenOptionsAppend<TDomain> {
  * API for the `replace` policy of {@link RxChildren}.
  *
  * This type defines the options available for replacing children when the `replace` policy is used.
- * Examples can be found [here](https://github.com/youwol/rx-vdom/blob/main/src/tests/rx-children-replace.test.ts).
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
@@ -195,7 +193,6 @@ export interface ChildrenOptionsReplace<TDomain> {
  * API for the `sync` policy of {@link RxChildren}.
  *
  * This type defines the options available for synchronizing children when the `sync` policy is used.
- * Examples can be found [here](https://github.com/youwol/rx-vdom/blob/main/src/tests/rx-children-sync.test.ts).
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  */
@@ -361,10 +358,7 @@ export interface ResolvedHTMLElement<
 }
 
 /**
- * Full specification of a reactive attribute in a virtual DOM context.
- *
- * Examples can be found in the test suite
- * [here](https://github.com/youwol/rx-vdom/blob/main/src/tests/rx-attributes.test.ts).
+ * Specification of a reactive attribute.
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  * @template Target The type of the target attribute, which can be one of the following:
@@ -418,13 +412,7 @@ export interface RxAttribute<
 }
 
 /**
- * Full specification of a reactive child component.
- *
- * <note level="hint">
- * If the `vdomMap` or `wrapper` attributes return `undefined`, no `HTMLElement` will be produced.
- * </note>
- *
- * For examples, see [here](https://github.com/youwol/rx-vdom/blob/main/src/tests/rx-child.test.ts).
+ * Specification of a reactive child component.
  *
  * @template TDomain The type of the domain data conveyed by the `source$` observable.
  * @template TVdomMap The type of the virtual DOM returned by the `vdomMap` function.
