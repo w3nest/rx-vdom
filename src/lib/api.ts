@@ -311,6 +311,11 @@ export type NativeHTMLElement<Tag extends SupportedHTMLTags> =
     HTMLElementTagNameMap[Tag]
 
 /**
+ * Type definition of {@link VirtualDOM} rendering hooks.
+ */
+export type RenderHook = (elem: RxHTMLElement<SupportedHTMLTags>) => void
+
+/**
  * Describes the changes made to DOM elements when using {@link RxChildren}
  * with the `append` or `sync` policies.
  *

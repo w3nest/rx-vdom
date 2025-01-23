@@ -19,6 +19,7 @@ import {
     ChildLike,
     ChildrenPolicy,
     Observable,
+    RenderHook,
     RxAttribute,
     RxChild,
     RxChildren,
@@ -30,11 +31,14 @@ import { setup } from '../auto-generated'
 class HTMLPlaceHolderElement extends HTMLElement {
     private currentElement: HTMLElement
 
-    initialize(stream$: RxStream<unknown, AnyVirtualDOM>): Subscription {
+    initialize(
+        stream$: RxStream<unknown, AnyVirtualDOM>,
+        onRender?: RenderHook[],
+    ): Subscription {
         this.currentElement = this
 
         const apply = (vDom: AnyVirtualDOM): HTMLElement => {
-            const div = render(vDom)
+            const div = render(vDom, onRender)
             this.currentElement.replaceWith(div)
             this.currentElement = div
             return div
@@ -303,7 +307,10 @@ export function ReactiveTrait<
 
             if (instanceOfChildrenStream(children)) {
                 this.subscriptions.push(
-                    children.subscribe(this as unknown as RxHTMLElement<Tag>),
+                    children.subscribe(
+                        this as unknown as RxHTMLElement<Tag>,
+                        this.vDom.onRender,
+                    ),
                 )
             }
             this.vDom.connectedCallback?.(this as unknown as RxHTMLElement<Tag>)
@@ -335,12 +342,14 @@ export function ReactiveTrait<
                         `${customElementPrefix}-placeholder`,
                     ) as HTMLPlaceHolderElement
                     this.appendChild(placeHolder)
-                    this.subscriptions.push(placeHolder.initialize(child))
+                    this.subscriptions.push(
+                        placeHolder.initialize(child, this.vDom.onRender),
+                    )
                     rendered.push(placeHolder)
                 } else if (child instanceof HTMLElement) {
                     this.appendChild(child)
                 } else {
-                    const div = render(child)
+                    const div = render(child, this.vDom.onRender)
                     this.appendChild(div)
                     rendered.push(div)
                 }

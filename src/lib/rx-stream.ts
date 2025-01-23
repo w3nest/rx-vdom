@@ -5,6 +5,7 @@ import {
     ChildrenOptionsSync,
     Observable,
     RenderingUpdate,
+    RenderHook,
     ResolvedHTMLElement,
     RxElementTrait,
 } from './api'
@@ -147,14 +148,15 @@ export abstract class RxStreamChildren<TDomain> {
     protected abstract update(
         parentElement: RxElementTrait,
         domainData: TDomain[],
+        onRender?: RenderHook[],
     ): RenderingUpdate<TDomain>
 
     /**
      * Only for internal use (within {@link RxElementTrait}), should not actually be exposed.
      */
-    subscribe(parentElement: RxElementTrait) {
+    subscribe(parentElement: RxElementTrait, onRender?: RenderHook[]) {
         return this.stream$.subscribe((domains: TDomain[]) => {
-            const updates = this.update(parentElement, domains)
+            const updates = this.update(parentElement, domains, onRender)
             this.sideEffects?.(parentElement, updates)
         })
     }
@@ -236,13 +238,14 @@ export class RxStreamAppend<TDomain> extends RxStreamChildren<TDomain> {
     protected update(
         parentElement: RxElementTrait,
         domainData: TDomain[],
+        onRender?: RenderHook[],
     ): RenderingUpdate<TDomain> {
         const added = domainData.map((d) => {
             const vDom = this.vDomMap(d)
             return {
                 domainData: d,
                 virtualDOM: vDom,
-                element: render(vDom),
+                element: render(vDom, onRender),
             }
         })
         added.forEach((ref) => {
@@ -281,6 +284,7 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
     protected update(
         parentElement: RxElementTrait,
         expectedData: TDomain[],
+        onRender?: RenderHook[],
     ): RenderingUpdate<TDomain> {
         const actualData = this.actualElements.map(
             (refElem) => refElem.domainData,
@@ -290,7 +294,7 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
             this.isNotInList(actualData, candidate),
         )
         const newVirtualDOMs = newData.map((d) => this.vDomMap(d))
-        const rendered = newVirtualDOMs.map((vDOM) => render(vDOM))
+        const rendered = newVirtualDOMs.map((vDOM) => render(vDOM, onRender))
         const addedRefElem = newData.map((d, i) => ({
             domainData: d,
             virtualDOM: newVirtualDOMs[i],

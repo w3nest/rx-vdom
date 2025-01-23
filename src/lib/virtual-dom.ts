@@ -6,6 +6,7 @@ import {
     CustomAttribute,
     CSSAttribute,
     NativeHTMLElement,
+    RenderHook,
 } from './api'
 import { factory, SupportedHTMLTags, TypeCheck } from './factory'
 /**
@@ -77,6 +78,12 @@ export type VirtualDOM<Tag extends SupportedHTMLTags> = {
      * @param element A reference to the detached HTML element.
      */
     disconnectedCallback?: (element: RxHTMLElement<Tag>) => void
+
+    /**
+     * An array of functions executed on this element and all its descendants
+     * the first time they are rendered in the viewport.
+     */
+    onRender?: RenderHook[]
 } & (TypeCheck extends 'none'
     ? // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Index signature effectively optional if `TypeCheck` is disabled
       Record<string, any>
@@ -98,21 +105,28 @@ export type RxHTMLElement<Tag extends SupportedHTMLTags> = RxElementTrait &
  * > The HTML element returned is initialized **only when attached** to the document's DOM tree.
  *
  * @param vDom The virtual DOM to render.
+ * @param onRender An array of rendering hooks executed when the element and its descendants are displayed.
+ * They are added to those defined in the `VirtualDOM` with {@link VirtualDOM.onRender}.
  * @returns The corresponding DOM element.
  */
 export function render<Tag extends SupportedHTMLTags>(
     vDom: VirtualDOM<Tag>,
+    onRender: RenderHook[] = [],
 ): RxHTMLElement<Tag> {
     // For Javascript mostly, we allow missing 'tag' property...
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const tag = vDom.tag || ('div' as const)
-
+    const renderHooks = [...onRender, ...(vDom.onRender ?? [])]
+    vDom.onRender = renderHooks
     const element: RxHTMLElement<Tag> = factory<Tag>(tag as unknown as Tag)
     // why 'never', could have been 'any' but my IDE suggest never is better :/
     // The problem is that somehow the signature of the method 'initializeVirtualDom' is doubled:
     //  {(vDom: VirtualDOM<Tag>): void, (vDom: VirtualDOM<SupportedTags>): void}
     // I don't get why.
     element.initializeVirtualDom(vDom as never)
+    renderHooks.forEach((hook) => {
+        hook(element)
+    })
     return element
 }
 

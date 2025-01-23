@@ -1,5 +1,5 @@
-import { render, VirtualDOM } from '../lib'
-import { BehaviorSubject, Subject } from 'rxjs'
+import { append$, child$, render, replace$, sync$, VirtualDOM } from '../lib'
+import { BehaviorSubject, map, Subject } from 'rxjs'
 
 function observersCount(obs$: Subject<unknown>) {
     // noinspection JSDeprecatedSymbols -- will need to find a better way when moving to RxJS#8
@@ -46,4 +46,75 @@ test('connected/disconnected callback & subscriptions', () => {
 
     custom$.next(3)
     expect(dataCustom).toHaveLength(2)
+})
+
+test('render hooks', () => {
+    const rendered: HTMLElement[] = []
+    const rendered2: HTMLElement[] = []
+    const custom$ = new BehaviorSubject(1)
+
+    const vDom: VirtualDOM<'div'> = {
+        tag: 'div',
+        onRender: [
+            (s) => {
+                rendered.push(s)
+            },
+        ],
+        children: [
+            {
+                tag: 'h1',
+                innerText: 'title',
+                children: append$({
+                    policy: 'append',
+                    source$: custom$.pipe(map((d) => [d])),
+                    vdomMap: () => {
+                        return {
+                            tag: 'h3',
+                            title: 'title3',
+                            onRender: [
+                                (s) => {
+                                    rendered2.push(s)
+                                },
+                            ],
+                            children: replace$({
+                                policy: 'replace',
+                                source$: custom$,
+                                vdomMap: () => {
+                                    return [
+                                        {
+                                            tag: 'h4',
+                                            title: 'title4',
+                                        },
+                                    ]
+                                },
+                            }),
+                        }
+                    },
+                }),
+            },
+            child$({
+                source$: custom$,
+                vdomMap: () => {
+                    return {
+                        tag: 'h2',
+                        title: 'title2',
+                        children: sync$({
+                            policy: 'sync',
+                            source$: custom$.pipe(map((d) => [d])),
+                            vdomMap: () => {
+                                return {
+                                    tag: 'h5',
+                                    title: 'title5',
+                                }
+                            },
+                        }),
+                    }
+                },
+            }),
+        ],
+    }
+    const html = render(vDom)
+    document.body.appendChild(html)
+    expect(rendered).toHaveLength(6)
+    expect(rendered2).toHaveLength(2)
 })
