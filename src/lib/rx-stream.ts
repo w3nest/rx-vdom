@@ -32,14 +32,15 @@ export class RxStream<TDomain, TDom = TDomain> {
     ) => void
 
     /**
-     * @param source$  domain's data stream defined as a RxJS observable
-     * @param vDomMap mapping
-     * @param vDomMap function that convert the domain's data to a vDOM attribute
-     * @param untilFirst is the data that will be used until the first emitted element in *stream$* is obtained.
-     *  If not provided, the attribute/child does not exist until first emission.
-     * @param wrapper is a function that is used to alter the data returned by *vDomMap*.
-     * @param sideEffects is a function that provides a handle to execute side effects once the
-     * attribute/child as been set/added; both the domain's data and the rendered HTMLElement are provided to this function.
+     * Creates a reactive binding between a data stream and a virtual DOM attribute or child element.
+     *
+     * @param source$ The observable representing the data stream.
+     * @param vDomMap A mapping function that converts domain data into a virtual DOM attribute or child.
+     * @param untilFirst The initial value to use until the first emission from `source$`.
+     *   If not provided, the attribute/child does not exist until the first emission.
+     * @param wrapper A transformation function that modifies the output of `vDomMap` before applying it.
+     * @param sideEffects A callback function executed after the attribute/child is set or added.
+     *   Receives both the domain data and the rendered HTML element as arguments.
      */
     constructor(
         public readonly source$: Observable<TDomain>,
