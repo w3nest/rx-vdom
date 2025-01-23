@@ -69,6 +69,10 @@ export class RxStream<TDomain, TDom = TDomain> {
         if (this.untilFirst) {
             this.finalize(realizeDom, this.untilFirst, undefined)
         }
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!this.source$) {
+            console.error('No source$ provided!')
+        }
         return this.source$.subscribe((d: TDomain) => {
             this.finalize(realizeDom, this.vDomMap(d, ...withData), d)
         })
