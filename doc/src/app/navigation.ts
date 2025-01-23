@@ -141,9 +141,8 @@ async function apiNav(): Promise<AppNav> {
     return {
         ...CodeApiModule.codeApiEntryNode({
             name: 'API',
-            icon: {
-                tag: 'i' as const,
-                class: `fas fa-code`,
+            header: {
+                icon: { tag: 'i' as const, class: `fas fa-code` },
             },
             entryModule: 'rx-vdom',
             docBasePath: '../assets/api',

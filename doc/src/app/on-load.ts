@@ -10,11 +10,11 @@ export const router = new Router({
 const bookmarks$ = new BehaviorSubject(['/', '/how-to', '/tutorials', '/api'])
 export const topStickyPaddingMax = '3rem'
 
-const routerView = new DefaultLayout.View({
+const routerView = new DefaultLayout.Layout({
     router,
     bookmarks$,
-    layoutOptions: {
-        topStickyPaddingMax,
+    displayOptions: {
+        pageVertPadding: '3rem',
     },
     sideNavHeader: () => new NavHeaderView({ topStickyPaddingMax }),
     sideNavFooter: () =>
