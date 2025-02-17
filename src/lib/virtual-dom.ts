@@ -11,7 +11,10 @@ import {
 import { factory, SupportedHTMLTags, TypeCheck } from './factory'
 /**
  * Represents a Virtual DOM element that mirrors the structure and characteristics of an HTML DOM element.
- * It allows attributes and children to be supplied reactively via the concept of **observable** (from reactive programming).
+ * It allows attributes and children to be supplied reactively via the concept of **observable** (from reactive
+ * programming).
+ *
+ * A `VirtualDOM` is converted in regular `HTMLElement` using the {@link render} function.
  *
  * @template Tag The tag name of the DOM element.
  */
@@ -113,17 +116,18 @@ export function render<Tag extends SupportedHTMLTags>(
     vDom: VirtualDOM<Tag>,
     onRender: RenderHook[] = [],
 ): RxHTMLElement<Tag> {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!vDom) {
+        console.error("Falsy VirtualDOM provided to 'render'")
+        vDom = ErrorDiv as unknown as VirtualDOM<Tag>
+    }
     // For Javascript mostly, we allow missing 'tag' property...
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const tag = vDom.tag || ('div' as const)
     const renderHooks = [...onRender, ...(vDom.onRender ?? [])]
     vDom.onRender = renderHooks
     const element: RxHTMLElement<Tag> = factory<Tag>(tag as unknown as Tag)
-    // why 'never', could have been 'any' but my IDE suggest never is better :/
-    // The problem is that somehow the signature of the method 'initializeVirtualDom' is doubled:
-    //  {(vDom: VirtualDOM<Tag>): void, (vDom: VirtualDOM<SupportedTags>): void}
-    // I don't get why.
-    element.initializeVirtualDom(vDom as never)
+    element.initializeVirtualDom(vDom)
     renderHooks.forEach((hook) => {
         hook(element)
     })
@@ -134,3 +138,13 @@ export function render<Tag extends SupportedHTMLTags>(
  * A Virtual DOM resolving to an empty `div`.
  */
 export const EmptyDiv: VirtualDOM<'div'> = { tag: 'div' }
+
+export const ErrorDiv: VirtualDOM<'div'> = {
+    tag: 'div',
+    style: { width: '25px' },
+    innerHTML: `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+<path fill='red' d="M512 288.9c-.5 17.4-15.2 31.1-32.7 31.1H424v16c0 21.9-4.9 42.6-13.6 61.1l60.2 60.2c12.5 12.5 12.5 32.8 0 45.3-12.5 12.5-32.8 12.5-45.3 0l-54.7-54.7C345.9 468 314.4 480 280 480V236c0-6.6-5.4-12-12-12h-24c-6.6 0-12 5.4-12 12v244c-34.4 0-65.9-12-90.6-32.1l-54.7 54.7c-12.5 12.5-32.8 12.5-45.3 0-12.5-12.5-12.5-32.8 0-45.3l60.2-60.2C92.9 378.6 88 357.9 88 336v-16H32.7C15.2 320 .5 306.3 0 288.9-.5 270.8 14 256 32 256h56v-58.7l-46.6-46.6c-12.5-12.5-12.5-32.8 0-45.3 12.5-12.5 32.8-12.5 45.3 0L141.3 160h229.5l54.6-54.6c12.5-12.5 32.8-12.5 45.3 0 12.5 12.5 12.5 32.8 0 45.3L424 197.3V256h56c18 0 32.5 14.8 32 32.9zM257 0c-61.9 0-112 50.1-112 112h224C369 50.1 318.9 0 257 0z"/>
+</svg>`,
+}
