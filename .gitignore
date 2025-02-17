@@ -9,3 +9,4 @@ __pycache__
 .w3nest/.template
 .env
 /src/tests/**/result.zip
+**/.local-dependencies
