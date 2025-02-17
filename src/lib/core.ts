@@ -159,7 +159,8 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
     }
     if (Array.isArray(vDom.children)) {
         const children = vDom.children
-            .map((child: ChildLike) => {
+            .filter((child) => child !== undefined && child !== false)
+            .map((child) => {
                 if (isInstanceOfRxChild(child)) {
                     return new RxStream<unknown, AnyVirtualDOM>(
                         child.source$,

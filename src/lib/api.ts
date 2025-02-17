@@ -86,9 +86,14 @@ export type CSSAttribute = CSS.Properties
  * Union of the types allowed to define a child in a {@link VirtualDOM}.
  * This includes virtual DOM elements, standard HTML elements, or reactive child elements.
  *
- * If `undefined`, no element is rendered.
+ * If `undefined` or `false`, no element is rendered.
  */
-export type ChildLike = AnyVirtualDOM | HTMLElement | RxChild | undefined
+export type ChildLike =
+    | AnyVirtualDOM
+    | HTMLElement
+    | RxChild
+    | undefined
+    | false
 
 /**
  * Union of the types allowed to define children in a {@link VirtualDOM}.
