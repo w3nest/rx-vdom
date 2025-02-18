@@ -16,7 +16,6 @@ import {
     AnyVirtualDOM,
     AttributeLike,
     AnyHTMLAttribute,
-    ChildLike,
     ChildrenPolicy,
     Observable,
     RenderHook,
@@ -160,7 +159,8 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
     if (Array.isArray(vDom.children)) {
         const children = vDom.children
             .filter((child) => child !== undefined && child !== false)
-            .map((child) => {
+            // The next type assertion over `child` is for projects compiled with `strictNullCheck: false`
+            .map((child: HTMLElement | RxChild | AnyVirtualDOM) => {
                 if (isInstanceOfRxChild(child)) {
                     return new RxStream<unknown, AnyVirtualDOM>(
                         child.source$,
@@ -174,7 +174,6 @@ function extractRxStreams<Tag extends SupportedHTMLTags>(
                 }
                 return child
             })
-            .filter((c) => c !== undefined)
         return { attributes, children }
     }
     if (!isInstanceOfRxChildren(vDom.children)) {
