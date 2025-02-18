@@ -30,9 +30,9 @@ in_bundle_deps = {
     "json5": "^2.2.3",
 }
 dev_deps = {
-    "typedoc-plugin-mdn-links": "^3.1.0",
+    "typedoc-plugin-mdn-links": "^4.0.13",
     "rxjs": "^7.5.6",
-    "rxjs-spy": "^8.0.2"
+    "rxjs-spy": "^8.0.2",
 }
 
 config = ProjectConfig(
@@ -54,19 +54,17 @@ config = ProjectConfig(
         )
     ),
     inPackageJson={
-        "scripts":{ "lint-eslint-check": "eslint ./src/lib"},
-        "bin": {
-            "rx-vdom-init": "./bin/rx-vdom-init.js"
-        }
-    }
+        "scripts": {"lint-eslint-check": "eslint ./src/lib"},
+        "bin": {"rx-vdom-init": "./bin/rx-vdom-init.js"},
+    },
 )
 
-template_folder = project_folder / '.w3nest' / '.template'
+template_folder = project_folder / ".w3nest" / ".template"
 generate_template(config=config, dst_folder=template_folder)
 
 files = [
     Path("src") / "auto-generated.ts",
-    "README.md",
+    # "README.md",
     ".gitignore",
     # ".npmignore", added 'rx-vdom-doc'
     # ".prettierignore", added 'rx-vdom-doc'
