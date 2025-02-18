@@ -61,13 +61,13 @@ generate_template(config=config, dst_folder=template_folder)
 
 files = [
     Path("src") / "auto-generated.ts",
-    "README.md",
     ".gitignore",
     ".npmignore",
     ".prettierignore",
     "package.json",
     "jest.config.ts",
     "webpack.config.ts",
+    "tsconfig.json",
 ]
 for file in files:
     copyfile(src=template_folder / file, dst=project_folder / file)

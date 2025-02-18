@@ -25,9 +25,6 @@
     "paths": {
       "@rxVDomConfig": [
         "./rx-vdom.config"
-      ],
-      "@mkdocsTsConfig": [
-        "./mkdocs-ts.config"
       ]
     },
     "strictNullChecks": true
