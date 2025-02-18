@@ -109,7 +109,7 @@ export type RxHTMLElement<Tag extends SupportedHTMLTags> = RxElementTrait &
  *
  * @param vDom The virtual DOM to render.
  * @param onRender An array of rendering hooks executed when the element and its descendants are displayed.
- * They are added to those defined in the `VirtualDOM` with {@link VirtualDOM.onRender}.
+ * They are added to those defined in the `VirtualDOM` using `onRender` in {@link VirtualDOM}.
  * @returns The corresponding DOM element.
  */
 export function render<Tag extends SupportedHTMLTags>(
