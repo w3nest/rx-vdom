@@ -65,7 +65,7 @@ generate_template(config=config, dst_folder=template_folder)
 files = [
     Path("src") / "auto-generated.ts",
     # "README.md",
-    ".gitignore",
+    # ".gitignore",
     # ".npmignore", added 'rx-vdom-doc'
     # ".prettierignore", added 'rx-vdom-doc'
     "package.json",
