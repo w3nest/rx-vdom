@@ -14,17 +14,13 @@ pkg_json = parse_json(project_folder / "package.json")
 Package(
     name=pkg_json["name"],
     version=pkg_json["version"],
-    specification=WebApp(
-        entryPoint=pkg_json["main"],
-        entryDependencies=pkg_json["webpm"]["entryDependencies"],
-        extraDependencies=pkg_json["webpm"]["extraDependencies"],
-    ),
+    specification=WebApp.from_pkg_json(pkg_json),
     distribution=Distribution(
         files=FileListing(include=["assets/*", "README.md"], ignore=[]),
         artifacts=["dist"],
     ),
     metadata=Metadata(
-        icon="/assets/favicon.png",
+        icon="/assets/reactivex.svg",
         description=pkg_json["description"],
         readme="/README.md",
         license=pkg_json.get("license", None),
