@@ -4,12 +4,12 @@
     "version": "0.1.2-wip",
     "author": "reinisch.gui@gmail.com",
     "homepage": "https://github.com/rx-vdom#README.md",
-    "main": "dist/rx-vdom.js",
+    "main": "tbd",
     "types": "src/index.ts",
     "scripts": {
         "clean": "del-cli dist",
         "setup": "python .w3nest/setup.py",
-        "build": "yarn build:dev",
+        "build": "yarn build:prod",
         "pre-build": "yarn clean",
         "build:dev": "yarn pre-build && webpack --mode development",
         "build:prod": "yarn pre-build && webpack --mode production",
@@ -22,6 +22,16 @@
         "doc": "typedoc",
         "publish-npm-public": "yarn build:prod && yarn test-coverage && yarn publish --access public"
     },
+    "exports": {
+        ".": {
+            "import": "./dist/rx-vdom.js",
+            "types": "./src/index.ts",
+            "webpm": {
+                "dependencies": [],
+                "aliases": []
+            }
+        }
+    },
     "dependencies": {
         "@ungap/custom-elements": "1.2.0",
         "conditional-type-checks": "^1.0.6",
@@ -30,7 +40,7 @@
     },
     "devDependencies": {
         "@types/jest": "^29.5.4",
-        "@types/node": "^22.9.0",
+        "@types/node": "^22.13.4",
         "@types/webpack": "^5.28.5",
         "del-cli": "^5.1.0",
         "eslint": "9.14.0",
@@ -45,20 +55,20 @@
         "rxjs": "^7.5.6",
         "rxjs-spy": "^8.0.2",
         "ts-jest": "^29.2.5",
-        "ts-loader": "9.5.1",
+        "ts-loader": "9.5.2",
         "ts-node": "10.9.2",
-        "tsx": "4.19.2",
-        "typedoc": "^0.26.11",
-        "typedoc-plugin-mdn-links": "^3.1.0",
-        "typescript": "5.6.3",
+        "tsx": "^4.19.2",
+        "typedoc": "^0.27.7",
+        "typedoc-plugin-mdn-links": "^4.0.13",
+        "typescript": "5.7.3",
         "typescript-eslint": "8.14.0",
-        "webpack": "^5.96.1",
+        "webpack": "^5.98.0",
         "webpack-bundle-analyzer": "^4.10.2",
-        "webpack-cli": "5.1.4"
+        "webpack-cli": "6.0.1"
     },
     "webpm": {
-        "dependencies": {},
-        "aliases": []
+        "kind": "esm",
+        "dependencies": {}
     },
     "bin": {
         "rx-vdom-init": "./bin/rx-vdom-init.js"
