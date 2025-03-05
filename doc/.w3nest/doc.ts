@@ -1,4 +1,4 @@
-import { generateApiFiles } from 'mkdocs-ts/src/mkapi-backends/mkapi-typescript'
+import { generateApiFiles } from './../node_modules/mkdocs-ts/src/mkapi-backends/mkapi-typescript'
 
 generateApiFiles({
     projectFolder: `${__dirname}/../../`,

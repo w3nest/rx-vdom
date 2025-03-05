@@ -1,9 +1,9 @@
 /* eslint-disable */
 const runTimeDependencies = {
     "externals": {
-        "@w3nest/webpm-client": "^0.1.2",
+        "@w3nest/webpm-client": "^0.1.4",
         "mkdocs-ts": "^0.3.0",
-        "rx-vdom": "^0.1.2",
+        "rx-vdom": "^0.1.3",
         "rxjs": "^7.5.6"
     },
     "includedInBundle": {}
@@ -58,8 +58,8 @@ const entries = {
 export const setup = {
     name: '@rx-vdom/doc',
     assetId: 'QHJ4LXZkb20vZG9j',
-    version: '0.1.2-wip',
-    webpmPath: '/api/assets-gateway/webpm/resources/QHJ4LXZkb20vZG9j/0.1.2-wip',
+    version: '0.1.3',
+    webpmPath: '/api/assets-gateway/webpm/resources/QHJ4LXZkb20vZG9j/0.1.3',
     apiVersion: '01',
     runTimeDependencies,
     externals,
@@ -117,7 +117,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@rx-vdom/doc#0.1.2-wip~dist/${entry.name}.js`,
+            `@rx-vdom/doc#0.1.3~dist/${entry.name}.js`,
         ]
         const modules = [
             ...(parameters.modules || []),

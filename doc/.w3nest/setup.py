@@ -22,7 +22,7 @@ pkg_json_rxvdom = parse_json(project_folder / ".." / "package.json")
 externals_deps = {
     "mkdocs-ts": "^0.3.0",
     "rx-vdom": f"^{pkg_json_rxvdom['version'].replace('-wip', '')}",
-    "@w3nest/webpm-client": "^0.1.2",
+    "@w3nest/webpm-client": "^0.1.4",
     "rxjs": "^7.5.6",
 }
 in_bundle_deps = {}
@@ -67,7 +67,6 @@ files = [
     "package.json",
     "jest.config.ts",
     "webpack.config.ts",
-    "tsconfig.json",
 ]
 for file in files:
     copyfile(src=template_folder / file, dst=project_folder / file)
