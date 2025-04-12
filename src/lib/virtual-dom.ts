@@ -8,6 +8,7 @@ import {
     NativeHTMLElement,
     RenderHook,
 } from './api'
+import { RxHTMLElementTrait } from './core'
 import { factory, SupportedHTMLTags, TypeCheck } from './factory'
 /**
  * Represents a Virtual DOM element that mirrors the structure and characteristics of an HTML DOM element.
@@ -94,13 +95,14 @@ export type VirtualDOM<Tag extends SupportedHTMLTags> = {
 
 /**
  * Represents the actual HTMLElement rendered from a {@link VirtualDOM}.
- * It implements the standard HTMLElement API for the corresponding tag,
- * enhanced with the {@link RxElementTrait | reactive trait}.
+ * It is specific to a given `Tag` and implements in particular:
+ * *  {@link NativeHTMLElement}: The standard `HTMLElement` API.
+ * *  {@link RxHTMLElementTrait}: The reactive-related features added.
  *
  * @template Tag The tag name of the DOM element.
  */
-export type RxHTMLElement<Tag extends SupportedHTMLTags> = RxElementTrait &
-    NativeHTMLElement<Tag>
+export type RxHTMLElement<Tag extends SupportedHTMLTags> =
+    NativeHTMLElement<Tag> & RxElementTrait & RxHTMLElementTrait<Tag>
 
 /**
  * Transforms a {@link VirtualDOM} into a corresponding {@link RxHTMLElement}.

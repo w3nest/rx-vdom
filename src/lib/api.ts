@@ -5,7 +5,7 @@
 import type * as CSS from 'csstype'
 import { RxHTMLElement, VirtualDOM } from './virtual-dom'
 import { SupportedHTMLTags } from './factory'
-import { ReactiveTrait } from './core'
+import { ReactiveTraitGenerator } from './core'
 import { WritablePart } from './type-utils'
 import type {
     Observable as ObservableRxjs,
@@ -13,10 +13,10 @@ import type {
 } from 'rxjs'
 /**
  * Trait for a reactive (un-tagged) HTML element.
- * This class extends the standard HTMLElement with additional properties defined by {@link ReactiveTrait}.
+ * This class extends the standard HTMLElement with additional properties defined by {@link ReactiveTraitGenerator}.
  * For tag-specific elements, refer to {@link RxHTMLElement}.
  */
-export class RxElementTrait extends ReactiveTrait(HTMLElement) {}
+export class RxElementTrait extends ReactiveTraitGenerator(HTMLElement) {}
 
 /**
  * Required interface representing the RxJS concept of an 'Observable'.
