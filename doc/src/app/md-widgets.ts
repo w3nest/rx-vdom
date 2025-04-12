@@ -6,7 +6,7 @@ import {
     VirtualDOM,
 } from 'rx-vdom'
 import { setup } from '../auto-generated'
-import { from, timer } from 'rxjs'
+import { from, map, timer } from 'rxjs'
 import { MdWidgets } from 'mkdocs-ts'
 
 export function rxVDomSize(): AnyVirtualDOM {
@@ -35,11 +35,9 @@ export function exampleHome(): AnyVirtualDOM {
         children: [
             {
                 tag: 'i',
-                class: {
-                    source$: time$,
-                    vdomMap: (tick: number) => (tick % 2 ? 'text-success' : ''),
-                    wrapper: (d) => `${d} fas fa-clock`,
-                },
+                class: time$.pipe(
+                    map((t) => `${t % 2 ? 'text-success' : ''} fas fa-clock`),
+                ),
             },
             {
                 source$: time$,
@@ -79,6 +77,118 @@ export function apiLink(elem: HTMLElement): AnyVirtualDOM {
     }
 }
 
+export class ExtLink implements VirtualDOM<'a'> {
+    public readonly tag = 'a'
+    public readonly children: ChildrenLike
+    public readonly innerText: string
+    public readonly href: string
+    public readonly target = '_blank'
+
+    constructor(elem: HTMLElement) {
+        const target = elem.getAttribute('target')
+        if (!target) {
+            console.warn('Can no find target for extlink', elem)
+            return
+        }
+        const navs = {
+            rxjs: 'https://rxjs.dev/',
+            rxjsOperators: 'https://rxjs.dev/guide/operators',
+            react: 'https://react.dev',
+            vue: 'https://vuejs.org',
+            learnRxJS: 'https://www.learnrxjs.io/',
+            mkdocsTS: '/apps/@mkdocs-ts/doc/latest',
+            reactivex: 'https://reactivex.io/',
+            chartjs: 'https://www.chartjs.org/',
+            shareReplay: 'https://rxjs.dev/api/operators/shareReplay',
+        }
+        if (!(target in navs)) {
+            return
+        }
+        this.href = navs[target as keyof typeof navs]
+        this.children = [
+            {
+                tag: 'i',
+                innerText: elem.textContent ?? '',
+            },
+            {
+                tag: 'i',
+                class: 'fas fa-external-link-alt',
+                style: { transform: 'scale(0.6)' },
+            },
+        ]
+    }
+}
+
+export class GitHubLink implements VirtualDOM<'a'> {
+    public readonly tag = 'a'
+    public readonly children: ChildrenLike
+    public readonly innerText: string
+    public readonly href: string
+    public readonly target = '_blank'
+
+    constructor(elem: HTMLElement) {
+        const target = elem.getAttribute('target')
+
+        if (!target) {
+            return
+        }
+        const navs = {
+            'rx-vdom': 'https://github.com/w3nest/rx-vdom',
+            examples: 'https://github.com/w3nest/rx-vdom/tree/main/examples',
+        }
+        if (!(target in navs)) {
+            return
+        }
+        this.href = navs[target as keyof typeof navs]
+        this.children = [
+            {
+                tag: 'i',
+                innerText: elem.textContent ?? '',
+            },
+            {
+                tag: 'i',
+                class: 'fab fa-github',
+                style: { transform: 'scale(0.8)' },
+            },
+        ]
+    }
+}
+
+export class CrossLink implements VirtualDOM<'a'> {
+    public readonly tag = 'a'
+    public readonly children: ChildrenLike
+    public readonly innerText: string
+    public readonly href: string
+
+    constructor(elem: HTMLElement) {
+        const target = elem.getAttribute('target')
+        if (!target) {
+            return
+        }
+        const navs = {
+            gettingStarted: '@nav/tutorials/basics',
+            todoApp: '@nav/tutorials/todo',
+            howTo: '@nav/how-to',
+            api: '@nav/api',
+        }
+        if (!(target in navs)) {
+            return
+        }
+        this.href = navs[target as keyof typeof navs]
+        this.children = [
+            {
+                tag: 'i',
+                innerText: elem.textContent ?? '',
+            },
+            {
+                tag: 'i',
+                class: 'fas fa-book-open',
+                style: { transform: 'scale(0.6)' },
+            },
+        ]
+    }
+}
+
 export class NavHeaderView implements VirtualDOM<'div'> {
     public readonly tag = 'div'
     public readonly class = 'd-flex align-items-center justify-content-center'
@@ -93,6 +203,7 @@ export class NavHeaderView implements VirtualDOM<'div'> {
             {
                 tag: 'a',
                 class: 'mx-2',
+                target: '_blank',
                 href: 'https://github.com/w3nest/rx-vdom',
                 children: [
                     {
@@ -106,12 +217,14 @@ export class NavHeaderView implements VirtualDOM<'div'> {
             {
                 tag: 'a',
                 class: 'mx-2',
+                target: '_blank',
                 href: 'https://www.npmjs.com/package/rx-vdom',
                 children: [MdWidgets.npmIcon],
             },
             {
                 tag: 'a',
                 class: 'mx-2',
+                target: '_blank',
                 href: 'https://github.com/w3nest/rx-vdom/blob/main/doc/LICENSE',
                 children: [MdWidgets.mitIcon],
             },

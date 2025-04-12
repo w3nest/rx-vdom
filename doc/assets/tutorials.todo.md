@@ -2,19 +2,24 @@
 
 ## Introduction
 
-This page offers guidance on creating and structuring an application.
-We'll explore the classic example of a todos application:
+In this tutorial, we’ll build a simple but fully functional ToDo app that showcases how to manage state, handle user 
+input, and display dynamic content reactively. Here is the final component that will be constructed:
 
 <cell-output cell-id='final'>
 </cell-output>
 
-The <a target="_blank" href="https://github.com/w3nest/rx-vdom/tree/main/examples">GitHub repository</a> includes 
+
+Throughout the tutorial, you'll see how to break down an app into reactive components, with a focus on state management
+and the power of observables. We’ll walk through common interactions like adding and removing items, updating states, 
+and applying reactive patterns to ensure the app responds fluidly to changes.
+
+The <github-link target="examples">GitHub repository</github-link> includes 
 the source code of the application as standalone projects, in JavaScript as well as Typescript.
 
 Let's begin by installing the necessary dependencies:
 
 <js-cell>
-const { rxDom, rxjs, httpClients } = await webpm.install({
+const { rxDom, rxjs } = await webpm.install({
     modules: [
         'rx-vdom#{{rxvdom-version}} as rxDom', 
         'rxjs#^7.5.6 as rxjs'
@@ -32,14 +37,22 @@ const {
 
 ## State
 
-In {{rx-vdom}}, the state of the application (i.e. business logic) is typically managed through observables,
-consumed at any point in time as **`source$`** observables by the vDOM.
-This allows for a clear separation of concerns and helps to keep the code organized and easy to maintain.
-When a change occurs in the state of the application, the relevant observables emit new values,
-which in turn trigger automatic updates in the corresponding elements of views.
+Your section is already clear and well-structured, but here's a refined version with improvements to flow, clarity, and tone—making it even easier to follow for readers at various levels:
 
-Regarding the todo application, the application state is presented below, description is provided using inlined
-comments:
+---
+
+## State Management
+
+In {{rx-vdom}}, application state—i.e. the **business logic**—is typically managed using **observables**, which are 
+later consumed within the virtual DOM via the `source$` property. 
+This reactive approach enables a clean separation of concerns: the state is fully decoupled from the UI,
+making your code easier to maintain, test, and reason about.
+
+Whenever the application state changes, observables emit new values. These changes automatically propagate to any 
+bound UI components, triggering updates without manual DOM manipulation.
+
+
+Below is the implementation of the application state for the todo app:
 
 <js-cell>
 
@@ -136,14 +149,23 @@ const state = new State()
 display(state)
 </js-cell>
 
-Key points regarding the **`State`** definition:
+**Key Takeaways**
 
-- It is independent of the views and does not consume any {{rx-vdom}} symbols.
-  This promotes a clean separation of concerns, making the codebase easier to understand, maintain and test.
-- The state data is treated as immutable. Instead of directly modifying the state, the methods **`toggleAll`**,
-  **`addItem`**, **`deleteItem`**, **`toggleItem`** and **`setName`** create new copies of the state with the desired
-  modifications and emit them through the **`__items$`** subject. This helps in avoiding unintended side effects and 
-  simplifies reasoning about state changes.
+- **Decoupled logic**:  
+  The `State` class contains no references to {{rx-vdom}} itself—it doesn’t depend on rendering, lifecycle, 
+  or DOM logic. This ensures a clean architectural boundary between state and view layers.
+
+- **Central observables: `items$` & `filterMode$`**  
+  These are the core streams holding the state. All derived observables (`completed$`, `remaining$`, `selectedItems$`) 
+  stem from them: they are the central source of truth for the application.
+
+- **Immutable update pattern**:  
+  State changes are handled by emitting **new arrays** via `items$.next(...)` or `filterMode$.next(mode)`, 
+  rather than mutating data in place. This aligns well with reactive patterns and makes debugging and reasoning 
+  about state transitions more straightforward.
+
+- **Persistence**:  
+  The todo list is persisted to `localStorage`, and restored on initialization.
 
 With the application logic defined, let's proceed to designing the views.
 
@@ -474,7 +496,8 @@ vDOM = {
 display(vDOM)
 </js-cell>
 
-The next cell simply display the final view at the top of the page:
+The next cell simply display the final view at the top of the page (the view port is deported):
+
 <js-cell cell-id="final">
 display(vDOM)
 </js-cell>

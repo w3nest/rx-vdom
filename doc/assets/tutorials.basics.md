@@ -1,16 +1,7 @@
 # Getting Started
 
-<note level="hint" label="Forewords">
-Learning to use {{rx-vdom}} essentially narrow down to learning reactive programming. 
-Reactive programming can be challenging at first with a steep learning curve. 
-However, it has broad applications as it is a declarative programming paradigm designed to model responsive, resilient, 
-elastic, and message-driven systems. More information can be found 
-<a href='https://reactivex.io/' target="_blank">here</a>.
-</note>
-
-This tutorial is in the form of notebook, allowing you to modify and run any cells.
-
-Let's start by installing the dependencies:
+Welcome to the tutorial. We begin by setting up the necessary dependencies required to run 
+this page:
 
 <js-cell>
 const { rxDom, rxjs } = await webpm.install({
@@ -20,32 +11,35 @@ const { rxDom, rxjs } = await webpm.install({
     ]
 });
 </js-cell>
-Here:
 
-- {{rx-vdom}} is the library we are talking about.
+This installation includes:
 
-- **rxjs** is the reactive programing engine, an implementation of <a href='https://reactivex.io/' target="_blank">
-  Reactive X</a>.
+- **{{rx-vdom}}** — the lightweight reactive Virtual DOM library we’ll be exploring in this tutorial.
 
-<note level="warning" label="Important">
-An appealing feature of {{rx-vdom}} is that the library **is not** required to define views,
-only to render them.
-</note>
+- **<ext-link target="rxjs">RxJS</ext-link>** — the reactive engine behind the scenes. 
+  It’s a JavaScript implementation of the <ext-link target="reactivex">ReactiveX</ext-link> programming model, 
+  which allows you to handle asynchronous data streams in a declarative way.
 
 ## VirtualDOM
 
-VirtualDOM mirrors the characteristics and structure of an HTML DOM element with the ability
-for its attributes and children to be supplied through time dependent variables modeled using **Observable**.
+The <api-link target='VirtualDOM' kind='type-alias'></api-link> mirrors the characteristics and structure of an HTML DOM 
+element with the ability for its attributes and children to be supplied through time dependent variables modeled 
+using **Observable**.
 
 <note level='info'>
 The Observable model allows you to treat streams of asynchronous events with the same sort of simple, composable 
 operations that you use for collections of data items like arrays.
 </note>
 
-Virtual DOMs can be transformed into actual HTML elements using the 
-<api-link target="render" kind="function"></api-link> function.
+Virtual DOMs can be converted into actual HTML elements using the <api-link target="render" kind="function"></api-link>
+function. The resulting element not only represents the standard HTML implementation for the specified tag but also 
+incorporates additional reactive features, as defined by the 
+<api-link target='RxHTMLElementTrait' kind='type-alias'></api-link>. 
+These added features primarily enhance lifecycle management, which is discussed further later on this page.
 
-The following cell defines a simple (static) virtual DOM and renders it:
+Here’s a first example: we define a basic static virtual DOM, transform it to HTML element that is finally 
+display.
+
 
 <js-cell>
 let vDOM = { 
@@ -61,30 +55,36 @@ const htmlElement = rxDom.render(vDOM)
 display(htmlElement)
 </js-cell>
 
-Virtual DOMs are represented as JavaScript objects that mimic HTML elements:
+To define a VirtualDOM node, only the **`tag`** property is required—this corresponds to the `tagName` of a 
+regular `HTMLElement` (see <api-link target="SupportedHTMLTags" kind="type-alias"></api-link>).
 
-- They exhibit a hierarchical parent-child structure.
+A VirtualDOM element can also include the following attributes:
 
-- Each element type is defined by its HTML tag.
+- **`class`**: Equivalent to the `className` property of `HTMLElement`.  
+- **`style`**: Inline styles applied to the element 
+  (see <api-link target="CSSAttribute" kind="type-alias"></api-link>).  
+- **`children`**: A list of VirtualDOM child elements. You can also use regular `HTMLElement` instances to smooth 
+  integration with third-party UI components or manually created elements 
+  (see <api-link target="ChildLike" kind="type-alias"></api-link>).
+- **`customAttributes`**: Additional custom attributes for the element
+  (see <api-link target="CustomAttribute" kind="type-alias"></api-link>).
+- Any other standard attribute supported by the corresponding HTML tag 
+  (see <api-link target="ExposedMembers" kind="type-alias"></api-link>).
 
-- They expose the attributes of corresponding HTMLElement for the given tag.
 
-In addition to regular `HTMLElement`, they introduce additional lifecycle hooks when the virtual DOM is added
-or removed from the rendered page.
+Each of these can be provided as either a **static value** or defined **reactively** using an observable.
 
-Reactivity is achieved by defining parts of the Virtual DOM using a JavaScript object bound to an observable
-(called **`source$`**) and defining a mapping function (called **`vdomMap`**).
+Reactive attributes are expressed as objects with at least two properties:
 
-<note level='hint' >
-It is possible to include regular `HTMLElement` as children of a virtual DOM (within the `children` attribute).
-This allows for the integration of views created by other libraries within VirtualDOMs.
-</note>
+- **`source$`** — an Observable emitting values over time.  
+- **`vdomMap`** — a function that maps each emitted value to a VirtualDOM fragment or attribute value.
 
 In the following sections, different uses of reactivity to define either attributes, a child, or children are provided.
 The examples are based on the following domain data object:
 
-<js-cell>
+<note level="hint" icon="fas fa-code" title="Data: Famous Physicists" expandable="true" mode="stateful">
 
+<js-cell>
 const physicists = [
     {
         name: "Albert Einstein",
@@ -139,9 +139,14 @@ the Bohmian mechanics, which offers an alternative to the standard Copenhagen in
 ]
 </js-cell>
 
+</note>
+
+---
+
 ## Rx Attribute
 
-A reactive attribute is an attribute ( _e.g._ `class`, `id`, `style`) of the virtual DOM that is bound to an observable.
+A reactive attribute (<api-link target="RxAttribute" kind="interface"></api-link>) is an attribute 
+( _e.g._ `class`, `id`, `style`) of the virtual DOM that is bound to an observable.
 The following example picks a random physicist among the above list and displays their name.
 
 <js-cell>
@@ -175,10 +180,16 @@ Additional parameters such as `wrapper`, `untilFirst`, and `sideEffects` can be 
 attribute. More information can be found in the <api-link target="RxAttribute" kind="interface"></api-link>
 API documentation.
 
+---
+
 ## Rx Child
 
-A reactive child is a child of a virtual DOM that is bound to an observable.
-The following example illustrates its creation:
+A reactive child (<api-link target="RxChild" kind="interface"></api-link>) is a child element in a virtual DOM that is
+bound to an observable. It shares the same API as reactive attributes, with the primary distinction being that the 
+`vdomMap` function returns a VirtualDOM rather than a value.
+
+To illustrate, let’s first define a view for a physicist. This view will be called by the `vdomMap` callback,
+which is triggered by a given physicist’s data:
 
 <js-cell>
 const physicistView = (physicist) => {
@@ -199,35 +210,17 @@ const physicistView = (physicist) => {
         ]
     }
 }
-
-vDOM = {
-     tag: 'div',
-     class:'p-2',
-     children:[
-         {
-             innerText: "A randomly picked physicist:"
-         },
-         {
-             source$: rndPhysicist$,
-             vdomMap: physicistView
-         }
-     ]
-}
-display(vDOM)
 </js-cell>
-
-Defining a reactive child uses the same API as a reactive attribute, with the difference being that the **`vdomMap`**
-function returns a VirtualDOM.
 
 <note level='hint'>
 When defining style attribute, the keys can be provided either using their standard names
 (*e.g.* `'font-weight'`) or their camel case versions (like here, `'fontWeight'`).
 </note>
 
-Here's an example allowing selection from a dropdown list:
+Next, let’s create a dropdown that allows users to select a physicist from a list. 
+The selected physicist’s details will be rendered as a reactive child:
 
 <js-cell>
-const selected$ = new rxjs.BehaviorSubject(physicists[0])
 
 const selectView = (items) => {
     const selected$ = new rxjs.BehaviorSubject(items[0])
@@ -259,9 +252,12 @@ display(vDOM)
 Just like reactive attributes, reactive child also accepts attributes such as `untilFirst`, `wrapper` & `sideEffects`.
 More information can be found in <api-link target="RxChild" kind="interface"></api-link> API documentation.
 
+---
+
 ## RxChildren
 
-The concept of reactive children involves a vDOM's entire list of children being bound to an observable.
+The concept of reactive children (<api-link target="RxChildren" kind="type-alias"></api-link>) involves a vDOM's entire 
+list of children being bound to an observable.
 Three policies are available:
 
 - `append` : All children are appended at every emission of new items from `source$`.
@@ -404,6 +400,27 @@ display(vDOM)
 
 </js-cell>
 
+<note level='info' title="Cold vs Hot Observables" expandable="true">
+
+The `pickerBtn` references the same VirtualDOM used in the previous **Replace Policy** section.
+Clicking on it will refresh both the list above and the one in the previous section simultaneously 
+(a single VirtualDOM can be associated with multiple `HTMLElement` instances).
+
+The reason why the actual list displayed differs between sections is that `threeRndPhysicist$` is a cold observable. 
+This means that every time the observable is subscribed to, the logic inside the `pipe` runs again, 
+generating a new set of random physicists.
+
+In contrast, a hot observable shares the same values across multiple subscribers without executing the logic 
+again for each subscription. To make `threeRndPhysicist$` hot, you could use the
+<ext-link target="shareReplay"> shareReplay </ext-link> operator, which would cause the observable to replay the
+last emitted values to new subscribers, ensuring that the same set of physicists is displayed across multiple 
+places without re-triggering the random selection.
+
+Understanding whether an observable is cold or hot can impact how your app behaves, especially when you're managing 
+side effects, like data fetching or random number generation, across different parts of your application. 
+The `pickerBtn` references the same VirtualDOM used in the previous **Replace Policy** section. 
+</note>
+
 The output is very similar to the previous example, with the following key differences:
 
 - Only the changes between consecutive emissions are rendered. Identical elements between one emission of
@@ -416,25 +433,32 @@ The output is very similar to the previous example, with the following key diffe
 Additional information can be found in the <api-link target="ChildrenOptionsSync" kind="interface"></api-link>
 API documentation.
 
-## HTMLElement & Lifecycle
+---
 
-In certain situations, such as when working with external libraries, it may be necessary to access the displayed
-HTML element corresponding to a vDOM. Additionally, you might need to execute specific logic when the
-HTMLElement is added to or removed from the page.
+## `HTMLElement` & Lifecycle
 
-For such scenario, virtual DOMs can define the functions:
+In some situations—such as integrating third-party libraries—you may need direct access to the actual HTML element
+produced by a VirtualDOM. You may also want to execute logic when the element is inserted into or removed from 
+the document.
 
-- **`connectedCallback`** : This function is executed when the HTMLElement is added to the page.
-  It takes an <api-link target="RxHTMLElement" kind="type-alias"></api-link> as an argument, implementing the regular 
-  HTMLElement API for the corresponding tag. 
-  Additionally, this type implements a <api-link target="ReactiveTrait" kind="function"></api-link>
-  providing helper methods like `ownSubscriptions` and `hookOnDisconnected` to simplify lifecycle management.
-- **`disconnectedCallback`**: This function is executed when the HTMLElement is removed from the page.
-  It also receives the associated element as an  <api-link target="RxHTMLElement" kind="type-alias"></api-link>.
-  This function is typically used to clean up resources.
+To support these scenarios, {{rx-vdom}} allows VirtualDOM to define lifecycle hooks:
 
-The following example demonstrates the usage of `connectedCallback`, `disconnectedCallback`, and lifecycle management 
-methods by creating a reactive chart using <a target="_blank" href="https://www.chartjs.org/">Chart.js</a> library:
+*  **`connectedCallback`**:
+Invoked when the corresponding `HTMLElement` is added to the document.
+It receives an <api-link target="RxHTMLElement" kind="type-alias"></api-link>, including helper methods such
+as `ownSubscriptions` and `hookOnDisconnected` to simplify resource management.
+
+*  **`disconnectedCallback`**:
+Invoked when the `HTMLElement` is removed from the DOM.
+It receives the same <api-link target="RxHTMLElement" kind="type-alias"></api-link> enhanced element instance and is 
+typically used for cleanup logic.
+
+
+**Example**
+
+The following example illustrates the use of connectedCallback, disconnectedCallback, and lifecycle management 
+in the context of rendering a live-updating chart using the
+ <ext-link target="chartjs">Chart.js</ext-link> library:
 
 <js-cell >
 const { chartJs } = await webpm.install({
@@ -477,3 +501,25 @@ vDOM = {
 }
 display(vDOM)
 </js-cell>
+
+<note level="info"> 
+As already mentioned, a given VirtualDOM may be rendered in multiple locations. In such cases, 
+the `connectedCallback` will be called for each individual instance, each time with a unique `HTMLElement`.
+
+<js-cell> 
+display(vDOM) 
+</js-cell>
+</note> 
+
+---
+
+## Conclusion
+
+In this tutorial, we've covered the key concepts and the API of {{rx-vdom}}. 
+You should have a solid understanding of how to work with VirtualDOM, bind it to reactive data streams,
+and manage lifecycle events. 
+
+With this foundation, building more complex applications now revolves around effectively managing state through 
+observable manipulation. 
+In the <cross-link target="todoApp">next tutorial</cross-link>, we'll dive into creating a ToDo app, 
+applying what we've learned here to build a practical, real-world application. 

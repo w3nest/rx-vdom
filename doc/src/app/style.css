@@ -1,14 +1,55 @@
 :root {
     --font-size-base: clamp(12px, 2.5vw, 18px);
-    --font-family-base: 'Georgia', serif;
-    --line-height-base: 1.6;
+    --font-family-base: 'Georgia', 'Times New Roman', serif;
+    --line-height-base: 1.8;
 }
 
 html {
     font-size: var(--font-size-base);
 }
 
+/*
+!important to not be overridden by bootstrap
+ */
 body {
     font-family: var(--font-family-base) !important;
-    line-height: var(--line-height-base);
+    line-height: var(--line-height-base) !important;
+}
+
+markdown-table-wrapper {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+/* Base table style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    min-width: 600px;
+}
+
+/* Table header */
+th {
+    background-color: #f9fafb;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: #111827;
+    border-bottom: 2px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+/* Table body */
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+    color: #374151;
+}
+
+/* Zebra striping */
+tr:nth-child(even) td {
+    background-color: #f9fafb;
 }
