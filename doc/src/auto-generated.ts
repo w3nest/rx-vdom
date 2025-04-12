@@ -58,8 +58,8 @@ const entries = {
 export const setup = {
     name: '@rx-vdom/doc',
     assetId: 'QHJ4LXZkb20vZG9j',
-    version: '0.1.3',
-    webpmPath: '/api/assets-gateway/webpm/resources/QHJ4LXZkb20vZG9j/0.1.3',
+    version: '0.1.4-wip',
+    webpmPath: '/api/assets-gateway/webpm/resources/QHJ4LXZkb20vZG9j/0.1.4-wip',
     apiVersion: '01',
     runTimeDependencies,
     externals,
@@ -117,7 +117,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@rx-vdom/doc#0.1.3~dist/${entry.name}.js`,
+            `@rx-vdom/doc#0.1.4-wip~dist/${entry.name}.js`,
         ]
         const modules = [
             ...(parameters.modules || []),
