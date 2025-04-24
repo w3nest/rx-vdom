@@ -1,4 +1,4 @@
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
 
 export const example1 = `
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ export const example1 = `
     <script type="module">
         const { RxDom, rxjs } = await webpm.install({
             modules:[ 
-                '@youwol/rx-vdom#${setup.version} as RxDom',
+                '@youwol/rx-vdom#${pkgJson.version} as RxDom',
                 'rxjs#^7.5.6 as rxjs'
             ],
             displayLoadingScreen: true

@@ -5,12 +5,12 @@ import {
     CSSAttribute,
     VirtualDOM,
 } from 'rx-vdom'
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
 import { from, map, timer } from 'rxjs'
 import { MdWidgets } from 'mkdocs-ts'
 
 export function rxVDomSize(): AnyVirtualDOM {
-    const url = `/api/assets-gateway/webpm/resources/${window.btoa('rx-vdom')}/${setup.version}/dist/rx-vdom.js`
+    const url = `/api/assets-gateway/webpm/resources/${window.btoa('rx-vdom')}/${pkgJson.version}/dist/rx-vdom.js`
     return {
         tag: 'i',
         innerText: attr$({

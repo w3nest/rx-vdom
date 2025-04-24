@@ -1,4 +1,4 @@
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
 import { fromMarkdown, GlobalMarkdownViews } from 'mkdocs-ts'
 import {
     ExtLink,
@@ -33,7 +33,7 @@ export function fromMd(file: string) {
 
 export const placeholders = {
     '{{project}}': 'rx-vdom',
-    '{{rxvdom-version}}': setup.version,
+    '{{rxvdom-version}}': pkgJson.version,
     '{{URL-example-cdn}}': `/apps/@w3nest/play-js/latest?content=${encodeURIComponent(example1)}`,
     '{{rx-vdom}}': '**`rx-vdom`**',
 }

@@ -4,7 +4,8 @@ import { placeholders, url } from './config.markdown'
 import { firstValueFrom } from 'rxjs'
 
 import * as webpmClient from '@w3nest/webpm-client'
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
+
 export const notebookOptions = {
     runAtStart: true,
     defaultCellAttributes: {
@@ -21,7 +22,7 @@ export const notebookPage = async (target: string, router: Router) => {
         installNotebookModule(),
         webpmClient.install({
             css: [
-                `mkdocs-ts#${setup.runTimeDependencies.externals['mkdocs-ts']}~assets/notebook.css`,
+                `mkdocs-ts#${pkgJson.webpm.dependencies['mkdocs-ts']}~assets/notebook.css`,
             ],
         }),
     ])

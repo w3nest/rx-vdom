@@ -1,6 +1,6 @@
 import { render, VirtualDOM } from '../lib'
 import { register } from '../lib/core'
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
 import { BehaviorSubject, of } from 'rxjs'
 import { factory } from '../lib/factory'
 
@@ -45,7 +45,7 @@ test('wrong children type', () => {
 test('double register call does not break', () => {
     expect(() => register()).not.toThrow()
     expect(warnings[0]).toBe(
-        `rx-vdom with api version ${setup.apiVersion} has already defined custom elements`,
+        `rx-vdom with api version ${pkgJson.webpack.apiVersion} has already defined custom elements`,
     )
 })
 

@@ -1,6 +1,5 @@
 /**
  *
- *  @module @youwol/rx-vdom
+ *  @module rx-vdom
  */
 export * from './lib'
-export { setup as webpmSetup } from './auto-generated'

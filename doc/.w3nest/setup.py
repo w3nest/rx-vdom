@@ -48,7 +48,7 @@ config = ProjectConfig(
     ),
     bundles=Bundles(
         mainModule=MainModule(
-            entryFile="./main.ts",
+            entryFile="app/main.ts",
             loadDependencies=[
                 "mkdocs-ts",
                 "rx-vdom",
@@ -68,7 +68,6 @@ template_folder = project_folder / ".w3nest" / ".template"
 generate_template(config=config, dst_folder=template_folder)
 
 files = [
-    Path("src") / "auto-generated.ts",
     ".gitignore",
     ".npmignore",
     ".prettierignore",
