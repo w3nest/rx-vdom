@@ -5,7 +5,7 @@ this page:
 
 <js-cell>
 const { rxDom, rxjs } = await webpm.install({
-    modules: [
+    esm: [
         'rx-vdom#{{rxvdom-version}} as rxDom', 
         'rxjs#^7.5.6 as rxjs'
     ]
@@ -63,7 +63,7 @@ A VirtualDOM element can also include the following attributes:
 - **`class`**: Equivalent to the `className` property of `HTMLElement`.  
 - **`style`**: Inline styles applied to the element 
   (see <api-link target="CSSAttribute" kind="type-alias"></api-link>).  
-- **`children`**: A list of VirtualDOM child elements. You can also use regular `HTMLElement` instances to smooth 
+- **`children`**: A list of VirtualDOM child elements. You can also provide regular `HTMLElement` instances to smooth 
   integration with third-party UI components or manually created elements 
   (see <api-link target="ChildLike" kind="type-alias"></api-link>).
 - **`customAttributes`**: Additional custom attributes for the element
@@ -254,7 +254,7 @@ More information can be found in <api-link target="RxChild" kind="interface"></a
 
 ---
 
-## RxChildren
+## Rx Children
 
 The concept of reactive children (<api-link target="RxChildren" kind="type-alias"></api-link>) involves a vDOM's entire 
 list of children being bound to an observable.
@@ -418,7 +418,6 @@ places without re-triggering the random selection.
 
 Understanding whether an observable is cold or hot can impact how your app behaves, especially when you're managing 
 side effects, like data fetching or random number generation, across different parts of your application. 
-The `pickerBtn` references the same VirtualDOM used in the previous **Replace Policy** section. 
 </note>
 
 The output is very similar to the previous example, with the following key differences:
@@ -462,7 +461,7 @@ in the context of rendering a live-updating chart using the
 
 <js-cell >
 const { chartJs } = await webpm.install({
-    modules:['chart.js#^3.9.1 as chartJs'],
+    esm:['chart.js#^3.9.1 as chartJs'],
 })
 chartJs.registerables.forEach((plot)=>chartJs.Chart.register(plot))
 
@@ -503,7 +502,7 @@ display(vDOM)
 </js-cell>
 
 <note level="info"> 
-As already mentioned, a given VirtualDOM may be rendered in multiple locations. In such cases, 
+A given VirtualDOM may be rendered in multiple locations. In such cases, 
 the `connectedCallback` will be called for each individual instance, each time with a unique `HTMLElement`.
 
 <js-cell> 

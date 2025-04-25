@@ -20,7 +20,7 @@ Let's begin by installing the necessary dependencies:
 
 <js-cell>
 const { rxDom, rxjs } = await webpm.install({
-    modules: [
+    esm: [
         'rx-vdom#{{rxvdom-version}} as rxDom', 
         'rxjs#^7.5.6 as rxjs'
     ]

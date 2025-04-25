@@ -1,5 +1,5 @@
 import pkgJson from '../../package.json'
-import { fromMarkdown, GlobalMarkdownViews } from 'mkdocs-ts'
+import { DefaultLayout, fromMarkdown, GlobalMarkdownViews } from 'mkdocs-ts'
 import {
     ExtLink,
     rxVDomSize,
@@ -9,6 +9,7 @@ import {
     GitHubLink,
 } from './md-widgets'
 import { example1 } from './js-plaground-examples'
+import { companionNodes$ } from './on-load'
 
 export const url = (restOfPath: string) => `../assets/${restOfPath}`
 
@@ -22,6 +23,16 @@ GlobalMarkdownViews.factory = {
     'ext-link': (elem: HTMLElement) => new ExtLink(elem),
     'cross-link': (elem: HTMLElement) => new CrossLink(elem),
     'github-link': (elem: HTMLElement) => new GitHubLink(elem),
+    'split-api': () => ({
+        tag: 'i',
+        class: 'mkdocs-inv',
+        children: [
+            DefaultLayout.splitCompanionAction({
+                path: '/api',
+                companionNodes$,
+            }),
+        ],
+    }),
 }
 
 export function fromMd(file: string) {

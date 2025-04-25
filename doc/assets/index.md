@@ -5,7 +5,7 @@
 
 --- 
 
-**A lightweight, observable-friendly library for declarative DOM structures.**
+**A lightweight, observable-friendly library for reactive & declarative DOM structures.**
 
 Key features of the library include:
 
@@ -13,7 +13,7 @@ Key features of the library include:
   commonly with <ext-link target="rxjs">RxJS</ext-link>, is opt-in by the consumer.
 
 - **Simple & Consistent API:** The API is minimal, building directly on standard HTML and reactive programming
-  principles.
+  principles. The library is not even required to define components, only to render them.
 
 - **Type Safety:** Powered by the strongly-typed <api-link target='VirtualDOM' kind='type-alias'></api-link> structure,
   offering seamless type checking and inline support in TypeScript.
@@ -21,8 +21,8 @@ Key features of the library include:
 <note level="hint" title="Side by Side API doc." icon="fas fa-columns   ">
 This documentation contains many inline links to the API documentation, like the 
 <api-link target='VirtualDOM' kind='type-alias'></api-link> reference above. To improve reading experience on larger
-screens, you can enable the **side-by-side** layout by clicking the <i class='fas fa-columns rounded border p-1'></i> 
-button in the left-hand navigation panel.
+screens, you can toggle **side-by-side** layout by clicking <split-api></split-api> (also available in the 
+left navigation pane).
 
 </note>
 
@@ -58,7 +58,7 @@ export const Clock = () => {
 }
 </code-snippet>
 
-Which, using e.g. `document.body.appendChild(render(Clock()))`, result in:
+Which, using the <api-link target='render' kind='function'></api-link>, provide the HTML element:
 
 <example-home></example-home>
 
@@ -73,9 +73,8 @@ that let you model time, events, and state with power and precision.
 <note level="hint" title="Comparing to React & Vue" expandable="true">
 
 To offer a practical comparison of how **rx-vdom** stacks up against <ext-link target='react'>React</ext-link> and
-<ext-link target='vue'>Vue</ext-link>,  
-we asked **ChatGPT** to generate equivalent implementations of the simple clock component,
-along with a summary of the key conceptual differences.
+<ext-link target='vue'>Vue</ext-link>, an AI code generator tool has been used to generate equivalent implementations 
+of the simple clock component. 
 
 **React**
 
@@ -135,33 +134,30 @@ export default {
 </script>
 </code-snippet>
 
-Below are a few key highlights that help position {{rx-vdom}} in contrast with frameworks like React and Vue:
+Below are a few highlights that help position {{rx-vdom}}:
 
 *  **Minimal Setup**: In {{rx-vdom}}, components are simply plain JavaScript objects, with minimal boilerplate.
    You can create components dynamically using functions or classes and manipulate them using plain JavaScript.
-   Notably, the framework is not even required to define components (only to render them), making it extremely
-   lightweight.
+   Notably, the framework is not even required to define components, making it extremely lightweight.
 
 *  **Explicit and Transparent**: The declarative syntax of {{rx-vdom}} provides a clear understanding of the scope of
    updates. Reactivity and component structure are explicitly defined, without relying on underlying mechanisms like 
-   virtual DOM diffing or automatic dependency tracking. Also, a single VirtualDOM object can be rendered in multiple 
-   places simultaneously within the document.
+   virtual DOM diffing or automatic dependency tracking.
 
 *  **Automatic Lifecycle Management**: {{rx-vdom}}  takes care of its own lifecycle. Subscriptions are automatically
    managed, eliminating the need to manually clean up or handle lifecycle events. Custom subscriptions can also be 
    tied directly to the component's lifecycle, offering flexibility.
 
-*  **Learning Reactive Programming**: Adopting {{rx-vdom}} is an introduction to reactive programming itself. 
+*  **Learning Reactive Programming**: Learning {{rx-vdom}} is essentially learning reactive programming itself. 
    While it may take more time to master compared to React or Vue, the knowledge gained is widely applicable 
    beyond UI development, making it a valuable skill for various programming contexts.
 
-*  **Minimal Scope**: At this stage, {{rx-vdom}} is designed primarily for in-browser SPA (Single Page Application) 
+*  **Minimal Scope**: {{rx-vdom}} is designed for in-browser SPA (Single Page Application) 
    development. It is not intended for server-side rendering or other broader use cases, so developers should be
    mindful of its current limitations.
 
-Please keep in mind that I am the author of {{rx-vdom}}, so this comparison may understandably carry some bias. 
-If you have any suggestions or insights that could help position the library better—especially if you’ve identified 
-additional limitations or drawbacks—please feel free to open a GitHub issue on the 
+If you have any suggestions or insights that could help position the library better, 
+please feel free to open a GitHub issue on the 
 <github-link target="rx-vdom">repository</github-link>. 
 Your feedback is always welcome!
 
@@ -199,5 +195,4 @@ For example, trying to assign an incorrect style value will trigger a compile-ti
 
 * 💻 <github-link target="examples">Examples on GitHub</github-link>: Check out practical examples,
    including a complete "todos" app in both JavaScript and TypeScript.
-
 

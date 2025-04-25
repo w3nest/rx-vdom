@@ -33,18 +33,18 @@ The `rx-vdom.config.ts` file helps optimize compilation times by only considerin
 in your project. By default, it includes all HTML tags, but you can limit the scope to a smaller set of tags for 
 development, which speeds up compilation.
 
-Here’s an example configuration:
+Here’s an example of this file:
 
 <code-snippet language="javascript">
-type AllTags = keyof HTMLElementTagNameMap
 export interface Configuration {
     TypeCheck: 'strict'
-    // This setup support all HTML tags
-    SupportedHTMLTags: 'Prod' extends 'Prod' ? AllTags : DevTags
-    // To support only the subset below ('Dev' can be 'Whatever' - as long it is not 'Prod'):
-    // SupportedHTMLTags: 'Dev' extends 'Prod' ? AllTags : DevTags
+    // This setup support all HTML tags:
+    SupportedHTMLTags: AllTags
+    // To only support a subset of them, replace by:
+    // SupportedHTMLTags: DevTags
 }
 
+type AllTags = keyof HTMLElementTagNameMap
 // You can modify this list to suit your needs.
 type DevTags =
     | 'div'
