@@ -2854,7 +2854,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Transforms a regular  `HTMLElement`  into a reactive one by augmenting it with reactive capabilities.\nThis allows you to manage the lifecycle of subscriptions and provides additional hooks for DOM events,\nsuch as when the element is added or removed from the page. See  <mkapi-api-link nav=\"@nav/api/.RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> .\n\nThe returned class extends the provided base  `HTMLElement`  constructor and implements  <mkapi-api-link nav=\"@nav/api/.RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> .",
+                        "content": "Transforms a regular  `HTMLElement`  into a reactive one by augmenting it with reactive capabilities.\nThis allows you to manage the lifecycle of subscriptions and provides additional hooks for DOM events,\nsuch as when the element is added or removed from the page.\n\nThe returned class extends the provided base  `HTMLElement`  constructor and implements  <mkapi-api-link nav=\"@nav/api/.RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -3192,24 +3192,6 @@
         {
             "name": "factory.ts",
             "path": "src/lib/factory.ts",
-            "documentation": {
-                "sections": [
-                    {
-                        "semantic": {
-                            "role": "",
-                            "labels": [],
-                            "attributes": {},
-                            "relations": {}
-                        },
-                        "content": "",
-                        "contentType": "markdown"
-                    }
-                ]
-            }
-        },
-        {
-            "name": "auto-generated.ts",
-            "path": "src/auto-generated.ts",
             "documentation": {
                 "sections": [
                     {
