@@ -25,7 +25,7 @@ import {
     Subscription,
     CSSAttribute,
 } from './api'
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
 
 class HTMLPlaceHolderElement extends HTMLElement {
     private currentElement: HTMLElement
@@ -400,7 +400,7 @@ function registerElement<Tag extends SupportedHTMLTags>(
 export function register() {
     if (customElements.get(`${customElementPrefix}-placeholder`)) {
         console.warn(
-            `rx-vdom with api version ${setup.apiVersion} has already defined custom elements`,
+            `rx-vdom with api version ${pkgJson.webpack.apiVersion} has already defined custom elements`,
         )
         return
     }

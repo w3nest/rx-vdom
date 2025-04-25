@@ -1,6 +1,6 @@
 import { RxHTMLElement } from './virtual-dom'
 import type { Configuration } from '@rxVDomConfig'
-import { setup } from '../auto-generated'
+import pkgJson from '../../package.json'
 import { AssertTrue as Assert, Has, IsExact } from 'conditional-type-checks'
 
 /**
@@ -25,7 +25,7 @@ type _ConfigSupportedHTMLTagsOK = Assert<
     >
 >
 
-export const customElementPrefix = `${setup.name}-${setup.apiVersion}`
+export const customElementPrefix = `${pkgJson.name}-${pkgJson.webpack.apiVersion}`
 
 /**
  *
