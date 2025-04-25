@@ -70,6 +70,13 @@
         "kind": "esm",
         "dependencies": {}
     },
+    "webpack": {
+        "root": "src",
+        "apiVersion": "01",
+        "main": "./index.ts",
+        "additionalEntries": {},
+        "externals": {}
+    },
     "bin": {
         "rx-vdom-init": "./bin/rx-vdom-init.js"
     }

@@ -2,7 +2,6 @@ type AllTags = keyof HTMLElementTagNameMap
 export interface Configuration {
     TypeCheck: 'strict'
     SupportedHTMLTags: 'Dev' extends 'Prod' ? AllTags : DevTags
-    WithFluxView: false
 }
 
 type DevTags =
