@@ -2,9 +2,9 @@ import { render } from 'rx-vdom'
 import { navigation } from './navigation'
 import { Router, DefaultLayout } from 'mkdocs-ts'
 import { BehaviorSubject } from 'rxjs'
-import { NavHeaderView } from './md-widgets'
 import { createRootContext, inMemReporter } from './config.context'
 import { AuthBadge } from '@w3nest/ui-tk/Badges'
+import { Footer } from '@w3nest/ui-tk/Mkdocs'
 const ctx = createRootContext({
     threadName: 'App',
     labels: [],
@@ -24,21 +24,37 @@ export const companionNodes$ = new BehaviorSubject<string[]>([])
 const bookmarks$ = new BehaviorSubject(['/', '/how-to', '/tutorials', '/api'])
 export const topStickyPaddingMax = '3rem'
 
+const footer = new Footer({
+    license: 'MIT',
+    copyrights: [
+        { year: '2021', holder: 'YouWol' },
+        { year: '2025', holder: 'Guillaume Reinisch' },
+    ],
+    github: 'https://github.com/w3nest/rx-vdom',
+    npm: 'https://www.npmjs.com/package/rx-vdom',
+    docGithub: 'https://github.com/w3nest/rx-vdom/tree/main/doc',
+})
+
 const routerView = new DefaultLayout.LayoutWithCompanion(
     {
         router,
         bookmarks$,
+        topBanner: {
+            logo: {
+                icon: '../assets/reactivex.svg',
+                title: 'Rx-vDOM',
+            },
+            expandedContent: new DefaultLayout.BookmarksView({
+                bookmarks$,
+                router,
+            }),
+            badge: new AuthBadge(),
+        },
+        footer,
         displayOptions: {
             pageVertPadding: '3rem',
         },
-        sideNavHeader: () => new NavHeaderView({ topStickyPaddingMax }),
-        sideNavFooter: () =>
-            new DefaultLayout.FooterView({
-                sourceName: '@rx-vdom/doc',
-                sourceUrl: 'https://github.com/w3nest/rx-vdom/tree/main/doc',
-            }),
         companionNodes$,
-        favoritesFooter: new AuthBadge(),
     },
     ctx,
 )
