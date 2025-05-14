@@ -1,7 +1,7 @@
 {
     "name": "@rx-vdom/doc",
     "description": "Documentation app for the library rx-vdom",
-    "version": "0.1.4",
+    "version": "0.1.5-wip",
     "author": "reinisch.gui@gmail.com",
     "homepage": "https://github.com/rx-vdom/doc#README.md",
     "main": "./dist/@rx-vdom/doc.js",
@@ -43,7 +43,7 @@
         "@w3nest/ui-tk": "^0.1.0",
         "@w3nest/webpm-client": "^0.1.5",
         "mkdocs-ts": "^0.3.2",
-        "rx-vdom": "^0.1.4",
+        "rx-vdom": "file:.local-dependencies/rx-vdom-0.1.5-wip-1747197763.tgz",
         "rxjs": "^7.5.6"
     },
     "devDependencies": {
@@ -85,7 +85,7 @@
             "@w3nest/ui-tk": "^0.1.0",
             "@w3nest/webpm-client": "^0.1.5",
             "mkdocs-ts": "^0.3.2",
-            "rx-vdom": "^0.1.4",
+            "rx-vdom": "^0.1.5",
             "rxjs": "^7.5.6"
         },
         "html": "dist/index.html"
@@ -102,5 +102,8 @@
             "rxjs": "window['rxjs_APIv7']",
             "@w3nest/ui-tk/Badges": "window['@w3nest/ui-tk_APIv01']['Badges']"
         }
+    },
+    "resolutions": {
+        "rx-vdom": "file:.local-dependencies/rx-vdom-0.1.5-wip-1747197763.tgz"
     }
 }
