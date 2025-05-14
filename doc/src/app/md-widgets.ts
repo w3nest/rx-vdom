@@ -1,6 +1,6 @@
 import { AnyVirtualDOM, attr$ } from 'rx-vdom'
 import pkgJson from '../../package.json'
-import { from, map, timer } from 'rxjs'
+import { from } from 'rxjs'
 import { MdWidgets } from 'mkdocs-ts'
 
 import LinksDict from './links.json'
@@ -22,30 +22,6 @@ export function rxVDomSize(): AnyVirtualDOM {
     }
 }
 
-export function exampleHome(): AnyVirtualDOM {
-    const time$ = timer(0, 1000)
-
-    return {
-        tag: 'div',
-        class: 'border rounded p-1',
-        children: [
-            {
-                tag: 'i',
-                class: time$.pipe(
-                    map((t) => `${t % 2 ? 'text-success' : ''} fas fa-clock`),
-                ),
-            },
-            {
-                source$: time$,
-                vdomMap: () => ({
-                    tag: 'i',
-                    class: 'mx-1',
-                    innerText: new Date().toLocaleTimeString(),
-                }),
-            },
-        ],
-    }
-}
 MdWidgets.ApiLink.Mapper = (target: string, elem: HTMLElement) => {
     const kind = elem.getAttribute('kind')
     return {
@@ -66,6 +42,6 @@ MdWidgets.GitHubLink.Mapper = (target: string) => {
 
 MdWidgets.CrossLink.Mapper = (target: string) => {
     return {
-        href: LinksDict.githubLinks[target] as string,
+        href: LinksDict.crossLinks[target] as string,
     }
 }

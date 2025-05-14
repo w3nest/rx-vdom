@@ -30,37 +30,12 @@ left navigation pane).
 
 ## Example Usage
 
-This example demonstrates the core concept of {{rx-vdom}}: you handle reactivity explicitly with observables, 
+The next (live) example demonstrates the core concept of {{rx-vdom}}: you handle reactivity explicitly with observables, 
 while the library declaratively connects them to the DOM.
 
-<code-snippet language='javascript'>
-import { timer, map } from 'rxjs'
+<example-timer>
+</example-timer>
 
-export const Clock = () => {
-    const t$ = timer(0, 1000)
-    const icon = {
-        tag: 'i', 
-        class: t$.pipe(map( (t) => `${t % 2 ? 'text-success' : ''} fas fa-clock`))
-    }
-    return {
-        tag: 'div', class: 'border rounded p-1',
-        children: [
-            icon,
-            {
-                source$: t$,
-                vdomMap: () => ({
-                    tag: 'i', class: 'mx-1', 
-                    innerText: new Date().toLocaleTimeString(),
-                }),
-            },
-        ]
-    }
-}
-</code-snippet>
-
-Which, using the <api-link target='render' kind='function'></api-link>, provide the HTML element:
-
-<example-home></example-home>
 
 <note level="hint" title="Observables First, Library Second" icon="fas fa-bolt">
 The example above showcases most of {{rx-vdom}}'s core API in action. Once you're familiar with it, you'll find that 
