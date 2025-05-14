@@ -51,6 +51,7 @@ const routerView = new DefaultLayout.LayoutWithCompanion(
             badge: new AuthBadge(),
         },
         footer,
+        navFooter: true,
         displayOptions: {
             pageVertPadding: '3rem',
         },
