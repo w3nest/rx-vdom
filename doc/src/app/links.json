@@ -1,5 +1,5 @@
 {
-    "extLinks":{
+    "extLinks": {
         "rxjs": "https://rxjs.dev/",
         "rxjsOperators": "https://rxjs.dev/guide/operators",
         "react": "https://react.dev",
@@ -10,11 +10,11 @@
         "chartjs": "https://www.chartjs.org/",
         "shareReplay": "https://rxjs.dev/api/operators/shareReplay"
     },
-    "githubLinks":{
+    "githubLinks": {
         "rx-vdom": "https://github.com/w3nest/rx-vdom",
         "examples": "https://github.com/w3nest/rx-vdom/tree/main/examples"
     },
-    "crossLinks":{
+    "crossLinks": {
         "gettingStarted": "@nav/tutorials/basics",
         "todoApp": "@nav/tutorials/todo",
         "howTo": "@nav/how-to",
