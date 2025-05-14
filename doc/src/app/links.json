@@ -1,0 +1,23 @@
+{
+    "extLinks":{
+        "rxjs": "https://rxjs.dev/",
+        "rxjsOperators": "https://rxjs.dev/guide/operators",
+        "react": "https://react.dev",
+        "vue": "https://vuejs.org",
+        "learnRxJS": "https://www.learnrxjs.io/",
+        "mkdocsTS": "/apps/@mkdocs-ts/doc/latest",
+        "reactivex": "https://reactivex.io/",
+        "chartjs": "https://www.chartjs.org/",
+        "shareReplay": "https://rxjs.dev/api/operators/shareReplay"
+    },
+    "githubLinks":{
+        "rx-vdom": "https://github.com/w3nest/rx-vdom",
+        "examples": "https://github.com/w3nest/rx-vdom/tree/main/examples"
+    },
+    "crossLinks":{
+        "gettingStarted": "@nav/tutorials/basics",
+        "todoApp": "@nav/tutorials/todo",
+        "howTo": "@nav/how-to",
+        "api": "@nav/api"
+    }
+}
