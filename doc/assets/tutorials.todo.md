@@ -67,7 +67,12 @@ class State {
         const storageKey = '@rx-vdom/todo-app-js'
         this.items$ = new BehaviorSubject([])
         if (!localStorage.getItem(storageKey)) {
-            localStorage.setItem(storageKey, '[]')
+            const learn = {
+                id: Date.now(), 
+                name: 'Learn Rx-vDOM',
+                completed: false
+            }
+            localStorage.setItem(storageKey, JSON.stringify([learn]))
         }
         this.items$.next(JSON.parse(localStorage.getItem(storageKey)))
         this.items$.subscribe((items) => {
