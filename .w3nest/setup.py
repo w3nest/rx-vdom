@@ -20,7 +20,7 @@ externals_deps = {}
 in_bundle_deps = {
     # polyfill for WebKt based browsers (e.g. Safari)
     # see https://github.com/WebKit/standards-positions/issues/97
-    "@ungap/custom-elements": "1.2.0",
+    "@ungap/custom-elements": "1.3.0",
     # `csstype` is only about types, it is not in dev dependencies as we want it to be downloaded by consuming packages.
     "csstype": "^2.6.0",
     # `conditional-type-checks` is used to realize 'compile time' tests on type definitions

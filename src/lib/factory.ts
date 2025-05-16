@@ -1,3 +1,4 @@
+import '@ungap/custom-elements'
 import { RxHTMLElement } from './virtual-dom'
 import type { Configuration } from '@rxVDomConfig'
 import pkgJson from '../../package.json'
