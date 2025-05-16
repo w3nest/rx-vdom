@@ -8,7 +8,8 @@
         "mkdocsTS": "/apps/@mkdocs-ts/doc/latest",
         "reactivex": "https://reactivex.io/",
         "chartjs": "https://www.chartjs.org/",
-        "shareReplay": "https://rxjs.dev/api/operators/shareReplay"
+        "shareReplay": "https://rxjs.dev/api/operators/shareReplay",
+        "rxjs-trex": "https://dev.to/mfp22/rxjs-can-save-your-codebase-49fi"
     },
     "githubLinks": {
         "rx-vdom": "https://github.com/w3nest/rx-vdom",

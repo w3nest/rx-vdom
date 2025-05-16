@@ -30,6 +30,8 @@ left navigation pane).
 
 ## Example Usage
 
+**🧠 The Reactive View, at Its Simplest**
+
 The next (live) example demonstrates the core concept of {{rx-vdom}}: you handle reactivity explicitly with observables, 
 while the library declaratively connects them to the DOM.
 
@@ -138,6 +140,25 @@ Your feedback is always welcome!
 
 </note>
 
+
+**🦖 T-Rex Runner: a reactive sprite in 50 lines**
+
+The next example serves as a more expressive demonstration of how rx-vdom empowers you to build fully declarative, 
+reactively driven views — with no manual DOM updates, no mutation code, and no imperative side-effects.
+
+We use RxJS to drive a T-Rex sprite animation that reacts to time-based state, and `rx-vdom` binds it directly to 
+the DOM in a fully declarative style.
+
+<example-trex>
+</example-trex>
+
+* ✅ **Reactive state**: The entire animation is driven by RxJS.
+* ✅ **Declarative view**: The DOM structure is just a data object.
+* ✅ **Reactive styles**: Style changes are streamed — no `setAttribute`, `classList`, or manual DOM mutation.
+* ✅ **No custom components needed**: All done with plain objects and operators.
+
+The above implementation is adapted from <ext-link target="rxjs-trex">this article</ext-link>, which also offers a
+meaningful comparison between observables and signals in reactive programming.
 
 ## TypeScript first
 
