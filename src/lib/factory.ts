@@ -44,9 +44,7 @@ export function factory<Tag extends SupportedHTMLTags>(
     tag: Tag,
 ): RxHTMLElement<Tag> {
     if (!CustomElementsMap[tag as string]) {
-        throw Error(
-            `The element ${tag} is not registered in flux-view's factory`,
-        )
+        throw Error(`The element ${tag} is not registered in rx-vdom's factory`)
     }
 
     return document.createElement(tag, {

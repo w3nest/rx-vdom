@@ -71,7 +71,7 @@ test('unknown children policy', () => {
 
 test('factory of unkwown tag throw', () => {
     expect(() => factory('foo' as never)).toThrow(
-        "The element foo is not registered in flux-view's factory",
+        "The element foo is not registered in rx-vdom's factory",
     )
 })
 
