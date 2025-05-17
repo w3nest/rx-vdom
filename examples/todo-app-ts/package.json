@@ -4,7 +4,7 @@
     "version": "0.1.0-wip",
     "author": "reinisch.gui@gmail.com",
     "homepage": "https://github.com/rx-vdom/todo-app-ts#README.md",
-    "main": "tbd",
+    "main": "./dist/@rx-vdom/todo-app-ts.js",
     "types": "src/index.ts",
     "scripts": {
         "clean": "del-cli dist",
@@ -25,8 +25,8 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/@rx-vdom/todo-app-ts.js",
-            "types": "./src/index.ts",
+            "default": "./dist/@rx-vdom/todo-app-ts.js",
+            "types": "./src/app/main.ts",
             "webpm": {
                 "dependencies": [
                     "rxjs",
@@ -38,9 +38,9 @@
         }
     },
     "dependencies": {
-        "@w3nest/webpm-client": "^0.1.2",
-        "rx-vdom": "^0.1.1",
-        "rxjs": "^7.5.6"
+        "@w3nest/webpm-client": "^0.1.8",
+        "rx-vdom": "^0.1.5",
+        "rxjs": "^7.8.2"
     },
     "devDependencies": {
         "@types/jest": "^29.5.4",
@@ -76,10 +76,21 @@
     "webpm": {
         "kind": "webapp",
         "dependencies": {
-            "@w3nest/webpm-client": "^0.1.2",
-            "rx-vdom": "^0.1.1",
-            "rxjs": "^7.5.6"
+            "@w3nest/webpm-client": "^0.1.8",
+            "rx-vdom": "^0.1.5",
+            "rxjs": "^7.8.2"
         },
         "html": "dist/index.html"
+    },
+    "webpack": {
+        "root": "src",
+        "apiVersion": "01",
+        "main": "./app/main.ts",
+        "additionalEntries": {},
+        "externals": {
+            "rxjs": "window['rxjs_APIv7']",
+            "rx-vdom": "window['rx-vdom_APIv01']",
+            "@w3nest/webpm-client": "window['@w3nest/webpm-client_APIv01']"
+        }
     }
 }
