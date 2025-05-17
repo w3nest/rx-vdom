@@ -2444,8 +2444,8 @@
                 "filePath": "src/lib/factory.ts",
                 "declaration": "export type SupportedHTMLTags = Configuration['SupportedHTMLTags']",
                 "implementation": "",
-                "startLine": 39,
-                "endLine": 40,
+                "startLine": 40,
+                "endLine": 41,
                 "references": {
                     "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags"
                 }
