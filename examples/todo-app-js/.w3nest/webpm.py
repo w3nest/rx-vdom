@@ -17,13 +17,7 @@ Package(
     specification=WebApp(main=MainWebApp(entryPoint=pkg_json["main"])),
     distribution=Distribution(
         files=FileListing(
-            include=[
-                "index.html",
-                "script.js",
-                "style.css",
-                "assets/favicon.svg",
-                "README.md",
-            ],
+            include=["index.html"],
             ignore=[],
         ),
     ),

@@ -19,8 +19,7 @@ pkg_json = parse_json(project_folder / "package.json")
 
 load_dependencies = {
     "rxjs": "^7.8.2",
-    "rx-vdom": "^0.1.5",
-    "@w3nest/webpm-client": "^0.1.8",
+    "rx-vdom": "^0.1.6",
 }
 
 config = ProjectConfig(
@@ -30,13 +29,12 @@ config = ProjectConfig(
     version=pkg_json["version"],
     shortDescription=pkg_json["description"],
     author=pkg_json["author"],
-    dependencies=Dependencies(runTime=RunTimeDeps(externals=load_dependencies)),
+    dependencies=Dependencies(runTime=RunTimeDeps(includedInBundle=load_dependencies)),
     devServer=DevServer(port=4001),
     bundles=Bundles(
-        mainModule=MainModule(
-            entryFile="./app/main.ts", loadDependencies=list(load_dependencies.keys())
-        )
+        mainModule=MainModule(entryFile="./app/main.ts", loadDependencies=[])
     ),
+    inPackageJson={"scripts": {"start": "webpack serve --node-env=development"}},
 )
 
 
@@ -45,14 +43,14 @@ template_folder = project_folder / ".w3nest" / ".template"
 generate_template(config=config, dst_folder=template_folder)
 
 files = [
-    "README.md",
+    # "README.md", Custom README
     ".gitignore",
     ".npmignore",
     ".prettierignore",
     "package.json",
     "jest.config.ts",
     "tsconfig.json",
-    "webpack.config.ts",
+    # "webpack.config.ts", Simplified for this particular use case
 ]
 for file in files:
     shutil.copyfile(src=template_folder / file, dst=project_folder / file)

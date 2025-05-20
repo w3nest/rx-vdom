@@ -1,101 +1,16 @@
 # @rx-vdom/todo-app-ts
 
-Todo app in typescript using rx-vdom
+Simple example of a TODO application in TypeScript.
+It serves as illustration of `rx-vdom` usage.
+The application is available online [here](https://w3nest.org/apps/@rx-vdom/todo-app-ts/latest).
 
-This library is part of the hybrid cloud/local ecosystem
-[YouWol](https://platform.youwol.com/apps/@youwol/platform/latest).
+You can load this application on your computer by starting the dev-server:
+*  `yarn`
+*  `yarn start --port 2010`
+*  visit `http://localhost:2010`
 
-## Links
+Test-suites can be launched using `yarn test`.
 
-[Running app.](https://platform.youwol.com/apps/@rx-vdom/todo-app-ts/latest)
-
-<!-- no user guide provided -->
-
-[Developers documentation](https://platform.youwol.com/apps/@youwol/cdn-explorer/latest?package=@rx-vdom/todo-app-ts&tab=doc)
-
-[Package on npm](https://www.npmjs.com/package/@rx-vdom/todo-app-ts)
-
-[Source on GitHub](https://github.com/rx-vdom/todo-app-ts)
-
-# Installation, Build, Test
-
-To install the required dependencies:
-
-```shell
-yarn
-```
-
----
-
-To build for development:
-
-```shell
-yarn build:dev
-```
-
-To build for production:
-
-```shell
-yarn build:prod
-```
-
----
-
-<!-- no specific test configuration documented -->
-
-To run tests:
-
-```shell
-yarn test
-```
-
-Coverage can be evaluated using:
-
-```shell
-yarn test-coverage
-```
-
----
-
-To start the 'dev-server':
-
-```shell
-yarn start
-```
-
-In order to use the dev-server within Py-YouWol and to serve resources in place of the usual CDN database,
-the Py-YouWol configuration needs to be updated to include a `WebpackDevServerSwitch` within a
-`FlowSwitcherMiddleware`. For example:
-
-```python
-from w3nest.app.environment import *
-from w3nest.ci.ts_frontend import WebpackDevServerSwitch
-
-Configuration(
-    customization = Customization(
-        middlewares = [
-            FlowSwitcherMiddleware(
-                name = 'front-end dev-servers',
-                oneOf = [
-                    WebpackDevServerSwitch(packageName="@rx-vdom/todo-app-ts", port=4001),
-                ]
-            )
-        ]
-    )
-)
-```
-
-Additional information on the `Configuration` class can be found in the "Configuration API" page of the
-[Py-YouWol guide](https://l.youwol.com/doc/py-youwol).
-
-Once Py-YouWol is running with the updated configuration,
-the application can be accessed from [here](http://localhost:2000/apps/@rx-vdom/todo-app-ts/latest)
-(providing py-youwol running using the default port `2000`).
-
----
-
-To generate code's documentation:
-
-```shell
-yarn doc
-```
+The project aims at reproducing the
+<a href='https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-todomvc?from-embed'>
+todos example of Vue</a>.

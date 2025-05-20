@@ -26,8 +26,8 @@ beforeEach(() => {
     document.body.textContent = ''
 })
 
-test('on-load does insert the view in the DOM', async () => {
-    await import('../app/on-load')
+test('"main" does insert the view in the DOM', async () => {
+    await import('../app/main')
     const appView = document.querySelector(`.${AppView.ClassName}`)
     expect(appView).toBeTruthy()
 })
