@@ -3,7 +3,7 @@
     "documentation": {
         "sections": [
             {
-                "content": "## Welcome to the **rx-vdom** API Documentation  \n\n**rx-vdom** is a reactive virtual DOM library designed to enhance declarative UI development. \nIt revolves around the  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\"> VirtualDOM</mkapi-api-link>  structure, which is transformed into standard  `HTMLElement`  instances \nusing  <mkapi-api-link nav=\"@nav/api/.render\" semantic=\"function\"> render</mkapi-api-link> .  \n\n**Key Concepts**\n\nA  `VirtualDOM`  represents an  `HTMLElement`  where attributes and children can be defined as either plain values or observables, enabling reactivity. This allows seamless updates when data changes. Reactivity is handled through:\n\n- **Attributes**: Defined reactively using  <mkapi-api-link nav=\"@nav/api/.RxAttribute\" semantic=\"interface\"> RxAttribute</mkapi-api-link> .\n- **Single Child**: Managed reactively using  <mkapi-api-link nav=\"@nav/api/.RxChild\" semantic=\"interface\"> RxChild</mkapi-api-link> .\n- **Multiple Children**: Handled using  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\"> RxChildren</mkapi-api-link> , with three update policies:\n  -  <mkapi-api-link nav=\"@nav/api/.ChildrenOptionsReplace\" semantic=\"interface\"> ChildrenOptionsReplace</mkapi-api-link> : Replaces all children when the observable emits a new value.\n  -  <mkapi-api-link nav=\"@nav/api/.ChildrenOptionsAppend\" semantic=\"interface\"> ChildrenOptionsAppend</mkapi-api-link> : Appends new children while preserving existing ones.\n  -  <mkapi-api-link nav=\"@nav/api/.ChildrenOptionsSync\" semantic=\"type-alias\"> ChildrenOptionsSync</mkapi-api-link> : Synchronizes additions and removals based on the observable’s state.\n\n**TypeScript Support**\n\nFor better type inference in TypeScript, use the helper functions  <mkapi-api-link nav=\"@nav/api/.attr$\" semantic=\"function\"> attr$</mkapi-api-link> ,  <mkapi-api-link nav=\"@nav/api/.child$\" semantic=\"function\"> child$</mkapi-api-link> ,  <mkapi-api-link nav=\"@nav/api/.replace$\" semantic=\"function\"> replace$</mkapi-api-link> , \n <mkapi-api-link nav=\"@nav/api/.append$\" semantic=\"function\"> append$</mkapi-api-link> , and  <mkapi-api-link nav=\"@nav/api/.sync$\" semantic=\"function\"> sync$</mkapi-api-link> . These functions have no runtime effect beyond returning their provided argument,\nensuring strong typing without additional overhead.\n\nThis API documentation provides an in-depth guide to utilizing **rx-vdom** for building highly reactive and efficient \nweb applications.",
+                "content": "## Welcome to the **rx-vdom** API Documentation  \n\n**rx-vdom** is a reactive virtual DOM library designed to enhance declarative UI development. \nIt revolves around the  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\"> VirtualDOM</mkapi-api-link>  structure, which is transformed into standard  `HTMLElement`  instances \nusing  <mkapi-api-link nav=\"@nav[rx-vdom].render\" semantic=\"function\"> render</mkapi-api-link> .  \n\n**Key Concepts**\n\nA  `VirtualDOM`  represents an  `HTMLElement`  where attributes and children can be defined as either plain values or observables, enabling reactivity. This allows seamless updates when data changes. Reactivity is handled through:\n\n- **Attributes**: Defined reactively using  <mkapi-api-link nav=\"@nav[rx-vdom].RxAttribute\" semantic=\"interface\"> RxAttribute</mkapi-api-link> .\n- **Single Child**: Managed reactively using  <mkapi-api-link nav=\"@nav[rx-vdom].RxChild\" semantic=\"interface\"> RxChild</mkapi-api-link> .\n- **Multiple Children**: Handled using  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\"> RxChildren</mkapi-api-link> , with three update policies:\n  -  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenOptionsReplace\" semantic=\"interface\"> ChildrenOptionsReplace</mkapi-api-link> : Replaces all children when the observable emits a new value.\n  -  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenOptionsAppend\" semantic=\"interface\"> ChildrenOptionsAppend</mkapi-api-link> : Appends new children while preserving existing ones.\n  -  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenOptionsSync\" semantic=\"type-alias\"> ChildrenOptionsSync</mkapi-api-link> : Synchronizes additions and removals based on the observable’s state.\n\n**TypeScript Support**\n\nFor better type inference in TypeScript, use the helper functions  <mkapi-api-link nav=\"@nav[rx-vdom].attr$\" semantic=\"function\"> attr$</mkapi-api-link> ,  <mkapi-api-link nav=\"@nav[rx-vdom].child$\" semantic=\"function\"> child$</mkapi-api-link> ,  <mkapi-api-link nav=\"@nav[rx-vdom].replace$\" semantic=\"function\"> replace$</mkapi-api-link> , \n <mkapi-api-link nav=\"@nav[rx-vdom].append$\" semantic=\"function\"> append$</mkapi-api-link> , and  <mkapi-api-link nav=\"@nav[rx-vdom].sync$\" semantic=\"function\"> sync$</mkapi-api-link> . These functions have no runtime effect beyond returning their provided argument,\nensuring strong typing without additional overhead.\n\nThis API documentation provides an in-depth guide to utilizing **rx-vdom** for building highly reactive and efficient \nweb applications.",
                 "contentType": "markdown",
                 "semantic": {
                     "role": "",
@@ -15,7 +15,7 @@
         ]
     },
     "path": "rx-vdom",
-    "navPath": "@nav/api/",
+    "navPath": "@nav[rx-vdom]",
     "attributes": [
         {
             "name": "EmptyDiv",
@@ -28,7 +28,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "",
+                        "content": "A Virtual DOM resolving to an empty  `div` .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -40,7 +40,7 @@
                 ]
             },
             "path": "EmptyDiv",
-            "navPath": "@nav/api/.EmptyDiv",
+            "navPath": "@nav[rx-vdom].EmptyDiv",
             "code": {
                 "filePath": "src/lib/virtual-dom.ts",
                 "declaration": "EmptyDiv: VirtualDOM<'div'> = { tag: 'div' }",
@@ -48,8 +48,8 @@
                 "startLine": 142,
                 "endLine": 143,
                 "references": {
-                    "EmptyDiv": "@nav/api/.EmptyDiv",
-                    "VirtualDOM": "@nav/api/.VirtualDOM"
+                    "EmptyDiv": "@nav[rx-vdom].EmptyDiv",
+                    "VirtualDOM": "@nav[rx-vdom].VirtualDOM"
                 }
             }
         }
@@ -60,7 +60,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Trait for a reactive (un-tagged) HTML element.\nThis class extends the standard HTMLElement with additional properties defined by  <mkapi-api-link nav=\"@nav/api/.ReactiveTraitGenerator\" semantic=\"function\">ReactiveTraitGenerator</mkapi-api-link> .\nFor tag-specific elements, refer to  <mkapi-api-link nav=\"@nav/api/.RxHTMLElement\" semantic=\"type-alias\">RxHTMLElement</mkapi-api-link> .",
+                        "content": "Trait for a reactive (un-tagged) HTML element.\nThis class extends the standard HTMLElement with additional properties defined by  <mkapi-api-link nav=\"@nav[rx-vdom].ReactiveTraitGenerator\" semantic=\"function\">ReactiveTraitGenerator</mkapi-api-link> .\nFor tag-specific elements, refer to  <mkapi-api-link nav=\"@nav[rx-vdom].RxHTMLElement\" semantic=\"type-alias\">RxHTMLElement</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -72,7 +72,7 @@
                 ]
             },
             "path": "RxElementTrait",
-            "navPath": "@nav/api/.RxElementTrait",
+            "navPath": "@nav[rx-vdom].RxElementTrait",
             "attributes": [],
             "callables": [],
             "code": {
@@ -82,10 +82,10 @@
                 "startLine": 19,
                 "endLine": 20,
                 "references": {
-                    "RxElementTrait": "@nav/api/.RxElementTrait",
-                    "Subscription": "@nav/api/.Subscription",
-                    "VirtualDOM": "@nav/api/.VirtualDOM",
-                    "AnyHTMLAttribute": "@nav/api/.AnyHTMLAttribute"
+                    "RxElementTrait": "@nav[rx-vdom].RxElementTrait",
+                    "Subscription": "@nav[rx-vdom].Subscription",
+                    "VirtualDOM": "@nav[rx-vdom].VirtualDOM",
+                    "AnyHTMLAttribute": "@nav[rx-vdom].AnyHTMLAttribute"
                 }
             },
             "semantic": {
@@ -100,7 +100,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "API for the  `append`  policy of  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThis type defines the options available for appending children when the  `append`  policy is used.",
+                        "content": "API for the  `append`  policy of  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThis type defines the options available for appending children when the  `append`  policy is used.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -123,7 +123,7 @@
                 ]
             },
             "path": "ChildrenOptionsAppend",
-            "navPath": "@nav/api/.ChildrenOptionsAppend",
+            "navPath": "@nav[rx-vdom].ChildrenOptionsAppend",
             "attributes": [
                 {
                     "name": "orderOperator",
@@ -148,7 +148,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsAppend.orderOperator",
-                    "navPath": "@nav/api/.ChildrenOptionsAppend.orderOperator",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsAppend.orderOperator",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "orderOperator?: (d1: TDomain, d2: TDomain) => number",
@@ -156,7 +156,7 @@
                         "startLine": 150,
                         "endLine": 151,
                         "references": {
-                            "orderOperator": "@nav/api/.ChildrenOptionsAppend.orderOperator"
+                            "orderOperator": "@nav[rx-vdom].ChildrenOptionsAppend.orderOperator"
                         }
                     }
                 },
@@ -183,7 +183,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsAppend.sideEffects",
-                    "navPath": "@nav/api/.ChildrenOptionsAppend.sideEffects",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsAppend.sideEffects",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "sideEffects?: (\n        parent: RxElementTrait,\n        update: RenderingUpdate<TDomain>,\n    ) => void",
@@ -191,9 +191,9 @@
                         "startLine": 135,
                         "endLine": 136,
                         "references": {
-                            "sideEffects": "@nav/api/.ChildrenOptionsAppend.sideEffects",
-                            "RxElementTrait": "@nav/api/.RxElementTrait",
-                            "RenderingUpdate": "@nav/api/.RenderingUpdate"
+                            "sideEffects": "@nav[rx-vdom].ChildrenOptionsAppend.sideEffects",
+                            "RxElementTrait": "@nav[rx-vdom].RxElementTrait",
+                            "RenderingUpdate": "@nav[rx-vdom].RenderingUpdate"
                         }
                     }
                 },
@@ -220,7 +220,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsAppend.source$",
-                    "navPath": "@nav/api/.ChildrenOptionsAppend.source$",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsAppend.source$",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "source$: Observable<TDomain[]>",
@@ -228,8 +228,8 @@
                         "startLine": 119,
                         "endLine": 120,
                         "references": {
-                            "source$": "@nav/api/.ChildrenOptionsAppend.source$",
-                            "Observable": "@nav/api/.Observable"
+                            "source$": "@nav[rx-vdom].ChildrenOptionsAppend.source$",
+                            "Observable": "@nav[rx-vdom].Observable"
                         }
                     }
                 },
@@ -256,7 +256,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsAppend.vdomMap",
-                    "navPath": "@nav/api/.ChildrenOptionsAppend.vdomMap",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsAppend.vdomMap",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "vdomMap: (domainData: TDomain) => AnyVirtualDOM",
@@ -264,8 +264,8 @@
                         "startLine": 127,
                         "endLine": 128,
                         "references": {
-                            "vdomMap": "@nav/api/.ChildrenOptionsAppend.vdomMap",
-                            "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                            "vdomMap": "@nav[rx-vdom].ChildrenOptionsAppend.vdomMap",
+                            "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                         }
                     }
                 }
@@ -278,11 +278,11 @@
                 "startLine": 115,
                 "endLine": 152,
                 "references": {
-                    "ChildrenOptionsAppend": "@nav/api/.ChildrenOptionsAppend",
-                    "RxElementTrait": "@nav/api/.RxElementTrait",
-                    "RenderingUpdate": "@nav/api/.RenderingUpdate",
-                    "Observable": "@nav/api/.Observable",
-                    "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                    "ChildrenOptionsAppend": "@nav[rx-vdom].ChildrenOptionsAppend",
+                    "RxElementTrait": "@nav[rx-vdom].RxElementTrait",
+                    "RenderingUpdate": "@nav[rx-vdom].RenderingUpdate",
+                    "Observable": "@nav[rx-vdom].Observable",
+                    "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                 }
             },
             "semantic": {
@@ -297,7 +297,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "API for the  `replace`  policy of  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThis type defines the options available for replacing children when the  `replace`  policy is used.",
+                        "content": "API for the  `replace`  policy of  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThis type defines the options available for replacing children when the  `replace`  policy is used.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -320,7 +320,7 @@
                 ]
             },
             "path": "ChildrenOptionsReplace",
-            "navPath": "@nav/api/.ChildrenOptionsReplace",
+            "navPath": "@nav[rx-vdom].ChildrenOptionsReplace",
             "attributes": [
                 {
                     "name": "sideEffects",
@@ -345,7 +345,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsReplace.sideEffects",
-                    "navPath": "@nav/api/.ChildrenOptionsReplace.sideEffects",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsReplace.sideEffects",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "sideEffects?: (element: ResolvedHTMLElement<TDomain>) => void",
@@ -353,8 +353,8 @@
                         "startLine": 194,
                         "endLine": 195,
                         "references": {
-                            "sideEffects": "@nav/api/.ChildrenOptionsReplace.sideEffects",
-                            "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                            "sideEffects": "@nav[rx-vdom].ChildrenOptionsReplace.sideEffects",
+                            "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                         }
                     }
                 },
@@ -381,7 +381,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsReplace.source$",
-                    "navPath": "@nav/api/.ChildrenOptionsReplace.source$",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsReplace.source$",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "source$: Observable<TDomain>",
@@ -389,8 +389,8 @@
                         "startLine": 164,
                         "endLine": 165,
                         "references": {
-                            "source$": "@nav/api/.ChildrenOptionsReplace.source$",
-                            "Observable": "@nav/api/.Observable"
+                            "source$": "@nav[rx-vdom].ChildrenOptionsReplace.source$",
+                            "Observable": "@nav[rx-vdom].Observable"
                         }
                     }
                 },
@@ -417,7 +417,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsReplace.untilFirst",
-                    "navPath": "@nav/api/.ChildrenOptionsReplace.untilFirst",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsReplace.untilFirst",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "untilFirst?: AnyVirtualDOM[]",
@@ -425,8 +425,8 @@
                         "startLine": 176,
                         "endLine": 177,
                         "references": {
-                            "untilFirst": "@nav/api/.ChildrenOptionsReplace.untilFirst",
-                            "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                            "untilFirst": "@nav[rx-vdom].ChildrenOptionsReplace.untilFirst",
+                            "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                         }
                     }
                 },
@@ -453,7 +453,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsReplace.vdomMap",
-                    "navPath": "@nav/api/.ChildrenOptionsReplace.vdomMap",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsReplace.vdomMap",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "vdomMap: (domainData: TDomain) => AnyVirtualDOM[]",
@@ -461,8 +461,8 @@
                         "startLine": 171,
                         "endLine": 172,
                         "references": {
-                            "vdomMap": "@nav/api/.ChildrenOptionsReplace.vdomMap",
-                            "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                            "vdomMap": "@nav[rx-vdom].ChildrenOptionsReplace.vdomMap",
+                            "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                         }
                     }
                 },
@@ -489,7 +489,7 @@
                         ]
                     },
                     "path": "ChildrenOptionsReplace.wrapper",
-                    "navPath": "@nav/api/.ChildrenOptionsReplace.wrapper",
+                    "navPath": "@nav[rx-vdom].ChildrenOptionsReplace.wrapper",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "wrapper?: (domValue: AnyVirtualDOM[]) => AnyVirtualDOM[]",
@@ -497,8 +497,8 @@
                         "startLine": 185,
                         "endLine": 186,
                         "references": {
-                            "wrapper": "@nav/api/.ChildrenOptionsReplace.wrapper",
-                            "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                            "wrapper": "@nav[rx-vdom].ChildrenOptionsReplace.wrapper",
+                            "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                         }
                     }
                 }
@@ -511,10 +511,10 @@
                 "startLine": 160,
                 "endLine": 196,
                 "references": {
-                    "ChildrenOptionsReplace": "@nav/api/.ChildrenOptionsReplace",
-                    "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement",
-                    "Observable": "@nav/api/.Observable",
-                    "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                    "ChildrenOptionsReplace": "@nav[rx-vdom].ChildrenOptionsReplace",
+                    "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement",
+                    "Observable": "@nav[rx-vdom].Observable",
+                    "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                 }
             },
             "semantic": {
@@ -552,7 +552,7 @@
                 ]
             },
             "path": "ChildrenTypesOptionMap",
-            "navPath": "@nav/api/.ChildrenTypesOptionMap",
+            "navPath": "@nav[rx-vdom].ChildrenTypesOptionMap",
             "attributes": [
                 {
                     "name": "append",
@@ -577,7 +577,7 @@
                         ]
                     },
                     "path": "ChildrenTypesOptionMap.append",
-                    "navPath": "@nav/api/.ChildrenTypesOptionMap.append",
+                    "navPath": "@nav[rx-vdom].ChildrenTypesOptionMap.append",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "append: ChildrenOptionsAppend<TDomain>",
@@ -585,8 +585,8 @@
                         "startLine": 244,
                         "endLine": 245,
                         "references": {
-                            "append": "@nav/api/.ChildrenTypesOptionMap.append",
-                            "ChildrenOptionsAppend": "@nav/api/.ChildrenOptionsAppend"
+                            "append": "@nav[rx-vdom].ChildrenTypesOptionMap.append",
+                            "ChildrenOptionsAppend": "@nav[rx-vdom].ChildrenOptionsAppend"
                         }
                     }
                 },
@@ -613,7 +613,7 @@
                         ]
                     },
                     "path": "ChildrenTypesOptionMap.replace",
-                    "navPath": "@nav/api/.ChildrenTypesOptionMap.replace",
+                    "navPath": "@nav[rx-vdom].ChildrenTypesOptionMap.replace",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "replace: ChildrenOptionsReplace<TDomain>",
@@ -621,8 +621,8 @@
                         "startLine": 240,
                         "endLine": 241,
                         "references": {
-                            "replace": "@nav/api/.ChildrenTypesOptionMap.replace",
-                            "ChildrenOptionsReplace": "@nav/api/.ChildrenOptionsReplace"
+                            "replace": "@nav[rx-vdom].ChildrenTypesOptionMap.replace",
+                            "ChildrenOptionsReplace": "@nav[rx-vdom].ChildrenOptionsReplace"
                         }
                     }
                 },
@@ -649,7 +649,7 @@
                         ]
                     },
                     "path": "ChildrenTypesOptionMap.sync",
-                    "navPath": "@nav/api/.ChildrenTypesOptionMap.sync",
+                    "navPath": "@nav[rx-vdom].ChildrenTypesOptionMap.sync",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "sync: ChildrenOptionsSync<TDomain>",
@@ -657,8 +657,8 @@
                         "startLine": 248,
                         "endLine": 249,
                         "references": {
-                            "sync": "@nav/api/.ChildrenTypesOptionMap.sync",
-                            "ChildrenOptionsSync": "@nav/api/.ChildrenOptionsSync"
+                            "sync": "@nav[rx-vdom].ChildrenTypesOptionMap.sync",
+                            "ChildrenOptionsSync": "@nav[rx-vdom].ChildrenOptionsSync"
                         }
                     }
                 }
@@ -671,10 +671,10 @@
                 "startLine": 236,
                 "endLine": 250,
                 "references": {
-                    "ChildrenTypesOptionMap": "@nav/api/.ChildrenTypesOptionMap",
-                    "ChildrenOptionsAppend": "@nav/api/.ChildrenOptionsAppend",
-                    "ChildrenOptionsReplace": "@nav/api/.ChildrenOptionsReplace",
-                    "ChildrenOptionsSync": "@nav/api/.ChildrenOptionsSync"
+                    "ChildrenTypesOptionMap": "@nav[rx-vdom].ChildrenTypesOptionMap",
+                    "ChildrenOptionsAppend": "@nav[rx-vdom].ChildrenOptionsAppend",
+                    "ChildrenOptionsReplace": "@nav[rx-vdom].ChildrenOptionsReplace",
+                    "ChildrenOptionsSync": "@nav[rx-vdom].ChildrenOptionsSync"
                 }
             },
             "semantic": {
@@ -689,7 +689,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Describes the changes made to DOM elements when using  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> \nwith the  `append`  or  `sync`  policies.\n\nThis type encapsulates the details of the rendering update, including\nelements that have been added, updated, or removed during the operation.",
+                        "content": "Describes the changes made to DOM elements when using  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> \nwith the  `append`  or  `sync`  policies.\n\nThis type encapsulates the details of the rendering update, including\nelements that have been added, updated, or removed during the operation.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -712,7 +712,7 @@
                 ]
             },
             "path": "RenderingUpdate",
-            "navPath": "@nav/api/.RenderingUpdate",
+            "navPath": "@nav[rx-vdom].RenderingUpdate",
             "attributes": [
                 {
                     "name": "added",
@@ -737,7 +737,7 @@
                         ]
                     },
                     "path": "RenderingUpdate.added",
-                    "navPath": "@nav/api/.RenderingUpdate.added",
+                    "navPath": "@nav[rx-vdom].RenderingUpdate.added",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "added: ResolvedHTMLElement<TDomain>[]",
@@ -745,8 +745,8 @@
                         "startLine": 336,
                         "endLine": 337,
                         "references": {
-                            "added": "@nav/api/.RenderingUpdate.added",
-                            "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                            "added": "@nav[rx-vdom].RenderingUpdate.added",
+                            "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                         }
                     }
                 },
@@ -773,7 +773,7 @@
                         ]
                     },
                     "path": "RenderingUpdate.removed",
-                    "navPath": "@nav/api/.RenderingUpdate.removed",
+                    "navPath": "@nav[rx-vdom].RenderingUpdate.removed",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "removed: ResolvedHTMLElement<TDomain>[]",
@@ -781,8 +781,8 @@
                         "startLine": 344,
                         "endLine": 345,
                         "references": {
-                            "removed": "@nav/api/.RenderingUpdate.removed",
-                            "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                            "removed": "@nav[rx-vdom].RenderingUpdate.removed",
+                            "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                         }
                     }
                 },
@@ -809,7 +809,7 @@
                         ]
                     },
                     "path": "RenderingUpdate.updated",
-                    "navPath": "@nav/api/.RenderingUpdate.updated",
+                    "navPath": "@nav[rx-vdom].RenderingUpdate.updated",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "updated: ResolvedHTMLElement<TDomain>[]",
@@ -817,8 +817,8 @@
                         "startLine": 340,
                         "endLine": 341,
                         "references": {
-                            "updated": "@nav/api/.RenderingUpdate.updated",
-                            "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                            "updated": "@nav[rx-vdom].RenderingUpdate.updated",
+                            "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                         }
                     }
                 }
@@ -831,8 +831,8 @@
                 "startLine": 332,
                 "endLine": 346,
                 "references": {
-                    "RenderingUpdate": "@nav/api/.RenderingUpdate",
-                    "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                    "RenderingUpdate": "@nav[rx-vdom].RenderingUpdate",
+                    "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                 }
             },
             "semantic": {
@@ -870,7 +870,7 @@
                 ]
             },
             "path": "ResolvedHTMLElement",
-            "navPath": "@nav/api/.ResolvedHTMLElement",
+            "navPath": "@nav[rx-vdom].ResolvedHTMLElement",
             "attributes": [
                 {
                     "name": "domainData",
@@ -895,7 +895,7 @@
                         ]
                     },
                     "path": "ResolvedHTMLElement.domainData",
-                    "navPath": "@nav/api/.ResolvedHTMLElement.domainData",
+                    "navPath": "@nav[rx-vdom].ResolvedHTMLElement.domainData",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "domainData?: TDomain",
@@ -903,7 +903,7 @@
                         "startLine": 362,
                         "endLine": 363,
                         "references": {
-                            "domainData": "@nav/api/.ResolvedHTMLElement.domainData"
+                            "domainData": "@nav[rx-vdom].ResolvedHTMLElement.domainData"
                         }
                     }
                 },
@@ -918,7 +918,7 @@
                     "documentation": {
                         "sections": [
                             {
-                                "content": "The actual DOM element that also implements the  <mkapi-api-link nav=\"@nav/api/.RxElementTrait\" semantic=\"class\">RxElementTrait</mkapi-api-link>  trait.",
+                                "content": "The actual DOM element that also implements the  <mkapi-api-link nav=\"@nav[rx-vdom].RxElementTrait\" semantic=\"class\">RxElementTrait</mkapi-api-link>  trait.",
                                 "contentType": "markdown",
                                 "semantic": {
                                     "role": "",
@@ -930,7 +930,7 @@
                         ]
                     },
                     "path": "ResolvedHTMLElement.element",
-                    "navPath": "@nav/api/.ResolvedHTMLElement.element",
+                    "navPath": "@nav[rx-vdom].ResolvedHTMLElement.element",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "element: RxHTMLElement<Tag>",
@@ -938,8 +938,8 @@
                         "startLine": 367,
                         "endLine": 368,
                         "references": {
-                            "element": "@nav/api/.ResolvedHTMLElement.element",
-                            "RxHTMLElement": "@nav/api/.RxHTMLElement"
+                            "element": "@nav[rx-vdom].ResolvedHTMLElement.element",
+                            "RxHTMLElement": "@nav[rx-vdom].RxHTMLElement"
                         }
                     }
                 }
@@ -952,9 +952,9 @@
                 "startLine": 353,
                 "endLine": 369,
                 "references": {
-                    "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement",
-                    "RxHTMLElement": "@nav/api/.RxHTMLElement",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags"
+                    "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement",
+                    "RxHTMLElement": "@nav[rx-vdom].RxHTMLElement",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags"
                 }
             },
             "semantic": {
@@ -992,7 +992,7 @@
                 ]
             },
             "path": "RxAttribute",
-            "navPath": "@nav/api/.RxAttribute",
+            "navPath": "@nav[rx-vdom].RxAttribute",
             "attributes": [
                 {
                     "name": "sideEffects",
@@ -1017,7 +1017,7 @@
                         ]
                     },
                     "path": "RxAttribute.sideEffects",
-                    "navPath": "@nav/api/.RxAttribute.sideEffects",
+                    "navPath": "@nav[rx-vdom].RxAttribute.sideEffects",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "sideEffects?: (element: ResolvedHTMLElement<TDomain>) => void",
@@ -1025,8 +1025,8 @@
                         "startLine": 421,
                         "endLine": 422,
                         "references": {
-                            "sideEffects": "@nav/api/.RxAttribute.sideEffects",
-                            "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                            "sideEffects": "@nav[rx-vdom].RxAttribute.sideEffects",
+                            "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                         }
                     }
                 },
@@ -1053,7 +1053,7 @@
                         ]
                     },
                     "path": "RxAttribute.source$",
-                    "navPath": "@nav/api/.RxAttribute.source$",
+                    "navPath": "@nav[rx-vdom].RxAttribute.source$",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "source$: Observable<TDomain>",
@@ -1061,8 +1061,8 @@
                         "startLine": 387,
                         "endLine": 388,
                         "references": {
-                            "source$": "@nav/api/.RxAttribute.source$",
-                            "Observable": "@nav/api/.Observable"
+                            "source$": "@nav[rx-vdom].RxAttribute.source$",
+                            "Observable": "@nav[rx-vdom].Observable"
                         }
                     }
                 },
@@ -1089,7 +1089,7 @@
                         ]
                     },
                     "path": "RxAttribute.untilFirst",
-                    "navPath": "@nav/api/.RxAttribute.untilFirst",
+                    "navPath": "@nav[rx-vdom].RxAttribute.untilFirst",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "untilFirst?: Target",
@@ -1097,7 +1097,7 @@
                         "startLine": 401,
                         "endLine": 402,
                         "references": {
-                            "untilFirst": "@nav/api/.RxAttribute.untilFirst"
+                            "untilFirst": "@nav[rx-vdom].RxAttribute.untilFirst"
                         }
                     }
                 },
@@ -1124,7 +1124,7 @@
                         ]
                     },
                     "path": "RxAttribute.vdomMap",
-                    "navPath": "@nav/api/.RxAttribute.vdomMap",
+                    "navPath": "@nav[rx-vdom].RxAttribute.vdomMap",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "vdomMap: (domainData: TDomain) => Target",
@@ -1132,7 +1132,7 @@
                         "startLine": 395,
                         "endLine": 396,
                         "references": {
-                            "vdomMap": "@nav/api/.RxAttribute.vdomMap"
+                            "vdomMap": "@nav[rx-vdom].RxAttribute.vdomMap"
                         }
                     }
                 },
@@ -1159,7 +1159,7 @@
                         ]
                     },
                     "path": "RxAttribute.wrapper",
-                    "navPath": "@nav/api/.RxAttribute.wrapper",
+                    "navPath": "@nav[rx-vdom].RxAttribute.wrapper",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "wrapper?: (domValue: Target) => Target",
@@ -1167,7 +1167,7 @@
                         "startLine": 411,
                         "endLine": 412,
                         "references": {
-                            "wrapper": "@nav/api/.RxAttribute.wrapper"
+                            "wrapper": "@nav[rx-vdom].RxAttribute.wrapper"
                         }
                     }
                 }
@@ -1180,10 +1180,10 @@
                 "startLine": 380,
                 "endLine": 423,
                 "references": {
-                    "RxAttribute": "@nav/api/.RxAttribute",
-                    "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement",
-                    "Observable": "@nav/api/.Observable",
-                    "AnyHTMLAttribute": "@nav/api/.AnyHTMLAttribute"
+                    "RxAttribute": "@nav[rx-vdom].RxAttribute",
+                    "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement",
+                    "Observable": "@nav[rx-vdom].Observable",
+                    "AnyHTMLAttribute": "@nav[rx-vdom].AnyHTMLAttribute"
                 }
             },
             "semantic": {
@@ -1221,7 +1221,7 @@
                 ]
             },
             "path": "RxChild",
-            "navPath": "@nav/api/.RxChild",
+            "navPath": "@nav[rx-vdom].RxChild",
             "attributes": [
                 {
                     "name": "sideEffects",
@@ -1246,7 +1246,7 @@
                         ]
                     },
                     "path": "RxChild.sideEffects",
-                    "navPath": "@nav/api/.RxChild.sideEffects",
+                    "navPath": "@nav[rx-vdom].RxChild.sideEffects",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "sideEffects?: (\n        element: ResolvedHTMLElement<TDomain, TVdomMap['tag']>,\n    ) => void",
@@ -1254,8 +1254,8 @@
                         "startLine": 472,
                         "endLine": 473,
                         "references": {
-                            "sideEffects": "@nav/api/.RxChild.sideEffects",
-                            "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement"
+                            "sideEffects": "@nav[rx-vdom].RxChild.sideEffects",
+                            "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement"
                         }
                     }
                 },
@@ -1282,7 +1282,7 @@
                         ]
                     },
                     "path": "RxChild.source$",
-                    "navPath": "@nav/api/.RxChild.source$",
+                    "navPath": "@nav[rx-vdom].RxChild.source$",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "source$: Observable<TDomain>",
@@ -1290,8 +1290,8 @@
                         "startLine": 438,
                         "endLine": 439,
                         "references": {
-                            "source$": "@nav/api/.RxChild.source$",
-                            "Observable": "@nav/api/.Observable"
+                            "source$": "@nav[rx-vdom].RxChild.source$",
+                            "Observable": "@nav[rx-vdom].Observable"
                         }
                     }
                 },
@@ -1318,7 +1318,7 @@
                         ]
                     },
                     "path": "RxChild.untilFirst",
-                    "navPath": "@nav/api/.RxChild.untilFirst",
+                    "navPath": "@nav[rx-vdom].RxChild.untilFirst",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "untilFirst?: AnyVirtualDOM",
@@ -1326,8 +1326,8 @@
                         "startLine": 452,
                         "endLine": 453,
                         "references": {
-                            "untilFirst": "@nav/api/.RxChild.untilFirst",
-                            "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                            "untilFirst": "@nav[rx-vdom].RxChild.untilFirst",
+                            "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                         }
                     }
                 },
@@ -1342,7 +1342,7 @@
                     "documentation": {
                         "sections": [
                             {
-                                "content": "A mapping function that transforms the domain data into the associated  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .",
+                                "content": "A mapping function that transforms the domain data into the associated  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .",
                                 "contentType": "markdown",
                                 "semantic": {
                                     "role": "",
@@ -1354,7 +1354,7 @@
                         ]
                     },
                     "path": "RxChild.vdomMap",
-                    "navPath": "@nav/api/.RxChild.vdomMap",
+                    "navPath": "@nav[rx-vdom].RxChild.vdomMap",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "vdomMap: (domainData: TDomain) => TVdomMap",
@@ -1362,7 +1362,7 @@
                         "startLine": 446,
                         "endLine": 447,
                         "references": {
-                            "vdomMap": "@nav/api/.RxChild.vdomMap"
+                            "vdomMap": "@nav[rx-vdom].RxChild.vdomMap"
                         }
                     }
                 },
@@ -1389,7 +1389,7 @@
                         ]
                     },
                     "path": "RxChild.wrapper",
-                    "navPath": "@nav/api/.RxChild.wrapper",
+                    "navPath": "@nav[rx-vdom].RxChild.wrapper",
                     "code": {
                         "filePath": "src/lib/api.ts",
                         "declaration": "wrapper?: (domValue: TVdomMap) => TVdomMap",
@@ -1397,7 +1397,7 @@
                         "startLine": 462,
                         "endLine": 463,
                         "references": {
-                            "wrapper": "@nav/api/.RxChild.wrapper"
+                            "wrapper": "@nav[rx-vdom].RxChild.wrapper"
                         }
                     }
                 }
@@ -1410,10 +1410,10 @@
                 "startLine": 431,
                 "endLine": 476,
                 "references": {
-                    "RxChild": "@nav/api/.RxChild",
-                    "ResolvedHTMLElement": "@nav/api/.ResolvedHTMLElement",
-                    "Observable": "@nav/api/.Observable",
-                    "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM"
+                    "RxChild": "@nav[rx-vdom].RxChild",
+                    "ResolvedHTMLElement": "@nav[rx-vdom].ResolvedHTMLElement",
+                    "Observable": "@nav[rx-vdom].Observable",
+                    "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM"
                 }
             },
             "semantic": {
@@ -1428,7 +1428,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "An interface that defines the added functionalities over regular  `HTMLElement`  of an  <mkapi-api-link nav=\"@nav/api/.RxHTMLElement\" semantic=\"type-alias\">RxHTMLElement</mkapi-api-link> \n(generated using the  <mkapi-api-link nav=\"@nav/api/.render\" semantic=\"function\">render</mkapi-api-link>  function).\n\nThe resource cleanup process upon element disconnection follows these steps:\n1. Unsubscribe all subscriptions registered via  `ownSubscriptions` , in reverse order (LIFO).\n2. Execute any hooks registered via  `hookOnDisconnected` , in reverse order (LIFO).\n3. Finally, invoke the optional  `disconnectedCallback`  defined in the associated  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .",
+                        "content": "An interface that defines the added functionalities over regular  `HTMLElement`  of an  <mkapi-api-link nav=\"@nav[rx-vdom].RxHTMLElement\" semantic=\"type-alias\">RxHTMLElement</mkapi-api-link> \n(generated using the  <mkapi-api-link nav=\"@nav[rx-vdom].render\" semantic=\"function\">render</mkapi-api-link>  function).\n\nThe resource cleanup process upon element disconnection follows these steps:\n1. Unsubscribe all subscriptions registered via  `ownSubscriptions` , in reverse order (LIFO).\n2. Execute any hooks registered via  `hookOnDisconnected` , in reverse order (LIFO).\n3. Finally, invoke the optional  `disconnectedCallback`  defined in the associated  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1451,7 +1451,7 @@
                 ]
             },
             "path": "RxHTMLElementTrait",
-            "navPath": "@nav/api/.RxHTMLElementTrait",
+            "navPath": "@nav[rx-vdom].RxHTMLElementTrait",
             "attributes": [
                 {
                     "name": "vDom",
@@ -1476,7 +1476,7 @@
                         ]
                     },
                     "path": "RxHTMLElementTrait.vDom",
-                    "navPath": "@nav/api/.RxHTMLElementTrait.vDom",
+                    "navPath": "@nav[rx-vdom].RxHTMLElementTrait.vDom",
                     "code": {
                         "filePath": "src/lib/core.ts",
                         "declaration": "vDom: Readonly<VirtualDOM<Tag>>",
@@ -1484,8 +1484,8 @@
                         "startLine": 237,
                         "endLine": 238,
                         "references": {
-                            "vDom": "@nav/api/.RxHTMLElementTrait.vDom",
-                            "VirtualDOM": "@nav/api/.VirtualDOM"
+                            "vDom": "@nav[rx-vdom].RxHTMLElementTrait.vDom",
+                            "VirtualDOM": "@nav[rx-vdom].VirtualDOM"
                         }
                     }
                 }
@@ -1519,7 +1519,7 @@
                         ]
                     },
                     "path": "RxHTMLElementTrait.hookOnDisconnected",
-                    "navPath": "@nav/api/.RxHTMLElementTrait.hookOnDisconnected",
+                    "navPath": "@nav[rx-vdom].RxHTMLElementTrait.hookOnDisconnected",
                     "code": {
                         "filePath": "src/lib/core.ts",
                         "declaration": "hookOnDisconnected(...callbacks: (() => void)[])",
@@ -1527,7 +1527,7 @@
                         "startLine": 254,
                         "endLine": 255,
                         "references": {
-                            "hookOnDisconnected": "@nav/api/.RxHTMLElementTrait.hookOnDisconnected"
+                            "hookOnDisconnected": "@nav[rx-vdom].RxHTMLElementTrait.hookOnDisconnected"
                         }
                     },
                     "semantic": {
@@ -1565,7 +1565,7 @@
                         ]
                     },
                     "path": "RxHTMLElementTrait.ownSubscriptions",
-                    "navPath": "@nav/api/.RxHTMLElementTrait.ownSubscriptions",
+                    "navPath": "@nav[rx-vdom].RxHTMLElementTrait.ownSubscriptions",
                     "code": {
                         "filePath": "src/lib/core.ts",
                         "declaration": "ownSubscriptions(...subs: Subscription[])",
@@ -1573,8 +1573,8 @@
                         "startLine": 245,
                         "endLine": 246,
                         "references": {
-                            "ownSubscriptions": "@nav/api/.RxHTMLElementTrait.ownSubscriptions",
-                            "Subscription": "@nav/api/.Subscription"
+                            "ownSubscriptions": "@nav[rx-vdom].RxHTMLElementTrait.ownSubscriptions",
+                            "Subscription": "@nav[rx-vdom].Subscription"
                         }
                     },
                     "semantic": {
@@ -1592,10 +1592,10 @@
                 "startLine": 233,
                 "endLine": 256,
                 "references": {
-                    "RxHTMLElementTrait": "@nav/api/.RxHTMLElementTrait",
-                    "VirtualDOM": "@nav/api/.VirtualDOM",
-                    "Subscription": "@nav/api/.Subscription",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags"
+                    "RxHTMLElementTrait": "@nav[rx-vdom].RxHTMLElementTrait",
+                    "VirtualDOM": "@nav[rx-vdom].VirtualDOM",
+                    "Subscription": "@nav[rx-vdom].Subscription",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags"
                 }
             },
             "semantic": {
@@ -1610,7 +1610,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "The union of all possible static attribute types for a virtual DOM.\nCorresponding reactive attribute types are constructed on top of these, see  <mkapi-api-link nav=\"@nav/api/.AttributeLike\" semantic=\"type-alias\">AttributeLike</mkapi-api-link> .",
+                        "content": "The union of all possible static attribute types for a virtual DOM.\nCorresponding reactive attribute types are constructed on top of these, see  <mkapi-api-link nav=\"@nav[rx-vdom].AttributeLike\" semantic=\"type-alias\">AttributeLike</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1622,7 +1622,7 @@
                 ]
             },
             "path": "AnyHTMLAttribute",
-            "navPath": "@nav/api/.AnyHTMLAttribute",
+            "navPath": "@nav[rx-vdom].AnyHTMLAttribute",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1632,9 +1632,9 @@
                 "startLine": 38,
                 "endLine": 39,
                 "references": {
-                    "AnyHTMLAttribute": "@nav/api/.AnyHTMLAttribute",
-                    "CSSAttribute": "@nav/api/.CSSAttribute",
-                    "CustomAttribute": "@nav/api/.CustomAttribute"
+                    "AnyHTMLAttribute": "@nav[rx-vdom].AnyHTMLAttribute",
+                    "CSSAttribute": "@nav[rx-vdom].CSSAttribute",
+                    "CustomAttribute": "@nav[rx-vdom].CustomAttribute"
                 }
             },
             "semantic": {
@@ -1649,7 +1649,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type union of all possible virtual DOM types, defined by the  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>   `tag`  attribute.\nExample:\n ```\nVirtualDOM<'a'> | VirtualDOM<'b'> | VirtualDOM<'br'> // etc.\n```",
+                        "content": "Type union of all possible virtual DOM types, defined by the  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>   `tag`  attribute.\nExample:\n ```\nVirtualDOM<'a'> | VirtualDOM<'b'> | VirtualDOM<'br'> // etc.\n```",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1661,7 +1661,7 @@
                 ]
             },
             "path": "AnyVirtualDOM",
-            "navPath": "@nav/api/.AnyVirtualDOM",
+            "navPath": "@nav[rx-vdom].AnyVirtualDOM",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1671,8 +1671,8 @@
                 "startLine": 52,
                 "endLine": 53,
                 "references": {
-                    "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM",
-                    "VirtualDOMTagNameMap": "@nav/api/.VirtualDOMTagNameMap"
+                    "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM",
+                    "VirtualDOMTagNameMap": "@nav[rx-vdom].VirtualDOMTagNameMap"
                 }
             },
             "semantic": {
@@ -1687,7 +1687,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Union of the types allowed to define an attribute in a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nAn attribute can be a direct type, an observable of that type, or a reactive attribute.\n\nIf  `undefined` , attribute is not set.",
+                        "content": "Union of the types allowed to define an attribute in a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nAn attribute can be a direct type, an observable of that type, or a reactive attribute.\n\nIf  `undefined` , attribute is not set.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1710,7 +1710,7 @@
                 ]
             },
             "path": "AttributeLike",
-            "navPath": "@nav/api/.AttributeLike",
+            "navPath": "@nav[rx-vdom].AttributeLike",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1720,10 +1720,10 @@
                 "startLine": 62,
                 "endLine": 63,
                 "references": {
-                    "AttributeLike": "@nav/api/.AttributeLike",
-                    "AnyHTMLAttribute": "@nav/api/.AnyHTMLAttribute",
-                    "Observable": "@nav/api/.Observable",
-                    "RxAttribute": "@nav/api/.RxAttribute"
+                    "AttributeLike": "@nav[rx-vdom].AttributeLike",
+                    "AnyHTMLAttribute": "@nav[rx-vdom].AnyHTMLAttribute",
+                    "Observable": "@nav[rx-vdom].Observable",
+                    "RxAttribute": "@nav[rx-vdom].RxAttribute"
                 }
             },
             "semantic": {
@@ -1738,7 +1738,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "The attributes of any  `HTMLElement`  that should not be mapped into a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  attribute.\nSee also  <mkapi-api-link nav=\"@nav/api/.FilterHTMLMembers\" semantic=\"type-alias\">FilterHTMLMembers</mkapi-api-link> .",
+                        "content": "The attributes of any  `HTMLElement`  that should not be mapped into a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  attribute.\nSee also  <mkapi-api-link nav=\"@nav[rx-vdom].FilterHTMLMembers\" semantic=\"type-alias\">FilterHTMLMembers</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1750,7 +1750,7 @@
                 ]
             },
             "path": "BlackListed",
-            "navPath": "@nav/api/.BlackListed",
+            "navPath": "@nav[rx-vdom].BlackListed",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1760,7 +1760,7 @@
                 "startLine": 72,
                 "endLine": 73,
                 "references": {
-                    "BlackListed": "@nav/api/.BlackListed"
+                    "BlackListed": "@nav[rx-vdom].BlackListed"
                 }
             },
             "semantic": {
@@ -1775,7 +1775,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Union of the types allowed to define a child in a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nThis includes virtual DOM elements, standard HTML elements, or reactive child elements.\n\nIf  `undefined`  or  `false` , no element is rendered.",
+                        "content": "Union of the types allowed to define a child in a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nThis includes virtual DOM elements, standard HTML elements, or reactive child elements.\n\nIf  `undefined`  or  `false` , no element is rendered.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1787,7 +1787,7 @@
                 ]
             },
             "path": "ChildLike",
-            "navPath": "@nav/api/.ChildLike",
+            "navPath": "@nav[rx-vdom].ChildLike",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1797,9 +1797,9 @@
                 "startLine": 91,
                 "endLine": 92,
                 "references": {
-                    "ChildLike": "@nav/api/.ChildLike",
-                    "AnyVirtualDOM": "@nav/api/.AnyVirtualDOM",
-                    "RxChild": "@nav/api/.RxChild"
+                    "ChildLike": "@nav[rx-vdom].ChildLike",
+                    "AnyVirtualDOM": "@nav[rx-vdom].AnyVirtualDOM",
+                    "RxChild": "@nav[rx-vdom].RxChild"
                 }
             },
             "semantic": {
@@ -1814,7 +1814,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Union of the types allowed to define children in a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nThis includes arrays of children or reactive children with various policies.",
+                        "content": "Union of the types allowed to define children in a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nThis includes arrays of children or reactive children with various policies.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1826,7 +1826,7 @@
                 ]
             },
             "path": "ChildrenLike",
-            "navPath": "@nav/api/.ChildrenLike",
+            "navPath": "@nav[rx-vdom].ChildrenLike",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1836,9 +1836,9 @@
                 "startLine": 102,
                 "endLine": 103,
                 "references": {
-                    "ChildrenLike": "@nav/api/.ChildrenLike",
-                    "ChildLike": "@nav/api/.ChildLike",
-                    "RxChildren": "@nav/api/.RxChildren"
+                    "ChildrenLike": "@nav[rx-vdom].ChildrenLike",
+                    "ChildLike": "@nav[rx-vdom].ChildLike",
+                    "RxChildren": "@nav[rx-vdom].RxChildren"
                 }
             },
             "semantic": {
@@ -1853,7 +1853,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "API for the  `sync`  policy of  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThis type defines the options available for synchronizing children when the  `sync`  policy is used.",
+                        "content": "API for the  `sync`  policy of  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThis type defines the options available for synchronizing children when the  `sync`  policy is used.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1876,7 +1876,7 @@
                 ]
             },
             "path": "ChildrenOptionsSync",
-            "navPath": "@nav/api/.ChildrenOptionsSync",
+            "navPath": "@nav[rx-vdom].ChildrenOptionsSync",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1886,8 +1886,8 @@
                 "startLine": 204,
                 "endLine": 205,
                 "references": {
-                    "ChildrenOptionsSync": "@nav/api/.ChildrenOptionsSync",
-                    "ChildrenOptionsAppend": "@nav/api/.ChildrenOptionsAppend"
+                    "ChildrenOptionsSync": "@nav[rx-vdom].ChildrenOptionsSync",
+                    "ChildrenOptionsAppend": "@nav[rx-vdom].ChildrenOptionsAppend"
                 }
             },
             "semantic": {
@@ -1902,7 +1902,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Represents the various policies available for managing children in  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThe available policies are:\n- **replace**: All children are replaced each time new item(s) are emitted by  `source$` .\n- **append**: All children are appended with each emission of new item(s) from  `source$` .\n- **sync**: Only updated, new, or deleted children are synchronized when  `source$`  emits a 'store' of\n   `DomainData` , which typically consists of an immutable list of  `DomainData` .",
+                        "content": "Represents the various policies available for managing children in  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link> .\n\nThe available policies are:\n- **replace**: All children are replaced each time new item(s) are emitted by  `source$` .\n- **append**: All children are appended with each emission of new item(s) from  `source$` .\n- **sync**: Only updated, new, or deleted children are synchronized when  `source$`  emits a 'store' of\n   `DomainData` , which typically consists of an immutable list of  `DomainData` .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -1914,7 +1914,7 @@
                 ]
             },
             "path": "ChildrenPolicy",
-            "navPath": "@nav/api/.ChildrenPolicy",
+            "navPath": "@nav[rx-vdom].ChildrenPolicy",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1924,7 +1924,7 @@
                 "startLine": 226,
                 "endLine": 227,
                 "references": {
-                    "ChildrenPolicy": "@nav/api/.ChildrenPolicy"
+                    "ChildrenPolicy": "@nav[rx-vdom].ChildrenPolicy"
                 }
             },
             "semantic": {
@@ -1951,7 +1951,7 @@
                 ]
             },
             "path": "CSSAttribute",
-            "navPath": "@nav/api/.CSSAttribute",
+            "navPath": "@nav[rx-vdom].CSSAttribute",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1961,7 +1961,7 @@
                 "startLine": 83,
                 "endLine": 84,
                 "references": {
-                    "CSSAttribute": "@nav/api/.CSSAttribute"
+                    "CSSAttribute": "@nav[rx-vdom].CSSAttribute"
                 }
             },
             "semantic": {
@@ -1988,7 +1988,7 @@
                 ]
             },
             "path": "CustomAttribute",
-            "navPath": "@nav/api/.CustomAttribute",
+            "navPath": "@nav[rx-vdom].CustomAttribute",
             "attributes": [],
             "callables": [],
             "code": {
@@ -1998,7 +1998,7 @@
                 "startLine": 260,
                 "endLine": 261,
                 "references": {
-                    "CustomAttribute": "@nav/api/.CustomAttribute"
+                    "CustomAttribute": "@nav[rx-vdom].CustomAttribute"
                 }
             },
             "semantic": {
@@ -2025,7 +2025,7 @@
                 ]
             },
             "path": "Equals",
-            "navPath": "@nav/api/.Equals",
+            "navPath": "@nav[rx-vdom].Equals",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2035,7 +2035,7 @@
                 "startLine": 24,
                 "endLine": 25,
                 "references": {
-                    "Equals": "@nav/api/.Equals"
+                    "Equals": "@nav[rx-vdom].Equals"
                 }
             },
             "semantic": {
@@ -2050,7 +2050,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Extracts the attributes of an  `HTMLElement`  of the given tag that are exposed in  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\n\nThis type includes:\n- Most writable properties of primitive types ( `string` ,  `number` ,  `boolean` ), with some restrictions\n  (see  <mkapi-api-link nav=\"@nav/api/.FilterHTMLMembers\" semantic=\"type-alias\">FilterHTMLMembers</mkapi-api-link> ) to provide a lighter API. Notable transformations include:\n  -  `tag` / `tagName`  and  `class` / `className` .\n- All signal handlers, which are any methods starting with the prefix  `on`  (e.g.,  `onclick` ,  `onmousedown` , etc.).",
+                        "content": "Extracts the attributes of an  `HTMLElement`  of the given tag that are exposed in  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\n\nThis type includes:\n- Most writable properties of primitive types ( `string` ,  `number` ,  `boolean` ), with some restrictions\n  (see  <mkapi-api-link nav=\"@nav[rx-vdom].FilterHTMLMembers\" semantic=\"type-alias\">FilterHTMLMembers</mkapi-api-link> ) to provide a lighter API. Notable transformations include:\n  -  `tag` / `tagName`  and  `class` / `className` .\n- All signal handlers, which are any methods starting with the prefix  `on`  (e.g.,  `onclick` ,  `onmousedown` , etc.).",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2073,7 +2073,7 @@
                 ]
             },
             "path": "ExposedMembers",
-            "navPath": "@nav/api/.ExposedMembers",
+            "navPath": "@nav[rx-vdom].ExposedMembers",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2083,9 +2083,9 @@
                 "startLine": 273,
                 "endLine": 274,
                 "references": {
-                    "ExposedMembers": "@nav/api/.ExposedMembers",
-                    "FilterHTMLMembers": "@nav/api/.FilterHTMLMembers",
-                    "AttributeLike": "@nav/api/.AttributeLike"
+                    "ExposedMembers": "@nav[rx-vdom].ExposedMembers",
+                    "FilterHTMLMembers": "@nav[rx-vdom].FilterHTMLMembers",
+                    "AttributeLike": "@nav[rx-vdom].AttributeLike"
                 }
             },
             "semantic": {
@@ -2100,7 +2100,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Selects the writable HTML attributes for a given tag to be exposed in  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\n\nThis type filters out the following from the writable attributes:\n- Properties defined by a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  itself, including:\n  -  `className`  and  `tagName` , which are exposed as  `class`  and  `tag` , respectively.\n- Members listed in  <mkapi-api-link nav=\"@nav/api/.BlackListed\" semantic=\"type-alias\">BlackListed</mkapi-api-link> .",
+                        "content": "Selects the writable HTML attributes for a given tag to be exposed in  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\n\nThis type filters out the following from the writable attributes:\n- Properties defined by a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  itself, including:\n  -  `className`  and  `tagName` , which are exposed as  `class`  and  `tag` , respectively.\n- Members listed in  <mkapi-api-link nav=\"@nav[rx-vdom].BlackListed\" semantic=\"type-alias\">BlackListed</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2123,7 +2123,7 @@
                 ]
             },
             "path": "FilterHTMLMembers",
-            "navPath": "@nav/api/.FilterHTMLMembers",
+            "navPath": "@nav[rx-vdom].FilterHTMLMembers",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2133,9 +2133,9 @@
                 "startLine": 295,
                 "endLine": 296,
                 "references": {
-                    "FilterHTMLMembers": "@nav/api/.FilterHTMLMembers",
-                    "WritablePart": "@nav/api/.WritablePart",
-                    "BlackListed": "@nav/api/.BlackListed"
+                    "FilterHTMLMembers": "@nav[rx-vdom].FilterHTMLMembers",
+                    "WritablePart": "@nav[rx-vdom].WritablePart",
+                    "BlackListed": "@nav[rx-vdom].BlackListed"
                 }
             },
             "semantic": {
@@ -2173,7 +2173,7 @@
                 ]
             },
             "path": "NativeHTMLElement",
-            "navPath": "@nav/api/.NativeHTMLElement",
+            "navPath": "@nav[rx-vdom].NativeHTMLElement",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2183,8 +2183,8 @@
                 "startLine": 315,
                 "endLine": 316,
                 "references": {
-                    "NativeHTMLElement": "@nav/api/.NativeHTMLElement",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags"
+                    "NativeHTMLElement": "@nav[rx-vdom].NativeHTMLElement",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags"
                 }
             },
             "semantic": {
@@ -2222,7 +2222,7 @@
                 ]
             },
             "path": "Observable",
-            "navPath": "@nav/api/.Observable",
+            "navPath": "@nav[rx-vdom].Observable",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2232,7 +2232,7 @@
                 "startLine": 27,
                 "endLine": 28,
                 "references": {
-                    "Observable": "@nav/api/.Observable"
+                    "Observable": "@nav[rx-vdom].Observable"
                 }
             },
             "semantic": {
@@ -2247,7 +2247,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type definition of  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  rendering hooks.",
+                        "content": "Type definition of  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  rendering hooks.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2259,7 +2259,7 @@
                 ]
             },
             "path": "RenderHook",
-            "navPath": "@nav/api/.RenderHook",
+            "navPath": "@nav[rx-vdom].RenderHook",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2269,9 +2269,9 @@
                 "startLine": 321,
                 "endLine": 322,
                 "references": {
-                    "RenderHook": "@nav/api/.RenderHook",
-                    "RxHTMLElement": "@nav/api/.RxHTMLElement",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags"
+                    "RenderHook": "@nav[rx-vdom].RenderHook",
+                    "RxHTMLElement": "@nav[rx-vdom].RxHTMLElement",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags"
                 }
             },
             "semantic": {
@@ -2286,7 +2286,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Full specification of reactive children in a virtual DOM context.\n\nExample usage and policies can be found in the following documents:\n- **replace**:  <mkapi-api-link nav=\"@nav/api/.ChildrenOptionsReplace\" semantic=\"interface\">ChildrenOptionsReplace</mkapi-api-link> \n- **append**:  <mkapi-api-link nav=\"@nav/api/.ChildrenOptionsAppend\" semantic=\"interface\">ChildrenOptionsAppend</mkapi-api-link> \n- **sync**:  <mkapi-api-link nav=\"@nav/api/.ChildrenOptionsSync\" semantic=\"type-alias\">ChildrenOptionsSync</mkapi-api-link>",
+                        "content": "Full specification of reactive children in a virtual DOM context.\n\nExample usage and policies can be found in the following documents:\n- **replace**:  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenOptionsReplace\" semantic=\"interface\">ChildrenOptionsReplace</mkapi-api-link> \n- **append**:  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenOptionsAppend\" semantic=\"interface\">ChildrenOptionsAppend</mkapi-api-link> \n- **sync**:  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenOptionsSync\" semantic=\"type-alias\">ChildrenOptionsSync</mkapi-api-link>",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2297,7 +2297,7 @@
                     },
                     {
                         "title": "Generics",
-                        "content": "\n*  **Policy**: The policy to be used for managing children, which can be one of the following:\n  -  `replace` : Replaces existing children with new ones.\n  -  `append` : Appends new children to the existing ones.\n  -  `sync` : Synchronizes the state of children based on the domain data.\n  Refer to  <mkapi-api-link nav=\"@nav/api/.ChildrenPolicy\" semantic=\"type-alias\">ChildrenPolicy</mkapi-api-link>  for more details on available policies.\n*  **TDomain**: The type of the domain data conveyed by the  `source$`  observable.",
+                        "content": "\n*  **Policy**: The policy to be used for managing children, which can be one of the following:\n  -  `replace` : Replaces existing children with new ones.\n  -  `append` : Appends new children to the existing ones.\n  -  `sync` : Synchronizes the state of children based on the domain data.\n  Refer to  <mkapi-api-link nav=\"@nav[rx-vdom].ChildrenPolicy\" semantic=\"type-alias\">ChildrenPolicy</mkapi-api-link>  for more details on available policies.\n*  **TDomain**: The type of the domain data conveyed by the  `source$`  observable.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "arguments",
@@ -2309,7 +2309,7 @@
                 ]
             },
             "path": "RxChildren",
-            "navPath": "@nav/api/.RxChildren",
+            "navPath": "@nav[rx-vdom].RxChildren",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2319,9 +2319,9 @@
                 "startLine": 492,
                 "endLine": 493,
                 "references": {
-                    "RxChildren": "@nav/api/.RxChildren",
-                    "ChildrenPolicy": "@nav/api/.ChildrenPolicy",
-                    "ChildrenTypesOptionMap": "@nav/api/.ChildrenTypesOptionMap"
+                    "RxChildren": "@nav[rx-vdom].RxChildren",
+                    "ChildrenPolicy": "@nav[rx-vdom].ChildrenPolicy",
+                    "ChildrenTypesOptionMap": "@nav[rx-vdom].ChildrenTypesOptionMap"
                 }
             },
             "semantic": {
@@ -2336,7 +2336,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Represents the actual HTMLElement rendered from a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nIt is specific to a given  `Tag`  and implements in particular:\n*   <mkapi-api-link nav=\"@nav/api/.NativeHTMLElement\" semantic=\"type-alias\">NativeHTMLElement</mkapi-api-link> : The standard  `HTMLElement`  API.\n*   <mkapi-api-link nav=\"@nav/api/.RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> : The reactive-related features added.",
+                        "content": "Represents the actual HTMLElement rendered from a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .\nIt is specific to a given  `Tag`  and implements in particular:\n*   <mkapi-api-link nav=\"@nav[rx-vdom].NativeHTMLElement\" semantic=\"type-alias\">NativeHTMLElement</mkapi-api-link> : The standard  `HTMLElement`  API.\n*   <mkapi-api-link nav=\"@nav[rx-vdom].RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> : The reactive-related features added.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2359,7 +2359,7 @@
                 ]
             },
             "path": "RxHTMLElement",
-            "navPath": "@nav/api/.RxHTMLElement",
+            "navPath": "@nav[rx-vdom].RxHTMLElement",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2369,11 +2369,11 @@
                 "startLine": 104,
                 "endLine": 105,
                 "references": {
-                    "RxHTMLElement": "@nav/api/.RxHTMLElement",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags",
-                    "NativeHTMLElement": "@nav/api/.NativeHTMLElement",
-                    "RxElementTrait": "@nav/api/.RxElementTrait",
-                    "RxHTMLElementTrait": "@nav/api/.RxHTMLElementTrait"
+                    "RxHTMLElement": "@nav[rx-vdom].RxHTMLElement",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags",
+                    "NativeHTMLElement": "@nav[rx-vdom].NativeHTMLElement",
+                    "RxElementTrait": "@nav[rx-vdom].RxElementTrait",
+                    "RxHTMLElementTrait": "@nav[rx-vdom].RxHTMLElementTrait"
                 }
             },
             "semantic": {
@@ -2400,7 +2400,7 @@
                 ]
             },
             "path": "Subscription",
-            "navPath": "@nav/api/.Subscription",
+            "navPath": "@nav[rx-vdom].Subscription",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2410,7 +2410,7 @@
                 "startLine": 32,
                 "endLine": 33,
                 "references": {
-                    "Subscription": "@nav/api/.Subscription"
+                    "Subscription": "@nav[rx-vdom].Subscription"
                 }
             },
             "semantic": {
@@ -2437,7 +2437,7 @@
                 ]
             },
             "path": "SupportedHTMLTags",
-            "navPath": "@nav/api/.SupportedHTMLTags",
+            "navPath": "@nav[rx-vdom].SupportedHTMLTags",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2447,7 +2447,7 @@
                 "startLine": 40,
                 "endLine": 41,
                 "references": {
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags"
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags"
                 }
             },
             "semantic": {
@@ -2462,7 +2462,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Represents a Virtual DOM element that mirrors the structure and characteristics of an HTML DOM element.\nIt allows attributes and children to be supplied reactively via the concept of **observable** (from reactive\nprogramming).\n\nA  `VirtualDOM`  is converted in regular  `HTMLElement`  using the  <mkapi-api-link nav=\"@nav/api/.render\" semantic=\"function\">render</mkapi-api-link>  function.",
+                        "content": "Represents a Virtual DOM element that mirrors the structure and characteristics of an HTML DOM element.\nIt allows attributes and children to be supplied reactively via the concept of **observable** (from reactive\nprogramming).\n\nA  `VirtualDOM`  is converted in regular  `HTMLElement`  using the  <mkapi-api-link nav=\"@nav[rx-vdom].render\" semantic=\"function\">render</mkapi-api-link>  function.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2485,7 +2485,7 @@
                 ]
             },
             "path": "VirtualDOM",
-            "navPath": "@nav/api/.VirtualDOM",
+            "navPath": "@nav[rx-vdom].VirtualDOM",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2495,16 +2495,16 @@
                 "startLine": 22,
                 "endLine": 23,
                 "references": {
-                    "VirtualDOM": "@nav/api/.VirtualDOM",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags",
-                    "ChildrenLike": "@nav/api/.ChildrenLike",
-                    "AttributeLike": "@nav/api/.AttributeLike",
-                    "RxHTMLElement": "@nav/api/.RxHTMLElement",
-                    "CustomAttribute": "@nav/api/.CustomAttribute",
-                    "RenderHook": "@nav/api/.RenderHook",
-                    "CSSAttribute": "@nav/api/.CSSAttribute",
-                    "ExposedMembers": "@nav/api/.ExposedMembers",
-                    "NativeHTMLElement": "@nav/api/.NativeHTMLElement"
+                    "VirtualDOM": "@nav[rx-vdom].VirtualDOM",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags",
+                    "ChildrenLike": "@nav[rx-vdom].ChildrenLike",
+                    "AttributeLike": "@nav[rx-vdom].AttributeLike",
+                    "RxHTMLElement": "@nav[rx-vdom].RxHTMLElement",
+                    "CustomAttribute": "@nav[rx-vdom].CustomAttribute",
+                    "RenderHook": "@nav[rx-vdom].RenderHook",
+                    "CSSAttribute": "@nav[rx-vdom].CSSAttribute",
+                    "ExposedMembers": "@nav[rx-vdom].ExposedMembers",
+                    "NativeHTMLElement": "@nav[rx-vdom].NativeHTMLElement"
                 }
             },
             "semantic": {
@@ -2519,7 +2519,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "A mapping between possible HTML tag names, as defined in  `HTMLElementTagNameMap` ,\nand their associated  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  representations.\n\nThis type creates a dynamic mapping, where each key is a valid HTML tag from  `SupportedHTMLTags` ,\nand the corresponding value is a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  for that tag.",
+                        "content": "A mapping between possible HTML tag names, as defined in  `HTMLElementTagNameMap` ,\nand their associated  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  representations.\n\nThis type creates a dynamic mapping, where each key is a valid HTML tag from  `SupportedHTMLTags` ,\nand the corresponding value is a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  for that tag.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2531,7 +2531,7 @@
                 ]
             },
             "path": "VirtualDOMTagNameMap",
-            "navPath": "@nav/api/.VirtualDOMTagNameMap",
+            "navPath": "@nav[rx-vdom].VirtualDOMTagNameMap",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2541,9 +2541,9 @@
                 "startLine": 506,
                 "endLine": 507,
                 "references": {
-                    "VirtualDOMTagNameMap": "@nav/api/.VirtualDOMTagNameMap",
-                    "SupportedHTMLTags": "@nav/api/.SupportedHTMLTags",
-                    "VirtualDOM": "@nav/api/.VirtualDOM"
+                    "VirtualDOMTagNameMap": "@nav[rx-vdom].VirtualDOMTagNameMap",
+                    "SupportedHTMLTags": "@nav[rx-vdom].SupportedHTMLTags",
+                    "VirtualDOM": "@nav[rx-vdom].VirtualDOM"
                 }
             },
             "semantic": {
@@ -2570,7 +2570,7 @@
                 ]
             },
             "path": "WritableKeysOf",
-            "navPath": "@nav/api/.WritableKeysOf",
+            "navPath": "@nav[rx-vdom].WritableKeysOf",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2580,8 +2580,8 @@
                 "startLine": 34,
                 "endLine": 35,
                 "references": {
-                    "WritableKeysOf": "@nav/api/.WritableKeysOf",
-                    "Equals": "@nav/api/.Equals"
+                    "WritableKeysOf": "@nav[rx-vdom].WritableKeysOf",
+                    "Equals": "@nav[rx-vdom].Equals"
                 }
             },
             "semantic": {
@@ -2619,7 +2619,7 @@
                 ]
             },
             "path": "WritablePart",
-            "navPath": "@nav/api/.WritablePart",
+            "navPath": "@nav[rx-vdom].WritablePart",
             "attributes": [],
             "callables": [],
             "code": {
@@ -2629,8 +2629,8 @@
                 "startLine": 50,
                 "endLine": 51,
                 "references": {
-                    "WritablePart": "@nav/api/.WritablePart",
-                    "WritableKeysOf": "@nav/api/.WritableKeysOf"
+                    "WritablePart": "@nav[rx-vdom].WritablePart",
+                    "WritableKeysOf": "@nav[rx-vdom].WritableKeysOf"
                 }
             },
             "semantic": {
@@ -2647,7 +2647,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type inference helper for constructing  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link>  with the 'append'\npolicy.\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive children with the\n'append' policy.",
+                        "content": "Type inference helper for constructing  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link>  with the 'append'\npolicy.\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive children with the\n'append' policy.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2692,7 +2692,7 @@
                 ]
             },
             "path": "append$",
-            "navPath": "@nav/api/.append$",
+            "navPath": "@nav[rx-vdom].append$",
             "code": {
                 "filePath": "src/lib/type-utils.ts",
                 "declaration": "export function append$<TDomain>(children: RxChildren<'append', TDomain>)",
@@ -2700,8 +2700,8 @@
                 "startLine": 134,
                 "endLine": 137,
                 "references": {
-                    "append$": "@nav/api/.append$",
-                    "RxChildren": "@nav/api/.RxChildren"
+                    "append$": "@nav[rx-vdom].append$",
+                    "RxChildren": "@nav[rx-vdom].RxChildren"
                 }
             },
             "semantic": {
@@ -2716,7 +2716,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type inference helper for constructing an  <mkapi-api-link nav=\"@nav/api/.RxAttribute\" semantic=\"interface\">RxAttribute</mkapi-api-link> .\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive attributes.",
+                        "content": "Type inference helper for constructing an  <mkapi-api-link nav=\"@nav[rx-vdom].RxAttribute\" semantic=\"interface\">RxAttribute</mkapi-api-link> .\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive attributes.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2761,7 +2761,7 @@
                 ]
             },
             "path": "attr$",
-            "navPath": "@nav/api/.attr$",
+            "navPath": "@nav[rx-vdom].attr$",
             "code": {
                 "filePath": "src/lib/type-utils.ts",
                 "declaration": "export function attr$<TDomain, Target extends AnyHTMLAttribute>(\n    attr: RxAttribute<TDomain, Target>,\n)",
@@ -2769,8 +2769,8 @@
                 "startLine": 64,
                 "endLine": 69,
                 "references": {
-                    "attr$": "@nav/api/.attr$",
-                    "RxAttribute": "@nav/api/.RxAttribute"
+                    "attr$": "@nav[rx-vdom].attr$",
+                    "RxAttribute": "@nav[rx-vdom].RxAttribute"
                 }
             },
             "semantic": {
@@ -2785,7 +2785,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type inference helper for constructing an  <mkapi-api-link nav=\"@nav/api/.RxChild\" semantic=\"interface\">RxChild</mkapi-api-link> .\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive child elements.",
+                        "content": "Type inference helper for constructing an  <mkapi-api-link nav=\"@nav[rx-vdom].RxChild\" semantic=\"interface\">RxChild</mkapi-api-link> .\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive child elements.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2830,7 +2830,7 @@
                 ]
             },
             "path": "child$",
-            "navPath": "@nav/api/.child$",
+            "navPath": "@nav[rx-vdom].child$",
             "code": {
                 "filePath": "src/lib/type-utils.ts",
                 "declaration": "export function child$<TDomain, TVDom extends AnyVirtualDOM>(\n    child: RxChild<TDomain, TVDom>,\n)",
@@ -2838,8 +2838,8 @@
                 "startLine": 82,
                 "endLine": 87,
                 "references": {
-                    "child$": "@nav/api/.child$",
-                    "RxChild": "@nav/api/.RxChild"
+                    "child$": "@nav[rx-vdom].child$",
+                    "RxChild": "@nav[rx-vdom].RxChild"
                 }
             },
             "semantic": {
@@ -2854,7 +2854,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Transforms a regular  `HTMLElement`  into a reactive one by augmenting it with reactive capabilities.\nThis allows you to manage the lifecycle of subscriptions and provides additional hooks for DOM events,\nsuch as when the element is added or removed from the page.\n\nThe returned class extends the provided base  `HTMLElement`  constructor and implements  <mkapi-api-link nav=\"@nav/api/.RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> .",
+                        "content": "Transforms a regular  `HTMLElement`  into a reactive one by augmenting it with reactive capabilities.\nThis allows you to manage the lifecycle of subscriptions and provides additional hooks for DOM events,\nsuch as when the element is added or removed from the page.\n\nThe returned class extends the provided base  `HTMLElement`  constructor and implements  <mkapi-api-link nav=\"@nav[rx-vdom].RxHTMLElementTrait\" semantic=\"interface\">RxHTMLElementTrait</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2899,7 +2899,7 @@
                 ]
             },
             "path": "ReactiveTraitGenerator",
-            "navPath": "@nav/api/.ReactiveTraitGenerator",
+            "navPath": "@nav[rx-vdom].ReactiveTraitGenerator",
             "code": {
                 "filePath": "src/lib/core.ts",
                 "declaration": "export function ReactiveTraitGenerator<\n    T extends Constructor<HTMLElement>,\n    Tag extends SupportedHTMLTags,\n>(Base: T)",
@@ -2907,7 +2907,7 @@
                 "startLine": 269,
                 "endLine": 384,
                 "references": {
-                    "ReactiveTraitGenerator": "@nav/api/.ReactiveTraitGenerator"
+                    "ReactiveTraitGenerator": "@nav[rx-vdom].ReactiveTraitGenerator"
                 }
             },
             "semantic": {
@@ -2922,7 +2922,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Transforms a  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  into a corresponding  <mkapi-api-link nav=\"@nav/api/.RxHTMLElement\" semantic=\"type-alias\">RxHTMLElement</mkapi-api-link> .\n\n> The HTML element returned is initialized **only when attached** to the document's DOM tree.",
+                        "content": "Transforms a  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link>  into a corresponding  <mkapi-api-link nav=\"@nav[rx-vdom].RxHTMLElement\" semantic=\"type-alias\">RxHTMLElement</mkapi-api-link> .\n\n> The HTML element returned is initialized **only when attached** to the document's DOM tree.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -2933,7 +2933,7 @@
                     },
                     {
                         "title": "Arguments",
-                        "content": "\n*  **vDom**: The virtual DOM to render.\n*  **onRender**: An array of rendering hooks executed when the element and its descendants are displayed.\nThey are added to those defined in the  `VirtualDOM`  using  `onRender`  in  <mkapi-api-link nav=\"@nav/api/.VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .",
+                        "content": "\n*  **vDom**: The virtual DOM to render.\n*  **onRender**: An array of rendering hooks executed when the element and its descendants are displayed.\nThey are added to those defined in the  `VirtualDOM`  using  `onRender`  in  <mkapi-api-link nav=\"@nav[rx-vdom].VirtualDOM\" semantic=\"type-alias\">VirtualDOM</mkapi-api-link> .",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "arguments",
@@ -2956,7 +2956,7 @@
                 ]
             },
             "path": "render",
-            "navPath": "@nav/api/.render",
+            "navPath": "@nav[rx-vdom].render",
             "code": {
                 "filePath": "src/lib/virtual-dom.ts",
                 "declaration": "export function render<Tag extends SupportedHTMLTags>(\n    vDom: VirtualDOM<Tag>,\n    onRender: RenderHook[] = [],\n): RxHTMLElement<Tag>",
@@ -2964,10 +2964,10 @@
                 "startLine": 117,
                 "endLine": 138,
                 "references": {
-                    "render": "@nav/api/.render",
-                    "VirtualDOM": "@nav/api/.VirtualDOM",
-                    "RenderHook": "@nav/api/.RenderHook",
-                    "RxHTMLElement": "@nav/api/.RxHTMLElement"
+                    "render": "@nav[rx-vdom].render",
+                    "VirtualDOM": "@nav[rx-vdom].VirtualDOM",
+                    "RenderHook": "@nav[rx-vdom].RenderHook",
+                    "RxHTMLElement": "@nav[rx-vdom].RxHTMLElement"
                 }
             },
             "semantic": {
@@ -2982,7 +2982,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type inference helper for constructing  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link>  with the 'replace'\npolicy.\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive children with the\n'replace' policy.",
+                        "content": "Type inference helper for constructing  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link>  with the 'replace'\npolicy.\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive children with the\n'replace' policy.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -3027,7 +3027,7 @@
                 ]
             },
             "path": "replace$",
-            "navPath": "@nav/api/.replace$",
+            "navPath": "@nav[rx-vdom].replace$",
             "code": {
                 "filePath": "src/lib/type-utils.ts",
                 "declaration": "export function replace$<TDomain>(children: RxChildren<'replace', TDomain>)",
@@ -3035,8 +3035,8 @@
                 "startLine": 100,
                 "endLine": 103,
                 "references": {
-                    "replace$": "@nav/api/.replace$",
-                    "RxChildren": "@nav/api/.RxChildren"
+                    "replace$": "@nav[rx-vdom].replace$",
+                    "RxChildren": "@nav[rx-vdom].RxChildren"
                 }
             },
             "semantic": {
@@ -3051,7 +3051,7 @@
             "documentation": {
                 "sections": [
                     {
-                        "content": "Type inference helper for constructing  <mkapi-api-link nav=\"@nav/api/.RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link>  with the 'sync'\npolicy.\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive children with the\n'sync' policy.",
+                        "content": "Type inference helper for constructing  <mkapi-api-link nav=\"@nav[rx-vdom].RxChildren\" semantic=\"type-alias\">RxChildren</mkapi-api-link>  with the 'sync'\npolicy.\nThis function has no runtime behavior beyond directly returning the input\nargument.\n\nUse this helper to infer types when defining reactive children with the\n'sync' policy.",
                         "contentType": "markdown",
                         "semantic": {
                             "role": "",
@@ -3096,7 +3096,7 @@
                 ]
             },
             "path": "sync$",
-            "navPath": "@nav/api/.sync$",
+            "navPath": "@nav[rx-vdom].sync$",
             "code": {
                 "filePath": "src/lib/type-utils.ts",
                 "declaration": "export function sync$<TDomain>(children: RxChildren<'sync', TDomain>)",
@@ -3104,8 +3104,8 @@
                 "startLine": 117,
                 "endLine": 120,
                 "references": {
-                    "sync$": "@nav/api/.sync$",
-                    "RxChildren": "@nav/api/.RxChildren"
+                    "sync$": "@nav[rx-vdom].sync$",
+                    "RxChildren": "@nav[rx-vdom].RxChildren"
                 }
             },
             "semantic": {
