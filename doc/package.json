@@ -1,7 +1,7 @@
 {
     "name": "@rx-vdom/doc",
     "description": "Documentation app for the library rx-vdom",
-    "version": "0.1.6",
+    "version": "0.1.7-wip",
     "author": "reinisch.gui@gmail.com",
     "homepage": "https://github.com/rx-vdom/doc#README.md",
     "main": "./dist/@rx-vdom/doc.js",
