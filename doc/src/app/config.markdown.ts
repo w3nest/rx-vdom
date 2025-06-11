@@ -1,17 +1,19 @@
 import pkgJson from '../../package.json'
-import {
-    DefaultLayout,
-    fromMarkdown,
-    GlobalMarkdownViews,
-    installNotebookModule,
-} from 'mkdocs-ts'
+import { DefaultLayout, fromMarkdown, GlobalMarkdownViews } from 'mkdocs-ts'
 import { rxVDomSize } from './md-widgets'
 import { example1 } from './js-plaground-examples'
 import { companionNodes$, router } from './on-load'
 import { child$ } from 'rx-vdom'
 import { from } from 'rxjs'
+import { installNotebookModule } from './utils'
+import { resolveUrlWithFP } from '@w3nest/webpm-client'
 
-export const url = (restOfPath: string) => `../assets/${restOfPath}`
+export const url = (restOfPath: string) =>
+    resolveUrlWithFP({
+        package: pkgJson.name,
+        version: pkgJson.version,
+        path: `assets/${restOfPath}`,
+    })
 
 GlobalMarkdownViews.factory = {
     ...GlobalMarkdownViews.factory,

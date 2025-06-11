@@ -1,13 +1,9 @@
-import {
-    installCodeApiModule,
-    Navigation,
-    DefaultLayout,
-    segment,
-} from 'mkdocs-ts'
+import { Navigation, DefaultLayout, segment } from 'mkdocs-ts'
 import { logo } from './logo'
 import { companionNodes$ } from './on-load'
 import { fromMd } from './config.markdown'
 import { notebookPage } from './config.notebook'
+import { installCodeApiModule } from './utils'
 
 function decoration(icon: string) {
     return {
@@ -86,7 +82,10 @@ async function apiNav(): Promise<AppNav> {
                 ],
             },
             entryModule: 'rx-vdom',
-            docBasePath: '../assets/api',
+            dataFolder: '../assets/api',
+            rootModulesNav: {
+                'rx-vdom': '@nav/api',
+            },
             configuration: CodeApiModule.configurationTsTypedoc,
         }),
         // Explicitly set no children.

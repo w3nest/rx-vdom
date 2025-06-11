@@ -21,3 +21,6 @@ type DevTags =
     | 'button'
     | 'pre'
     | 'footer'
+    | 'option'
+    | 'select'
+    | 'code'
