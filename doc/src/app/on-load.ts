@@ -49,6 +49,7 @@ const routerView = new DefaultLayout.LayoutWithCompanion(
                 router,
             }),
             badge: new AuthBadge(),
+            zIndex: 1001,
         },
         footer,
         navFooter: true,
