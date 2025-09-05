@@ -1,6 +1,13 @@
 import { append$, child$, render, replace$, sync$, VirtualDOM } from '../lib'
 import { BehaviorSubject, map, Subject } from 'rxjs'
 
+beforeAll(() => {
+    globalThis.requestAnimationFrame = (cb: FrameRequestCallback) => {
+        cb(0)
+        return 0
+    }
+})
+
 function observersCount(obs$: Subject<unknown>) {
     // noinspection JSDeprecatedSymbols -- will need to find a better way when moving to RxJS#8
     return obs$.observers.length

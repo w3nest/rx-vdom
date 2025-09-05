@@ -326,7 +326,17 @@ export function ReactiveTraitGenerator<
                     ),
                 )
             }
-            this.vDom.connectedCallback?.(this as unknown as RxHTMLElement<Tag>)
+            const userConnectedCallback = this.vDom.connectedCallback
+            if (userConnectedCallback !== undefined) {
+                // Defer the user-provided connectedCallback to the next animation frame.
+                // This is necessary for Safari with the custom-elements polyfill, where
+                // connectedCallback may fire before the element's subtree has been rendered.
+                // Using requestAnimationFrame ensures the DOM is fully painted before the callback runs.
+                // It's safe to keep this for all browsers and does not have negative impact
+                requestAnimationFrame(() => {
+                    userConnectedCallback(this as unknown as RxHTMLElement<Tag>)
+                })
+            }
         }
 
         disconnectedCallback() {
