@@ -45,11 +45,11 @@ generate_template(config=config, dst_folder=template_folder)
 files = [
     # "README.md", Custom README
     ".gitignore",
-    ".npmignore",
     ".prettierignore",
     "package.json",
     "jest.config.ts",
-    "tsconfig.json",
+    # "tsconfig.json", Added 'strictNullChecks'
+    "typedoc.js",
     # "webpack.config.ts", Simplified for this particular use case
 ]
 for file in files:

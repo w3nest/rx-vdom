@@ -64,12 +64,12 @@ generate_template(config=config, dst_folder=template_folder)
 
 files = [
     # "README.md",
-    # ".gitignore",
+    ".gitignore",
     # ".npmignore", added 'rx-vdom-doc'
     # ".prettierignore", added 'rx-vdom-doc'
     "package.json",
     # "tsconfig.json", This file needs to include reference to 'rx-vdom-config.ts'
-    # "jest.config.ts", added 'testPathIgnorePatterns: ['rx-vdom-doc']'
+    # "jest.config.ts", added 'testPathIgnorePatterns: 'rx-vdom-doc', 'examples'
     "webpack.config.ts",
 ]
 for file in files:

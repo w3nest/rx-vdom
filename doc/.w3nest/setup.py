@@ -68,11 +68,11 @@ generate_template(config=config, dst_folder=template_folder)
 
 files = [
     ".gitignore",
-    ".npmignore",
     ".prettierignore",
     "package.json",
     "jest.config.ts",
     "webpack.config.ts",
+    "typedoc.js",
 ]
 for file in files:
     copyfile(src=template_folder / file, dst=project_folder / file)

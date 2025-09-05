@@ -16,12 +16,14 @@
         "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@rxVDomConfig": ["./rx-vdom.config"]
-        }
+        },
+        "resolveJsonModule": true,
+        "strictNullChecks": true
     },
     "ts-node": {
         "compilerOptions": {
             "module": "CommonJS"
         }
     },
-
+    "exclude": ["./assets","./doc"]
 }
