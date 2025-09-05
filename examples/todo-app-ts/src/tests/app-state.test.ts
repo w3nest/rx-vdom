@@ -69,7 +69,8 @@ test('scenario rename & delete items', async () => {
         makeAction({
             action: (context) => {
                 const item = state.addItem('bar')
-                return new TestContext({ ...context, item })
+                const { ...contextProps } = context
+                return new TestContext({ ...contextProps, item })
             },
             expect: ({ items, completed, remaining }) => {
                 expect(items).toHaveLength(2)

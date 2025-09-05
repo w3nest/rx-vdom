@@ -29,7 +29,7 @@ function useVar<T>(_value: T): void {
                 tag: 'a',
                 href: of('https://foo.com'),
                 onclick: (ev) => {
-                    useType<Assert<IsExact<typeof ev, MouseEvent>>>(null)
+                    useType<Assert<IsExact<typeof ev, PointerEvent>>>(null)
                 },
                 children: [
                     {
@@ -116,9 +116,9 @@ function useVar<T>(_value: T): void {
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
+            // @ts-expect-error -- wrong type for 'style'
             {
                 tag: 'div',
-                // @ts-expect-error -- property does not exist
                 style: of({
                     colour: 'white',
                 }),
@@ -141,10 +141,10 @@ function useVar<T>(_value: T): void {
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
+            // @ts-expect-error -- custom attribute can not be an object
             {
                 tag: 'div',
                 customAttributes: {
-                    // @ts-expect-error -- custom attribute can not be an object
                     foo: { bar: 'baz' },
                 },
             },
@@ -157,10 +157,10 @@ function useVar<T>(_value: T): void {
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
+            // @ts-expect-error -- custom attribute can not be an observable
             {
                 tag: 'div',
                 customAttributes: {
-                    // @ts-expect-error -- custom attribute can not be an observable
                     foo: of({ bar: 'baz' }),
                 },
             },
@@ -173,10 +173,10 @@ function useVar<T>(_value: T): void {
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
+            // @ts-expect-error -- type error on value
             {
                 tag: 'div',
                 style: {
-                    // @ts-expect-error -- type error on value
                     textAlign: 'middle',
                 },
             },
@@ -189,9 +189,9 @@ function useVar<T>(_value: T): void {
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
+            // @ts-expect-error -- innerText wrong type (should be string)
             {
                 tag: 'div',
-                // @ts-expect-error -- wrong type (should be string)
                 innerText: 5,
             },
         ],
@@ -265,21 +265,21 @@ function useVar<T>(_value: T): void {
     }
     useVar(_)
 })()
-;(() => {
-    // wrong property because readonly, nested
+;() => {
+    //wrong property because readonly, nested
     const _: VirtualDOM<'div'> = {
         tag: 'div',
         children: [
             {
-                tag: 'a',
-                href: of('https://foo.com'),
+                tag: 'b',
                 // @ts-expect-error -- clientHeight only has getter
                 clientHeight: 5,
-            },
+            } satisfies VirtualDOM<'b'>,
+            // With typescript update (5.7.3 -> 5.9.2) clientHeight can now be set if no 'satisfies' used :/
         ],
     }
     useVar(_)
-})()
+}
 ;(() => {
     // connectedCallback OK
     const _: VirtualDOM<'a'> = {

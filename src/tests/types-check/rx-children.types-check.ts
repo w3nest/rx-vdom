@@ -8,10 +8,10 @@ const source$ = of('https://foo.com')
     // RxChild, no type hints
     const _: VirtualDOM<'div'> = {
         tag: 'div',
+        // @ts-expect-error -- 5 is not a VDom
         children: {
             policy: 'replace',
             source$,
-            // @ts-expect-error -- 5 is not a VDom
             vdomMap: (_) => {
                 return 5
             },
