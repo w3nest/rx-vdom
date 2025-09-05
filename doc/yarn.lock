@@ -5158,9 +5158,10 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rx-vdom@^0.1.0, rx-vdom@^0.1.3, "rx-vdom@file:.local-dependencies/rx-vdom-0.1.8-wip-1757069269.tgz":
-  version "0.1.8-wip"
-  resolved "file:.local-dependencies/rx-vdom-0.1.8-wip-1757069269.tgz#ffd5880a6727c1be2b6f0a66d37a6e07ce139d88"
+rx-vdom@^0.1.0, rx-vdom@^0.1.3, rx-vdom@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/rx-vdom/-/rx-vdom-0.1.8.tgz#de86d45d2f6538973f1d295354dd4fd364182838"
+  integrity sha512-we7ncHU6R/LY3RhrcUNYeT0Eb6VPn1qb2YqU6ztqufFQh7zmUncHuynBGqQzyGvSAwFXZkchcu05kzOs1ImTlA==
   dependencies:
     "@ungap/custom-elements" "1.3.0"
     conditional-type-checks "^1.0.6"
