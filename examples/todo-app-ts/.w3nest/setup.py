@@ -19,7 +19,7 @@ pkg_json = parse_json(project_folder / "package.json")
 
 load_dependencies = {
     "rxjs": "^7.8.2",
-    "rx-vdom": "^0.1.6",
+    "rx-vdom": "^0.1.9",
 }
 
 config = ProjectConfig(
