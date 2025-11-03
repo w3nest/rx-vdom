@@ -8,7 +8,8 @@
     "main": "./dist/rx-vdom.js",
     "files": [
         "dist",
-        "assets"
+        "assets",
+        "src"
     ],
     "scripts": {
         "clean": "del-cli dist",
@@ -30,7 +31,7 @@
     "exports": {
         ".": {
             "default": "./dist/rx-vdom.js",
-            "types": "./dist/src/index.d.ts",
+            "types": "./src/lib/index.ts",
             "webpm": {
                 "dependencies": [],
                 "aliases": []

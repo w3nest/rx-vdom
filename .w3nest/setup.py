@@ -56,6 +56,21 @@ config = ProjectConfig(
     inPackageJson={
         "scripts": {"lint-eslint-check": "eslint ./src/lib"},
         "bin": {"rx-vdom-init": "./bin/rx-vdom-init.js"},
+        # The TypeScript type definitions are provided directly from the raw source files.
+        # This is necessary because the TS compiler would otherwise inline certain types
+        # (e.g., `SupportedHTMLTags` from `rx-vdom.config.ts`) to `keyof HTMLElementTagNameMap`.
+        # Inlining can cause the emitted `.d.ts` to be too broad and not match the consuming
+        # project's intended subset of HTML tags. By pointing "types" to the source files,
+        # TypeScript consumers get the unaltered, generic types.
+        # See also `declaration: false` in tsconfig.json.
+        "files": ["dist", "assets", "src"],
+        "exports": {
+            ".": {
+                "default": "./dist/rx-vdom.js",
+                "types": "./src/lib/index.ts",
+                "webpm": {"dependencies": [], "aliases": []},
+            }
+        },
     },
 )
 
@@ -68,7 +83,7 @@ files = [
     # ".npmignore", added 'rx-vdom-doc'
     # ".prettierignore", added 'rx-vdom-doc'
     "package.json",
-    # "tsconfig.json", This file needs to include reference to 'rx-vdom-config.ts'
+    # "tsconfig.json", strict null checks added & declaration is false
     # "jest.config.ts", added 'testPathIgnorePatterns: 'rx-vdom-doc', 'examples'
     "webpack.config.ts",
 ]
