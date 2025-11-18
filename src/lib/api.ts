@@ -143,11 +143,12 @@ export interface ChildrenOptionsAppend<TDomain> {
      *
      * @param d1 The domain data associated with the first element for comparison.
      * @param d2 The domain data associated with the second element for comparison.
+     * @param update The domain data associated with the element on screen corresponding to the update.
      * @returns A value indicating the relative order of the two elements:
      * - A positive value (`> 0`) indicates `d1` should be sorted after `d2`.
      * - A negative value (`< 0`) indicates `d1` should be sorted before `d2`.
      */
-    orderOperator?: (d1: TDomain, d2: TDomain) => number
+    orderOperator?: (d1: TDomain, d2: TDomain, update: TDomain[]) => number
 }
 
 /**

@@ -121,7 +121,11 @@ export abstract class RxStreamChildren<TDomain> {
         update: RenderingUpdate<TDomain>,
     ) => void
 
-    protected readonly orderOperator?: (d1: TDomain, d2: TDomain) => number
+    protected readonly orderOperator?: (
+        d1: TDomain,
+        d2: TDomain,
+        data: TDomain[],
+    ) => number
     private readonly children: ResolvedHTMLElement<TDomain>[] = []
 
     /**
@@ -172,7 +176,6 @@ export abstract class RxStreamChildren<TDomain> {
     ) {
         this.children.push(ref)
         parentElement.appendChild(ref.element)
-        this.reorder(parentElement)
     }
 
     protected removeChildRef(ref: ResolvedHTMLElement<TDomain>) {
@@ -180,7 +183,7 @@ export abstract class RxStreamChildren<TDomain> {
         ref.element.remove()
     }
 
-    protected reorder(parentElement: RxElementTrait) {
+    protected reorder(parentElement: RxElementTrait, newDomainData: TDomain[]) {
         if (!this.orderOperator) {
             return
         }
@@ -204,7 +207,7 @@ export abstract class RxStreamChildren<TDomain> {
             elements = elements.sort((a, b) => {
                 const da = a.domainData
                 const db = b.domainData
-                return da && db ? orderFct(da, db) : 0
+                return da && db ? orderFct(da, db, newDomainData) : 0
             })
         }
         const htmlElements = elements.map(
@@ -256,7 +259,7 @@ export class RxStreamAppend<TDomain> extends RxStreamChildren<TDomain> {
         added.forEach((ref) => {
             this.addChildRef(parentElement, ref)
         })
-
+        this.reorder(parentElement, domainData)
         return { added, updated: [], removed: [] }
     }
 }
@@ -317,16 +320,26 @@ export class RxStreamSync<TDomain> extends RxStreamChildren<TDomain> {
         })
         const deletedData = deletedRefElem.map((ref) => ref.domainData)
 
-        if (addedRefElem.length === 0 && deletedRefElem.length === 0) {
-            // it may be the case that just the order as changed
-            this.reorder(parentElement)
-        }
         this.actualElements = [
             ...this.actualElements.filter((candidate) =>
                 this.isNotInList(deletedData, candidate.domainData),
             ),
             ...addedRefElem,
         ]
+
+        const actualDomainData = expectedData
+            .map((domain) => {
+                const ref = this.actualElements.find((element) => {
+                    if (!element.domainData) {
+                        return false
+                    }
+                    return this.comparisonOperator(element.domainData, domain)
+                })
+                return ref?.domainData
+            })
+            .filter((d) => d !== undefined)
+
+        this.reorder(parentElement, actualDomainData)
 
         return { added: addedRefElem, updated: [], removed: deletedRefElem }
     }
